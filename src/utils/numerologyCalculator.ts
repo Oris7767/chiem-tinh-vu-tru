@@ -24,7 +24,7 @@ export const calculateNameNumber = (name: string): number => {
     }
   }
   
-  // Reduce to a single digit (except master numbers 11, 22)
+  // Reduce to a single digit according to Vedic numerology
   return reduceToPythagoras(total);
 };
 
@@ -34,15 +34,14 @@ export const calculateBirthPathNumber = (day: number, month: number, year: numbe
   const dateStr = `${day}${month}${year}`;
   const total = dateStr.split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0);
   
-  // Reduce to a single digit (except master numbers 11, 22)
+  // Reduce to a single digit
   return reduceToPythagoras(total);
 };
 
-// Function to reduce a number to a single digit according to Pythagorean numerology
-// Exception: Master numbers 11 and 22 are not reduced
+// Function to reduce a number to a single digit according to Vedic numerology
 export const reduceToPythagoras = (num: number): number => {
-  // If number is already a single digit or is a master number, return it
-  if (num < 10 || num === 11 || num === 22) {
+  // If number is already a single digit, return it
+  if (num < 10) {
     return num;
   }
   
@@ -61,3 +60,4 @@ export const reduceToPythagoras = (num: number): number => {
 export const calculateDestinyNumber = (birthPath: number, nameNumber: number): number => {
   return reduceToPythagoras(birthPath + nameNumber);
 };
+

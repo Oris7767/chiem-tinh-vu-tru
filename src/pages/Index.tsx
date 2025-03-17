@@ -46,9 +46,8 @@ const Index = () => {
                   các con số từ ngày sinh, mà còn đặc biệt chú trọng đến tên của một người.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
-                  Hệ thống này cũng công nhận các "số thầy" như 11 và 22, những con số mang năng lượng 
-                  rất mạnh mẽ và tiềm năng đặc biệt, không giống như một số hệ thống số học khác luôn 
-                  giảm tất cả các số xuống còn một chữ số.
+                  Hệ thống này cũng gắn liền với các hành tinh trong hệ mặt trời và các nút của mặt trăng (Rahu và Ketu). 
+                  Mỗi số tương ứng với một hành tinh, mang năng lượng và đặc tính riêng biệt của hành tinh đó.
                 </p>
               </div>
             </div>
@@ -65,7 +64,7 @@ const Index = () => {
                 Ý nghĩa các con số
               </h2>
               <p className="text-lg text-gray-600">
-                Mỗi con số từ 1 đến 9, cùng với các số thầy 11 và 22, đều mang những ý nghĩa và năng lượng riêng biệt.
+                Mỗi con số từ 1 đến 9 đều mang những ý nghĩa và năng lượng riêng biệt, gắn liền với các hành tinh.
               </p>
             </div>
             
@@ -76,22 +75,10 @@ const Index = () => {
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                       <span className="text-2xl font-serif font-bold text-primary">{num}</span>
                     </div>
-                    <h3 className="text-xl font-bold">{getNumberTitle(num)}</h3>
-                  </div>
-                  <p className="text-gray-700">
-                    {getNumberShortDescription(num)}
-                  </p>
-                </div>
-              ))}
-              
-              {/* Master numbers */}
-              {[11, 22].map((num) => (
-                <div key={num} className="glass-card rounded-xl p-6 transition-all duration-300 hover:shadow-md border-2 border-primary/20">
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                      <span className="text-2xl font-serif font-bold text-primary">{num}</span>
+                    <div>
+                      <h3 className="text-xl font-bold">{getNumberTitle(num)}</h3>
+                      <p className="text-sm text-gray-600">{getPlanetName(num)}</p>
                     </div>
-                    <h3 className="text-xl font-bold">{getNumberTitle(num)} (Số thầy)</h3>
                   </div>
                   <p className="text-gray-700">
                     {getNumberShortDescription(num)}
@@ -118,12 +105,26 @@ const getNumberTitle = (num: number): string => {
     6: "Người chăm sóc",
     7: "Người tìm kiếm",
     8: "Người thành đạt",
-    9: "Người nhân ái",
-    11: "Nhà tiên tri",
-    22: "Người kiến tạo"
+    9: "Người nhân ái"
   };
   
   return titles[num] || "";
+};
+
+const getPlanetName = (num: number): string => {
+  const planets: Record<number, string> = {
+    1: "Mặt Trời (Sun)",
+    2: "Mặt Trăng (Moon)",
+    3: "Sao Mộc (Jupiter)",
+    4: "Sao Thổ (Saturn)",
+    5: "Sao Thủy (Mercury)",
+    6: "Sao Kim (Venus)",
+    7: "Ketu (South Node)",
+    8: "Sao Hỏa (Mars)",
+    9: "Rahu (North Node)"
+  };
+  
+  return planets[num] || "";
 };
 
 const getNumberShortDescription = (num: number): string => {
@@ -136,9 +137,7 @@ const getNumberShortDescription = (num: number): string => {
     6: "Yêu thương, trách nhiệm, và hòa hợp. Ấm áp, quan tâm, và có tinh thần phục vụ.",
     7: "Trí tuệ, tâm linh, và phân tích. Thông minh, trực giác, và tìm kiếm chân lý.",
     8: "Quyền lực, thành công vật chất, và thực tế. Tham vọng, khả năng lãnh đạo, và nhạy bén kinh doanh.",
-    9: "Nhân ái, hoàn thiện, và lý tưởng. Có tầm nhìn rộng lớn, lòng từ bi, và tinh thần phục vụ.",
-    11: "Trực giác cao độ, tầm nhìn xa, và giác ngộ tâm linh. Nhạy cảm và có khả năng truyền cảm hứng.",
-    22: "Nhà kiến tạo vĩ đại, có khả năng biến ước mơ thành hiện thực. Có tầm nhìn lớn và khả năng tổ chức."
+    9: "Nhân ái, hoàn thiện, và lý tưởng. Có tầm nhìn rộng lớn, lòng từ bi, và tinh thần phục vụ."
   };
   
   return descriptions[num] || "";

@@ -3,6 +3,11 @@ import { useState, useRef, useEffect } from 'react';
 import { calculateNameNumber, calculateBirthPathNumber, calculateDestinyNumber } from '../utils/numerologyCalculator';
 import { numberMeanings } from '../utils/data';
 import { cn } from '../lib/utils';
+import { 
+  Dollar, Heart, GraduationCap, Activity, 
+  Users, TrendingUp, Briefcase, Award, 
+  Compass, Zap 
+} from 'lucide-react';
 
 interface CalculationResult {
   nameNumber: number;
@@ -66,6 +71,36 @@ const Calculator = () => {
     return numberMeanings.find(m => m.number === number) || numberMeanings[0];
   };
 
+  const renderHighlight = (text: string) => {
+    const highlights = [
+      'abundant riches', 'envy of others', 'travel', 'wonderful experiences',
+      'permanent prosperity', 'excellent properties', 'sudden fortunes',
+      'sudden accidents', 'happy lives', 'end up being disliked by others in society',
+      'power of imagination'
+    ];
+    
+    let formattedText = text;
+    
+    highlights.forEach(highlight => {
+      const regex = new RegExp(highlight, 'gi');
+      formattedText = formattedText.replace(regex, match => 
+        `<span class="text-green-600 font-medium">${match}</span>`
+      );
+    });
+    
+    return formattedText;
+  };
+
+  const renderScoreBar = (score: number, label: string, icon: React.ReactNode) => (
+    <div className="text-center">
+      <div className="flex items-center justify-center mb-2">
+        {icon}
+        <span className="ml-1 text-sm text-gray-700">{score}%</span>
+      </div>
+      <p className="text-xs text-gray-600">{label}</p>
+    </div>
+  );
+
   return (
     <section id="calculator" className="py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-white to-blue-50 z-0"></div>
@@ -87,9 +122,14 @@ const Calculator = () => {
           <div className="glass-card rounded-xl p-6 md:p-8">
             <div className="space-y-6">
               <div className="space-y-4">
-                <label htmlFor="name" className="block text-gray-700 font-medium">
-                  Họ và tên đầy đủ
-                </label>
+                <div className="flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-red-500 mr-2 flex items-center justify-center">
+                    <span className="text-white text-xs">📝</span>
+                  </div>
+                  <label htmlFor="name" className="block text-gray-700 font-medium">
+                    Họ và tên đầy đủ
+                  </label>
+                </div>
                 <input
                   id="name"
                   type="text"
@@ -220,10 +260,15 @@ const Calculator = () => {
                 {currentTab === 'birth' && (
                   <div className="space-y-6">
                     <div className="flex items-center justify-center mb-8">
-                      <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center">
-                        <span className="text-4xl font-serif font-bold text-primary">
-                          {result.birthPathNumber}
-                        </span>
+                      <div className="relative">
+                        <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center">
+                          <span className="text-4xl font-serif font-bold text-primary">
+                            {result.birthPathNumber}
+                          </span>
+                        </div>
+                        <div className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-2 py-1">
+                          {getMeaning(result.birthPathNumber).planet}
+                        </div>
                       </div>
                     </div>
                     
@@ -231,9 +276,41 @@ const Calculator = () => {
                       {getMeaning(result.birthPathNumber).title}
                     </h3>
                     
-                    <p className="text-gray-700 leading-relaxed">
-                      {getMeaning(result.birthPathNumber).description}
-                    </p>
+                    <div className="text-gray-700 leading-relaxed">
+                      <p>
+                        Một người có con số này có thể được ban phước với <span className="text-green-600 font-medium">những tài sản dồi dào</span>. 
+                        Thành tựu và danh tiếng của họ có thể lan rộng khắp nơi, thường trở thành <span className="text-green-600 font-medium">niềm ghen tị của người khác</span>. 
+                        Họ có thể sống một cuộc sống náo nhiệt, sôi động, thường liên quan đến rất nhiều <span className="text-green-600 font-medium">du lịch</span>.
+                      </p>
+                      <p className="mt-2">
+                        Họ có thể tận hưởng <span className="text-green-600 font-medium">những trải nghiệm tuyệt vời</span>, 
+                        <span className="text-green-600 font-medium">thịnh vượng lâu dài</span>, 
+                        <span className="text-green-600 font-medium">tài sản xuất sắc</span>, và 
+                        <span className="text-green-600 font-medium">vận may bất ngờ</span>. Tuy nhiên, họ cũng phải cẩn thận với 
+                        <span className="text-red-600 font-medium">tai nạn đột ngột</span>.
+                      </p>
+                      <p className="mt-2">
+                        Nếu số đường đời của họ may mắn, họ có xu hướng sống <span className="text-green-600 font-medium">cuộc sống hạnh phúc</span>. 
+                        Nếu không, có nguy cơ họ có thể <span className="text-orange-600 font-medium">bị ghét bỏ bởi người khác trong xã hội</span> 
+                        hoặc thậm chí gặp phải kết cục bi thảm. Con số này nuôi dưỡng <span className="text-green-600 font-medium">sức mạnh trí tưởng tượng</span> mạnh mẽ.
+                      </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
+                      {renderScoreBar(getMeaning(result.birthPathNumber).finance, "Tài chính", <Dollar className="w-5 h-5 text-green-600" />)}
+                      {renderScoreBar(getMeaning(result.birthPathNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
+                      {renderScoreBar(getMeaning(result.birthPathNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
+                      {renderScoreBar(getMeaning(result.birthPathNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
+                      {renderScoreBar(getMeaning(result.birthPathNumber).family, "Gia đình", <Users className="w-5 h-5 text-orange-500" />)}
+                    </div>
+                    
+                    <div className="grid grid-cols-5 gap-4">
+                      {renderScoreBar(getMeaning(result.birthPathNumber).growth, "Phát triển", <TrendingUp className="w-5 h-5 text-teal-500" />)}
+                      {renderScoreBar(getMeaning(result.birthPathNumber).career_score, "Sự nghiệp", <Briefcase className="w-5 h-5 text-indigo-500" />)}
+                      {renderScoreBar(getMeaning(result.birthPathNumber).reputation, "Danh tiếng", <Award className="w-5 h-5 text-yellow-600" />)}
+                      {renderScoreBar(getMeaning(result.birthPathNumber).spirituality, "Tâm linh", <Compass className="w-5 h-5 text-cyan-600" />)}
+                      {renderScoreBar(getMeaning(result.birthPathNumber).luck, "May mắn", <Zap className="w-5 h-5 text-amber-500" />)}
+                    </div>
                     
                     <div className="grid md:grid-cols-2 gap-6 pt-2">
                       <div>
@@ -280,10 +357,15 @@ const Calculator = () => {
                 {currentTab === 'name' && (
                   <div className="space-y-6">
                     <div className="flex items-center justify-center mb-8">
-                      <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center">
-                        <span className="text-4xl font-serif font-bold text-primary">
-                          {result.nameNumber}
-                        </span>
+                      <div className="relative">
+                        <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center">
+                          <span className="text-4xl font-serif font-bold text-primary">
+                            {result.nameNumber}
+                          </span>
+                        </div>
+                        <div className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-2 py-1">
+                          {getMeaning(result.nameNumber).planet}
+                        </div>
                       </div>
                     </div>
                     
@@ -291,9 +373,34 @@ const Calculator = () => {
                       {getMeaning(result.nameNumber).title}
                     </h3>
                     
-                    <p className="text-gray-700 leading-relaxed">
-                      {getMeaning(result.nameNumber).description}
-                    </p>
+                    <div className="text-gray-700 leading-relaxed">
+                      <p>
+                        Một người có tên số {result.nameNumber} có thể được ban phước với <span className="text-green-600 font-medium">những tài sản dồi dào</span>. 
+                        Thành tựu và danh tiếng của họ có thể lan rộng khắp nơi, thường trở thành <span className="text-green-600 font-medium">niềm ghen tị của người khác</span>. 
+                        Họ có thể sống một cuộc sống náo nhiệt, sôi động, thường liên quan đến rất nhiều <span className="text-green-600 font-medium">du lịch</span>.
+                      </p>
+                      <p className="mt-2">
+                        Tên với số {result.nameNumber} thường mang lại <span className="text-green-600 font-medium">những trải nghiệm tuyệt vời</span>, 
+                        <span className="text-green-600 font-medium">thịnh vượng lâu dài</span>, và 
+                        <span className="text-green-600 font-medium">vận may bất ngờ</span>. Con số này nuôi dưỡng <span className="text-green-600 font-medium">sức mạnh trí tưởng tượng</span> mạnh mẽ.
+                      </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
+                      {renderScoreBar(getMeaning(result.nameNumber).finance, "Tài chính", <Dollar className="w-5 h-5 text-green-600" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber).family, "Gia đình", <Users className="w-5 h-5 text-orange-500" />)}
+                    </div>
+                    
+                    <div className="grid grid-cols-5 gap-4">
+                      {renderScoreBar(getMeaning(result.nameNumber).growth, "Phát triển", <TrendingUp className="w-5 h-5 text-teal-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber).career_score, "Sự nghiệp", <Briefcase className="w-5 h-5 text-indigo-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber).reputation, "Danh tiếng", <Award className="w-5 h-5 text-yellow-600" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber).spirituality, "Tâm linh", <Compass className="w-5 h-5 text-cyan-600" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber).luck, "May mắn", <Zap className="w-5 h-5 text-amber-500" />)}
+                    </div>
                     
                     <div className="grid md:grid-cols-2 gap-6 pt-2">
                       <div>
@@ -326,10 +433,15 @@ const Calculator = () => {
                 {currentTab === 'destiny' && (
                   <div className="space-y-6">
                     <div className="flex items-center justify-center mb-8">
-                      <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center">
-                        <span className="text-4xl font-serif font-bold text-primary">
-                          {result.destinyNumber}
-                        </span>
+                      <div className="relative">
+                        <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center">
+                          <span className="text-4xl font-serif font-bold text-primary">
+                            {result.destinyNumber}
+                          </span>
+                        </div>
+                        <div className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-2 py-1">
+                          {getMeaning(result.destinyNumber).planet}
+                        </div>
                       </div>
                     </div>
                     
@@ -337,9 +449,34 @@ const Calculator = () => {
                       {getMeaning(result.destinyNumber).title}
                     </h3>
                     
-                    <p className="text-gray-700 leading-relaxed">
-                      {getMeaning(result.destinyNumber).description}
-                    </p>
+                    <div className="text-gray-700 leading-relaxed">
+                      <p>
+                        Số định mệnh {result.destinyNumber} kết hợp năng lượng từ số đường đời và số tên của bạn. 
+                        Người với số định mệnh này có thể được ban phước với <span className="text-green-600 font-medium">những tài sản dồi dào</span>. 
+                        Thành tựu và danh tiếng có thể lan rộng khắp nơi, và họ có thể sống một cuộc sống náo nhiệt, sôi động.
+                      </p>
+                      <p className="mt-2">
+                        Họ có thể tận hưởng <span className="text-green-600 font-medium">những trải nghiệm tuyệt vời</span>, 
+                        <span className="text-green-600 font-medium">thịnh vượng lâu dài</span>, và 
+                        <span className="text-green-600 font-medium">vận may bất ngờ</span>. Con số này nuôi dưỡng <span className="text-green-600 font-medium">sức mạnh trí tưởng tượng</span> mạnh mẽ.
+                      </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
+                      {renderScoreBar(getMeaning(result.destinyNumber).finance, "Tài chính", <Dollar className="w-5 h-5 text-green-600" />)}
+                      {renderScoreBar(getMeaning(result.destinyNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
+                      {renderScoreBar(getMeaning(result.destinyNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
+                      {renderScoreBar(getMeaning(result.destinyNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
+                      {renderScoreBar(getMeaning(result.destinyNumber).family, "Gia đình", <Users className="w-5 h-5 text-orange-500" />)}
+                    </div>
+                    
+                    <div className="grid grid-cols-5 gap-4">
+                      {renderScoreBar(getMeaning(result.destinyNumber).growth, "Phát triển", <TrendingUp className="w-5 h-5 text-teal-500" />)}
+                      {renderScoreBar(getMeaning(result.destinyNumber).career_score, "Sự nghiệp", <Briefcase className="w-5 h-5 text-indigo-500" />)}
+                      {renderScoreBar(getMeaning(result.destinyNumber).reputation, "Danh tiếng", <Award className="w-5 h-5 text-yellow-600" />)}
+                      {renderScoreBar(getMeaning(result.destinyNumber).spirituality, "Tâm linh", <Compass className="w-5 h-5 text-cyan-600" />)}
+                      {renderScoreBar(getMeaning(result.destinyNumber).luck, "May mắn", <Zap className="w-5 h-5 text-amber-500" />)}
+                    </div>
                     
                     <div className="grid md:grid-cols-2 gap-6 pt-2">
                       <div>
