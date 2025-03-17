@@ -1,6 +1,5 @@
-
 // Function to convert a name to a number according to Vedic numerology principles
-export const calculateNameNumber = (name: string): number => {
+export const calculateNameNumber = (name: string): { steps: string; total: number; finalNumber: number } => {
   // Remove spaces and convert to uppercase
   const cleanName = name.replace(/\s+/g, '').toUpperCase();
   
@@ -16,48 +15,82 @@ export const calculateNameNumber = (name: string): number => {
     'F': 8, 'P': 8
   };
   
-  // Calculate the total value of the name
+  // Calculate the total value of the name and track steps
   let total = 0;
+  let letterValues: string[] = [];
+  
   for (const char of cleanName) {
     if (letterMap[char]) {
       total += letterMap[char];
+      letterValues.push(`${char}=${letterMap[char]}`);
     }
   }
   
+  // Join the steps
+  const steps = letterValues.join(' + ');
+  
   // Reduce to a single digit according to Vedic numerology
-  return reduceToPythagoras(total);
+  const result = reduceToPythagoras(total);
+  
+  return {
+    steps,
+    total,
+    finalNumber: result.finalNumber
+  };
 };
 
 // Function to calculate birth path number from a date
-export const calculateBirthPathNumber = (day: number, month: number, year: number): number => {
+export const calculateBirthPathNumber = (day: number, month: number, year: number): { steps: string; total: number; finalNumber: number } => {
   // Add all digits of the birth date
-  const dateStr = `${day}${month}${year}`;
-  const total = dateStr.split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0);
+  const dayStr = day.toString();
+  const monthStr = month.toString();
+  const yearStr = year.toString();
+  
+  const daySum = dayStr.split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0);
+  const monthSum = monthStr.split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0);
+  const yearSum = yearStr.split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0);
+  
+  const total = daySum + monthSum + yearSum;
+  const steps = `(${dayStr}=${daySum}) + (${monthStr}=${monthSum}) + (${yearStr}=${yearSum}) = ${total}`;
   
   // Reduce to a single digit
-  return reduceToPythagoras(total);
+  const result = reduceToPythagoras(total);
+  
+  return {
+    steps,
+    total,
+    finalNumber: result.finalNumber
+  };
 };
 
 // Function to reduce a number to a single digit according to Vedic numerology
-export const reduceToPythagoras = (num: number): number => {
-  // If number is already a single digit, return it
-  if (num < 10) {
-    return num;
+export const reduceToPythagoras = (num: number): { steps: string; finalNumber: number } => {
+  let steps: string[] = [];
+  let current = num;
+  
+  // Keep reducing until we get a single digit
+  while (current > 9) {
+    const digits = current.toString().split('');
+    const newSum = digits.reduce((sum, digit) => sum + parseInt(digit, 10), 0);
+    steps.push(`${digits.join(' + ')} = ${newSum}`);
+    current = newSum;
   }
   
-  // Sum the digits of the number
-  let sum = 0;
-  while (num > 0) {
-    sum += num % 10;
-    num = Math.floor(num / 10);
-  }
-  
-  // Recursively reduce until we get a single digit
-  return reduceToPythagoras(sum);
+  return {
+    steps: steps.join(' → '),
+    finalNumber: current
+  };
 };
 
 // Gets destiny number by combining birth path and name number
-export const calculateDestinyNumber = (birthPath: number, nameNumber: number): number => {
-  return reduceToPythagoras(birthPath + nameNumber);
+export const calculateDestinyNumber = (birthPath: number, nameNumber: number): { steps: string; total: number; finalNumber: number } => {
+  const total = birthPath + nameNumber;
+  const steps = `${birthPath} + ${nameNumber} = ${total}`;
+  const result = reduceToPythagoras(total);
+  
+  return {
+    steps,
+    total,
+    finalNumber: result.finalNumber
+  };
 };
-
