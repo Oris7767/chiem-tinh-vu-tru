@@ -4,7 +4,7 @@ import { calculateNameNumber, calculateBirthPathNumber, calculateDestinyNumber }
 import { numberMeanings } from '../utils/data';
 import { cn } from '../lib/utils';
 import { 
-  Dollar, Heart, GraduationCap, Activity, 
+  Banknote, Heart, GraduationCap, Activity, 
   Users, TrendingUp, Briefcase, Award, 
   Compass, Zap 
 } from 'lucide-react';
@@ -297,7 +297,7 @@ const Calculator = () => {
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                      {renderScoreBar(getMeaning(result.birthPathNumber).finance, "Tài chính", <Dollar className="w-5 h-5 text-green-600" />)}
+                      {renderScoreBar(getMeaning(result.birthPathNumber).finance, "Tài chính", <Banknote className="w-5 h-5 text-green-600" />)}
                       {renderScoreBar(getMeaning(result.birthPathNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
                       {renderScoreBar(getMeaning(result.birthPathNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
                       {renderScoreBar(getMeaning(result.birthPathNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
@@ -387,7 +387,7 @@ const Calculator = () => {
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                      {renderScoreBar(getMeaning(result.nameNumber).finance, "Tài chính", <Dollar className="w-5 h-5 text-green-600" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber).finance, "Tài chính", <Banknote className="w-5 h-5 text-green-600" />)}
                       {renderScoreBar(getMeaning(result.nameNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
                       {renderScoreBar(getMeaning(result.nameNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
                       {renderScoreBar(getMeaning(result.nameNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
@@ -463,7 +463,7 @@ const Calculator = () => {
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                      {renderScoreBar(getMeaning(result.destinyNumber).finance, "Tài chính", <Dollar className="w-5 h-5 text-green-600" />)}
+                      {renderScoreBar(getMeaning(result.destinyNumber).finance, "Tài chính", <Banknote className="w-5 h-5 text-green-600" />)}
                       {renderScoreBar(getMeaning(result.destinyNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
                       {renderScoreBar(getMeaning(result.destinyNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
                       {renderScoreBar(getMeaning(result.destinyNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
