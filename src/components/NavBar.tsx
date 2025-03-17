@@ -24,16 +24,9 @@ const NavBar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <a 
           href="/" 
-          className="flex items-center space-x-3 animate-fade-in"
+          className="text-xl md:text-2xl font-serif font-semibold text-gray-900 animate-fade-in"
         >
-          <img 
-            src="/lovable-uploads/97fa6e16-3fd9-42cd-887d-d6d1d4d3ee6b.png" 
-            alt="Votive Logo" 
-            className="h-10"
-          />
-          <span className="text-xl md:text-2xl font-serif font-semibold text-gray-900">
-            Số học Vệ Đà
-          </span>
+          Số học Vệ Đà
         </a>
         
         <div className="flex items-center space-x-8">

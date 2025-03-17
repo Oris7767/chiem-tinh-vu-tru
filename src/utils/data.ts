@@ -84,7 +84,7 @@ export const numberMeanings: NumberMeaning[] = [
   {
     number: 4,
     title: "Người xây dựng",
-    planet: "Rahu (North Node)",
+    planet: "Sao Thổ (Saturn)",
     description: "Số 4 đại diện cho sự ổn định và thực tế. Người có số 4 thường rất đáng tin cậy, có tổ chức, và chăm chỉ. Họ thích xây dựng nền móng vững chắc và làm việc theo kế hoạch rõ ràng.",
     strengths: ["Đáng tin cậy", "Có tổ chức", "Cần cù", "Thực tế", "Trung thành"],
     challenges: ["Cứng nhắc", "Bảo thủ", "Thiếu linh hoạt", "Lo lắng"],
@@ -184,7 +184,7 @@ export const numberMeanings: NumberMeaning[] = [
   {
     number: 9,
     title: "Người nhân ái",
-    planet: "Sao Thổ (Saturn)",
+    planet: "Rahu (North Node)",
     description: "Số 9 tượng trưng cho sự hoàn thiện và lòng nhân ái. Người có số 9 thường có tầm nhìn rộng lớn, lòng từ bi, và tinh thần phục vụ. Họ quan tâm đến lợi ích của toàn thể nhân loại.",
     strengths: ["Từ bi", "Rộng lượng", "Sáng tạo", "Lý tưởng", "Trí tuệ"],
     challenges: ["Xa rời thực tế", "Hy sinh thái quá", "Cảm xúc mạnh", "Khó buông bỏ"],
@@ -202,3 +202,4 @@ export const numberMeanings: NumberMeaning[] = [
     luck: 70
   }
 ];
+

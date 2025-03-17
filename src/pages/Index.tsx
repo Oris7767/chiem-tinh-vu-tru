@@ -3,7 +3,6 @@ import NavBar from '../components/NavBar';
 import Hero from '../components/Hero';
 import Calculator from '../components/Calculator';
 import Footer from '../components/Footer';
-import { numberMeanings } from '../utils/data';
 
 const Index = () => {
   return (
@@ -97,18 +96,51 @@ const Index = () => {
 
 // Helper functions for number meanings
 const getNumberTitle = (num: number): string => {
-  const meaning = numberMeanings.find(m => m.number === num);
-  return meaning ? meaning.title : "";
+  const titles: Record<number, string> = {
+    1: "Nhà lãnh đạo",
+    2: "Người hòa giải",
+    3: "Người biểu đạt",
+    4: "Người xây dựng",
+    5: "Người tự do",
+    6: "Người chăm sóc",
+    7: "Người tìm kiếm",
+    8: "Người thành đạt",
+    9: "Người nhân ái"
+  };
+  
+  return titles[num] || "";
 };
 
 const getPlanetName = (num: number): string => {
-  const meaning = numberMeanings.find(m => m.number === num);
-  return meaning ? meaning.planet : "";
+  const planets: Record<number, string> = {
+    1: "Mặt Trời (Sun)",
+    2: "Mặt Trăng (Moon)",
+    3: "Sao Mộc (Jupiter)",
+    4: "Sao Thổ (Saturn)",
+    5: "Sao Thủy (Mercury)",
+    6: "Sao Kim (Venus)",
+    7: "Ketu (South Node)",
+    8: "Sao Hỏa (Mars)",
+    9: "Rahu (North Node)"
+  };
+  
+  return planets[num] || "";
 };
 
 const getNumberShortDescription = (num: number): string => {
-  const meaning = numberMeanings.find(m => m.number === num);
-  return meaning ? meaning.description.split('.')[0] + '.' : "";
+  const descriptions: Record<number, string> = {
+    1: "Độc lập, tiên phong, quyết đoán, và có tham vọng. Có ý chí mạnh mẽ và khả năng lãnh đạo.",
+    2: "Hợp tác, nhạy cảm, và biết quan tâm đến người khác. Có khả năng làm việc hiệu quả trong nhóm.",
+    3: "Sáng tạo, giao tiếp, và biểu đạt. Hướng ngoại, có tài ăn nói, và truyền cảm hứng cho người khác.",
+    4: "Ổn định, đáng tin cậy, và thực tế. Có tổ chức, chăm chỉ, và xây dựng nền móng vững chắc.",
+    5: "Tự do, thay đổi, và phiêu lưu. Năng động, thích trải nghiệm mới, và khám phá.",
+    6: "Yêu thương, trách nhiệm, và hòa hợp. Ấm áp, quan tâm, và có tinh thần phục vụ.",
+    7: "Trí tuệ, tâm linh, và phân tích. Thông minh, trực giác, và tìm kiếm chân lý.",
+    8: "Quyền lực, thành công vật chất, và thực tế. Tham vọng, khả năng lãnh đạo, và nhạy bén kinh doanh.",
+    9: "Nhân ái, hoàn thiện, và lý tưởng. Có tầm nhìn rộng lớn, lòng từ bi, và tinh thần phục vụ."
+  };
+  
+  return descriptions[num] || "";
 };
 
 export default Index;
