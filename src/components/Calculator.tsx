@@ -1,6 +1,9 @@
 
-import { useState, useRef, useEffect } from 'react';
-import { calculateNameNumber, calculateBirthPathNumber, calculateDestinyNumber } from '../utils/numerologyCalculator';
+import { useState, useRef } from 'react';
+import { 
+  calculateNameNumber, calculateBirthNumber, calculateLifeNumber,
+  reduceToPythagoras
+} from '../utils/numerologyCalculator';
 import { numberMeanings } from '../utils/data';
 import { cn } from '../lib/utils';
 import { 
@@ -12,16 +15,19 @@ import {
 interface CalculationResult {
   nameNumber: {
     steps: string;
+    totalBeforeReduction: number;
     total: number;
     finalNumber: number;
   };
-  birthPathNumber: {
+  birthNumber: {
     steps: string;
+    totalBeforeReduction: number;
     total: number;
     finalNumber: number;
   };
-  destinyNumber: {
+  lifeNumber: {
     steps: string;
+    totalBeforeReduction: number;
     total: number;
     finalNumber: number;
   };
@@ -35,7 +41,7 @@ const Calculator = () => {
   const [result, setResult] = useState<CalculationResult | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
-  const [currentTab, setCurrentTab] = useState<'name' | 'birth' | 'destiny'>(
+  const [currentTab, setCurrentTab] = useState<'birth' | 'name' | 'life'>(
     'birth'
   );
   
@@ -55,17 +61,17 @@ const Calculator = () => {
     // Small delay to show calculation animation
     setTimeout(() => {
       const nameNum = calculateNameNumber(name);
-      const birthNum = calculateBirthPathNumber(
+      const birthNum = calculateBirthNumber(
         parseInt(day),
         parseInt(month),
         parseInt(year)
       );
-      const destinyNum = calculateDestinyNumber(nameNum.finalNumber, birthNum.finalNumber);
+      const lifeNum = calculateLifeNumber(birthNum.finalNumber, nameNum.finalNumber);
       
       setResult({
         nameNumber: nameNum,
-        birthPathNumber: birthNum,
-        destinyNumber: destinyNum
+        birthNumber: birthNum,
+        lifeNumber: lifeNum
       });
       
       setIsCalculating(false);
@@ -242,7 +248,7 @@ const Calculator = () => {
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   )}
                 >
-                  Số đường đời
+                  Số Sinh (Birth)
                 </button>
                 <button
                   onClick={() => setCurrentTab('name')}
@@ -253,18 +259,18 @@ const Calculator = () => {
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   )}
                 >
-                  Số tên
+                  Số Tên (Name)
                 </button>
                 <button
-                  onClick={() => setCurrentTab('destiny')}
+                  onClick={() => setCurrentTab('life')}
                   className={cn(
                     "flex-1 py-4 px-4 text-center font-medium transition-colors",
-                    currentTab === 'destiny' 
+                    currentTab === 'life' 
                       ? "bg-primary/10 text-primary border-b-2 border-primary" 
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   )}
                 >
-                  Số định mệnh
+                  Số Cuộc Đời (Life)
                 </button>
               </div>
               
@@ -275,28 +281,30 @@ const Calculator = () => {
                       <div className="relative mb-4">
                         <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center">
                           <span className="text-4xl font-serif font-bold text-primary">
-                            {result.birthPathNumber.finalNumber}
+                            {result.birthNumber.finalNumber}
                           </span>
                         </div>
                         <div className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-2 py-1">
-                          {getMeaning(result.birthPathNumber.finalNumber).planet}
+                          {getMeaning(result.birthNumber.finalNumber).planet}
                         </div>
                       </div>
                       
                       <div className="bg-gray-50 rounded-lg p-4 w-full max-w-sm">
                         <h4 className="text-sm font-medium text-gray-700 mb-2">Các bước tính toán:</h4>
                         <div className="text-xs text-gray-600 space-y-1">
-                          <p>{result.birthPathNumber.steps}</p>
-                          {result.birthPathNumber.total > 9 && (
-                            <p className="font-medium">→ {reduceToPythagoras(result.birthPathNumber.total).steps}</p>
+                          <p className="font-medium">
+                            Số sinh: {result.birthNumber.totalBeforeReduction} ({result.birthNumber.steps})
+                          </p>
+                          {result.birthNumber.totalBeforeReduction > 9 && (
+                            <p className="font-medium">→ {reduceToPythagoras(result.birthNumber.totalBeforeReduction).steps}</p>
                           )}
-                          <p className="text-primary font-medium">Số đường đời của bạn là: {result.birthPathNumber.finalNumber}</p>
+                          <p className="text-primary font-medium">Số sinh của bạn là: {result.birthNumber.finalNumber}</p>
                         </div>
                       </div>
                     </div>
                     
                     <h3 className="text-2xl font-bold text-center">
-                      {getMeaning(result.birthPathNumber.finalNumber).title}
+                      {getMeaning(result.birthNumber.finalNumber).title}
                     </h3>
                     
                     <div className="text-gray-700 leading-relaxed">
@@ -313,33 +321,33 @@ const Calculator = () => {
                         <span className="text-red-600 font-medium">tai nạn đột ngột</span>.
                       </p>
                       <p className="mt-2">
-                        Nếu số đường đời của họ may mắn, họ có xu hướng sống <span className="text-green-600 font-medium">cuộc sống hạnh phúc</span>. 
+                        Nếu số sinh của họ may mắn, họ có xu hướng sống <span className="text-green-600 font-medium">cuộc sống hạnh phúc</span>. 
                         Nếu không, có nguy cơ họ có thể <span className="text-orange-600 font-medium">bị ghét bỏ bởi người khác trong xã hội</span> 
                         hoặc thậm chí gặp phải kết cục bi thảm. Con số này nuôi dưỡng <span className="text-green-600 font-medium">sức mạnh trí tưởng tượng</span> mạnh mẽ.
                       </p>
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                      {renderScoreBar(getMeaning(result.birthPathNumber.finalNumber).finance, "Tài chính", <Banknote className="w-5 h-5 text-green-600" />)}
-                      {renderScoreBar(getMeaning(result.birthPathNumber.finalNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
-                      {renderScoreBar(getMeaning(result.birthPathNumber.finalNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
-                      {renderScoreBar(getMeaning(result.birthPathNumber.finalNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
-                      {renderScoreBar(getMeaning(result.birthPathNumber.finalNumber).family, "Gia đình", <Users className="w-5 h-5 text-orange-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).finance, "Tài chính", <Banknote className="w-5 h-5 text-green-600" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).family, "Gia đình", <Users className="w-5 h-5 text-orange-500" />)}
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4">
-                      {renderScoreBar(getMeaning(result.birthPathNumber.finalNumber).growth, "Phát triển", <TrendingUp className="w-5 h-5 text-teal-500" />)}
-                      {renderScoreBar(getMeaning(result.birthPathNumber.finalNumber).career_score, "Sự nghiệp", <Briefcase className="w-5 h-5 text-indigo-500" />)}
-                      {renderScoreBar(getMeaning(result.birthPathNumber.finalNumber).reputation, "Danh tiếng", <Award className="w-5 h-5 text-yellow-600" />)}
-                      {renderScoreBar(getMeaning(result.birthPathNumber.finalNumber).spirituality, "Tâm linh", <Compass className="w-5 h-5 text-cyan-600" />)}
-                      {renderScoreBar(getMeaning(result.birthPathNumber.finalNumber).luck, "May mắn", <Zap className="w-5 h-5 text-amber-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).growth, "Phát triển", <TrendingUp className="w-5 h-5 text-teal-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).career_score, "Sự nghiệp", <Briefcase className="w-5 h-5 text-indigo-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).reputation, "Danh tiếng", <Award className="w-5 h-5 text-yellow-600" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).spirituality, "Tâm linh", <Compass className="w-5 h-5 text-cyan-600" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).luck, "May mắn", <Zap className="w-5 h-5 text-amber-500" />)}
                     </div>
                     
                     <div className="grid md:grid-cols-2 gap-6 pt-2">
                       <div>
                         <h4 className="font-medium text-gray-900 mb-3">Điểm mạnh</h4>
                         <ul className="space-y-2">
-                          {getMeaning(result.birthPathNumber.finalNumber).strengths.map((strength, index) => (
+                          {getMeaning(result.birthNumber.finalNumber).strengths.map((strength, index) => (
                             <li key={index} className="flex items-start">
                               <span className="text-primary mr-2">•</span>
                               <span>{strength}</span>
@@ -351,7 +359,7 @@ const Calculator = () => {
                       <div>
                         <h4 className="font-medium text-gray-900 mb-3">Thách thức</h4>
                         <ul className="space-y-2">
-                          {getMeaning(result.birthPathNumber.finalNumber).challenges.map((challenge, index) => (
+                          {getMeaning(result.birthNumber.finalNumber).challenges.map((challenge, index) => (
                             <li key={index} className="flex items-start">
                               <span className="text-primary mr-2">•</span>
                               <span>{challenge}</span>
@@ -364,14 +372,14 @@ const Calculator = () => {
                     <div className="border-t border-gray-200 pt-6 mt-6">
                       <h4 className="font-medium text-gray-900 mb-3">Nghề nghiệp phù hợp</h4>
                       <p className="text-gray-700">
-                        {getMeaning(result.birthPathNumber.finalNumber).career}
+                        {getMeaning(result.birthNumber.finalNumber).career}
                       </p>
                     </div>
                     
                     <div className="border-t border-gray-200 pt-6">
                       <h4 className="font-medium text-gray-900 mb-3">Các mối quan hệ</h4>
                       <p className="text-gray-700">
-                        {getMeaning(result.birthPathNumber.finalNumber).relationships}
+                        {getMeaning(result.birthNumber.finalNumber).relationships}
                       </p>
                     </div>
                   </div>
@@ -394,9 +402,11 @@ const Calculator = () => {
                       <div className="bg-gray-50 rounded-lg p-4 w-full max-w-sm">
                         <h4 className="text-sm font-medium text-gray-700 mb-2">Các bước tính toán:</h4>
                         <div className="text-xs text-gray-600 space-y-1">
-                          <p>{result.nameNumber.steps} = {result.nameNumber.total}</p>
-                          {result.nameNumber.total > 9 && (
-                            <p className="font-medium">→ {reduceToPythagoras(result.nameNumber.total).steps}</p>
+                          <p className="font-medium">
+                            Số tên: {result.nameNumber.totalBeforeReduction} ({result.nameNumber.steps})
+                          </p>
+                          {result.nameNumber.totalBeforeReduction > 9 && (
+                            <p className="font-medium">→ {reduceToPythagoras(result.nameNumber.totalBeforeReduction).steps}</p>
                           )}
                           <p className="text-primary font-medium">Số tên của bạn là: {result.nameNumber.finalNumber}</p>
                         </div>
@@ -464,40 +474,42 @@ const Calculator = () => {
                   </div>
                 )}
                 
-                {currentTab === 'destiny' && (
+                {currentTab === 'life' && (
                   <div className="space-y-6">
                     <div className="flex flex-col items-center justify-center mb-8">
                       <div className="relative mb-4">
                         <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center">
                           <span className="text-4xl font-serif font-bold text-primary">
-                            {result.destinyNumber.finalNumber}
+                            {result.lifeNumber.finalNumber}
                           </span>
                         </div>
                         <div className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-2 py-1">
-                          {getMeaning(result.destinyNumber.finalNumber).planet}
+                          {getMeaning(result.lifeNumber.finalNumber).planet}
                         </div>
                       </div>
                       
                       <div className="bg-gray-50 rounded-lg p-4 w-full max-w-sm">
                         <h4 className="text-sm font-medium text-gray-700 mb-2">Các bước tính toán:</h4>
                         <div className="text-xs text-gray-600 space-y-1">
-                          <p>{result.destinyNumber.steps}</p>
-                          {result.destinyNumber.total > 9 && (
-                            <p className="font-medium">→ {reduceToPythagoras(result.destinyNumber.total).steps}</p>
+                          <p className="font-medium">
+                            Số cuộc đời: {result.lifeNumber.totalBeforeReduction} ({result.lifeNumber.steps})
+                          </p>
+                          {result.lifeNumber.totalBeforeReduction > 9 && (
+                            <p className="font-medium">→ {reduceToPythagoras(result.lifeNumber.totalBeforeReduction).steps}</p>
                           )}
-                          <p className="text-primary font-medium">Số định mệnh của bạn là: {result.destinyNumber.finalNumber}</p>
+                          <p className="text-primary font-medium">Số cuộc đời của bạn là: {result.lifeNumber.finalNumber}</p>
                         </div>
                       </div>
                     </div>
                     
                     <h3 className="text-2xl font-bold text-center">
-                      {getMeaning(result.destinyNumber.finalNumber).title}
+                      {getMeaning(result.lifeNumber.finalNumber).title}
                     </h3>
                     
                     <div className="text-gray-700 leading-relaxed">
                       <p>
-                        Số định mệnh {result.destinyNumber.finalNumber} kết hợp năng lượng từ số đường đời và số tên của bạn. 
-                        Người với số định mệnh này có thể được ban phước với <span className="text-green-600 font-medium">những tài sản dồi dào</span>. 
+                        Số cuộc đời {result.lifeNumber.finalNumber} kết hợp năng lượng từ số sinh và số tên của bạn. 
+                        Người với số cuộc đời này có thể được ban phước với <span className="text-green-600 font-medium">những tài sản dồi dào</span>. 
                         Thành tựu và danh tiếng có thể lan rộng khắp nơi, và họ có thể sống một cuộc sống náo nhiệt, sôi động.
                       </p>
                       <p className="mt-2">
@@ -508,26 +520,26 @@ const Calculator = () => {
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                      {renderScoreBar(getMeaning(result.destinyNumber.finalNumber).finance, "Tài chính", <Banknote className="w-5 h-5 text-green-600" />)}
-                      {renderScoreBar(getMeaning(result.destinyNumber.finalNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
-                      {renderScoreBar(getMeaning(result.destinyNumber.finalNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
-                      {renderScoreBar(getMeaning(result.destinyNumber.finalNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
-                      {renderScoreBar(getMeaning(result.destinyNumber.finalNumber).family, "Gia đình", <Users className="w-5 h-5 text-orange-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).finance, "Tài chính", <Banknote className="w-5 h-5 text-green-600" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).family, "Gia đình", <Users className="w-5 h-5 text-orange-500" />)}
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4">
-                      {renderScoreBar(getMeaning(result.destinyNumber.finalNumber).growth, "Phát triển", <TrendingUp className="w-5 h-5 text-teal-500" />)}
-                      {renderScoreBar(getMeaning(result.destinyNumber.finalNumber).career_score, "Sự nghiệp", <Briefcase className="w-5 h-5 text-indigo-500" />)}
-                      {renderScoreBar(getMeaning(result.destinyNumber.finalNumber).reputation, "Danh tiếng", <Award className="w-5 h-5 text-yellow-600" />)}
-                      {renderScoreBar(getMeaning(result.destinyNumber.finalNumber).spirituality, "Tâm linh", <Compass className="w-5 h-5 text-cyan-600" />)}
-                      {renderScoreBar(getMeaning(result.destinyNumber.finalNumber).luck, "May mắn", <Zap className="w-5 h-5 text-amber-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).growth, "Phát triển", <TrendingUp className="w-5 h-5 text-teal-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).career_score, "Sự nghiệp", <Briefcase className="w-5 h-5 text-indigo-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).reputation, "Danh tiếng", <Award className="w-5 h-5 text-yellow-600" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).spirituality, "Tâm linh", <Compass className="w-5 h-5 text-cyan-600" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).luck, "May mắn", <Zap className="w-5 h-5 text-amber-500" />)}
                     </div>
                     
                     <div className="grid md:grid-cols-2 gap-6 pt-2">
                       <div>
                         <h4 className="font-medium text-gray-900 mb-3">Điểm mạnh</h4>
                         <ul className="space-y-2">
-                          {getMeaning(result.destinyNumber.finalNumber).strengths.map((strength, index) => (
+                          {getMeaning(result.lifeNumber.finalNumber).strengths.map((strength, index) => (
                             <li key={index} className="flex items-start">
                               <span className="text-primary mr-2">•</span>
                               <span>{strength}</span>
@@ -539,7 +551,7 @@ const Calculator = () => {
                       <div>
                         <h4 className="font-medium text-gray-900 mb-3">Thách thức</h4>
                         <ul className="space-y-2">
-                          {getMeaning(result.destinyNumber.finalNumber).challenges.map((challenge, index) => (
+                          {getMeaning(result.lifeNumber.finalNumber).challenges.map((challenge, index) => (
                             <li key={index} className="flex items-start">
                               <span className="text-primary mr-2">•</span>
                               <span>{challenge}</span>
@@ -551,7 +563,7 @@ const Calculator = () => {
                     
                     <div className="border-t border-gray-200 pt-6 mt-6">
                       <p className="italic text-gray-600 text-center">
-                        Số định mệnh kết hợp các ảnh hưởng từ số đường đời và số tên của bạn, 
+                        Số cuộc đời kết hợp các ảnh hưởng từ số sinh và số tên của bạn, 
                         đại diện cho hướng đi tổng thể của cuộc đời.
                       </p>
                     </div>
