@@ -164,7 +164,7 @@ export const numberMeanings: NumberMeaning[] = [
   {
     number: 8,
     title: "Người thành đạt",
-    planet: "Sao Hỏa (Mars)",
+    planet: "Sao Thổ (Saturn)",
     description: "Số 8 đại diện cho quyền lực và thành công vật chất. Người có số 8 thường có tham vọng, khả năng lãnh đạo, và nhạy bén trong kinh doanh. Họ hướng đến sự thành công và ổn định tài chính.",
     strengths: ["Tự tin", "Quản lý", "Thực tế", "Quyết đoán", "Tham vọng"],
     challenges: ["Thống trị", "Vật chất", "Thiếu kiên nhẫn", "Áp lực"],
@@ -184,7 +184,7 @@ export const numberMeanings: NumberMeaning[] = [
   {
     number: 9,
     title: "Người nhân ái",
-    planet: "Sao Thổ (Saturn)",
+    planet: "Sao Hỏa (Mars)",
     description: "Số 9 tượng trưng cho sự hoàn thiện và lòng nhân ái. Người có số 9 thường có tầm nhìn rộng lớn, lòng từ bi, và tinh thần phục vụ. Họ quan tâm đến lợi ích của toàn thể nhân loại.",
     strengths: ["Từ bi", "Rộng lượng", "Sáng tạo", "Lý tưởng", "Trí tuệ"],
     challenges: ["Xa rời thực tế", "Hy sinh thái quá", "Cảm xúc mạnh", "Khó buông bỏ"],
