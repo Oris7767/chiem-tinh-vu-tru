@@ -189,6 +189,7 @@ export const numberMeanings: NumberMeaning[] = [
     strengths: ["Từ bi", "Rộng lượng", "Sáng tạo", "Lý tưởng", "Trí tuệ"],
     challenges: ["Xa rời thực tế", "Hy sinh thái quá", "Cảm xúc mạnh", "Khó buông bỏ"],
     career: "Phù hợp với các lĩnh vực phục vụ nhân loại như nghệ thuật, giáo dục, tâm linh, hoặc hoạt động xã hội.",
+    relationships: "Trong các mối quan hệ, người số 9 đem lại sự từ bi và thông hiểu sâu sắc, nhưng đôi khi cần thực tế hơn với kỳ vọng.",
     finance: 90,
     romance: 70,
     education: 80,
