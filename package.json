@@ -10,9 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "netlify-build": "npm run build && npm run preview"
-  }
-},
-  "dependencies": {
+  },
+"dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
@@ -82,3 +81,4 @@
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
   }
+}
