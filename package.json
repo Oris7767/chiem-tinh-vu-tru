@@ -9,7 +9,7 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview"
-      "netlify-build": "npm run build && npm run preview" // Thêm dòng này
+      "netlify-build": "npm run build && npm run preview"
   }
 }
   "dependencies": {
