@@ -43,7 +43,7 @@ export const numberMeanings: NumberMeaning[] = [
   },
   {
     number: 2,
-    title: "Người hòa giải",
+    title: "Người nhân ái",
     planet: "Mặt Trăng (Moon)",
     description: "Số 2 đại diện cho sự hợp tác và cân bằng. Người số 2 sẽ tiến bộ trong cuộc sống bởi đức tin vào Thượng đế. Họ thu lợi từ nhiều phương tiện một cách dễ dàng. Họ có thể gặp phải những vấn đề không lường trước được và những nguy hiểm, như để thử thách đức tin của họ. Đôi khi, họ có xu hướng can thiệp vào những vấn đề không liên quan. Họ có thể bị gia đình và bạn bè làm thất vọng. Nếu họ có đức tin vào Thượng đế, họ chắc chắn sẽ đạt được những đỉnh cao trong cuộc sống.",
     strengths: ["Hợp tác", "Trực giác", "Ngoại giao", "Kiên nhẫn", "Thấu hiểu"],
@@ -83,7 +83,7 @@ export const numberMeanings: NumberMeaning[] = [
   },
   {
     number: 4,
-    title: "Người xây dựng",
+    title: "Nhà cách mạng",
     planet: "Rahu (North Node)",
     description: "Số 4 thể hiện cho một người hoặc một thứ phổ biến. Người số 4 không mang lại may mắn như người ta có thể xứng đáng. Họ sẽ có những nỗi sợ vô cớ, bệnh tật và sự đối lập. Họ có thể được thông tin tốt và khôn ngoan, nhưng họ vẫn sẽ chỉ làm việc như những người dưới quyền người khác. Các quốc gia phương Tây coi số 13 là không may mắn và điềm báo. Sự kiện đau buồn bất ngờ xảy ra thường xuyên với người này. Người đàn ông số này có kinh nghiệm cay đắng và gặp nhiều khó khăn vì phụ nữ.",
     strengths: ["Đáng tin cậy", "Có tổ chức", "Cần cù", "Thực tế", "Trung thành"],
@@ -143,7 +143,7 @@ export const numberMeanings: NumberMeaning[] = [
   },
   {
     number: 7,
-    title: "Người tìm kiếm",
+    title: "Người giải nghiệp",
     planet: "Ketu (South Node)",
     description: "Số 7 đại diện cho các nguyên tắc cao và phẩm chất đức hạnh, có thể phát triển với ân sủng thiêng liêng. Những người trong số này sẽ trải qua nhiều thử thách trong cuộc sống. Mỗi bước trong cuộc sống sẽ mang đến vấn đề và khó khăn. Chiến thắng đạt được trước những vấn đề như vậy sẽ giúp họ có được sự tự tin, tăng trưởng tâm linh và sự hỗ trợ của những người xung quanh. Họ hiểu biết rộng, nổi tiếng với sự rõ ràng trong suy nghĩ và do đó hành động của họ sẽ được lên kế hoạch tốt. Những người này sẽ thiết lập lý tưởng và tiêu chuẩn cho chính họ và sẽ tuân thủ chúng bằng mọi giá.",
     strengths: ["Phân tích", "Trực giác", "Tư duy sâu sắc", "Tâm linh", "Độc lập"],
@@ -183,7 +183,7 @@ export const numberMeanings: NumberMeaning[] = [
   },
   {
     number: 9,
-    title: "Người nhân ái",
+    title: "Người chiến binh",
     planet: "Sao Hỏa (Mars)",
     description: "Số 9 tượng trưng cho sự khôn ngoan và khả năng. Người số 9 cũng chỉ ra việc đi du lịch, đấu tranh chống lại tình huống kỳ lạ và chiến thắng cuối cùng. Khi họ cuối cùng thành công, họ sẽ có một cuộc sống xa hoa lâu dài. Số này cho thấy tâm trí rõ ràng và trí thông minh, làm việc không mệt mỏi, tích lũy của cải, ảnh hưởng mọi mặt và vị trí nổi bật và cấp bậc cao. Đặc biệt là trong các dịch vụ mặc đồng phục như cảnh sát, quân đội, vv.., họ sẽ tăng lên rất cao trong cấp bậc của họ. Đây là một số rất may mắn mang lại tâm linh và quyền năng ma thuật.",
     strengths: ["Từ bi", "Rộng lượng", "Sáng tạo", "Lý tưởng", "Trí tuệ"],
