@@ -7,33 +7,33 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 30 20% 97%;
+    --foreground: 20 10% 5%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 20 10% 5%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 20 10% 5%;
 
-    --primary: 210 60% 48%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 30 95% 40%;
+    --primary-foreground: 30 20% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 30 30% 95%;
+    --secondary-foreground: 20 10% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 30 20% 95%;
+    --muted-foreground: 20 10% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 30 30% 95%;
+    --accent-foreground: 20 10% 20%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 30 20% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 20 15% 90%;
+    --input: 20 15% 90%;
+    --ring: 20 10% 5%;
 
     --radius: 0.75rem;
   }
@@ -44,6 +44,10 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    background-image: url('/lovable-uploads/c8f68745-42e3-4101-b44e-e07bf8c73a9b.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -53,11 +57,11 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-sm;
+    @apply bg-amber-50/80 backdrop-blur-md border border-amber-200/30 shadow-sm;
   }
 
   .input-field {
-    @apply w-full py-3 px-4 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition duration-200;
+    @apply w-full py-3 px-4 bg-white border border-amber-200 rounded-lg focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition duration-200;
   }
 
   .btn-primary {

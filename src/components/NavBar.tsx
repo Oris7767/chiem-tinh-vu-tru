@@ -1,9 +1,12 @@
 
 import { useState, useEffect } from 'react';
 import { cn } from '../lib/utils';
+import { useLanguage } from '../context/LanguageContext';
+import { Languages } from 'lucide-react';
 
 const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,11 +17,15 @@ const NavBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const toggleLanguage = () => {
+    setLanguage(language === 'vi' ? 'en' : 'vi');
+  };
+
   return (
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 md:px-12",
-        scrolled ? "py-3 bg-white/90 backdrop-blur-md shadow-sm" : "py-5 bg-transparent"
+        scrolled ? "py-3 bg-black/80 backdrop-blur-md shadow-sm" : "py-5 bg-transparent"
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -31,26 +38,34 @@ const NavBar = () => {
             alt="Votive Logo" 
             className="h-10"
           />
-          <span className="text-xl md:text-2xl font-serif font-semibold text-gray-900">
-            Số học Vệ Đà
+          <span className="text-xl md:text-2xl font-serif font-semibold text-amber-50">
+            {language === 'vi' ? 'Số học Vệ Đà' : 'Vedic Numerology'}
           </span>
         </a>
         
-        <div className="flex items-center space-x-8">
+        <div className="flex items-center space-x-4 md:space-x-8">
+          <button
+            onClick={toggleLanguage}
+            className="p-2 rounded-full bg-amber-600/30 hover:bg-amber-600/50 text-amber-50 transition-colors"
+            aria-label="Switch Language"
+          >
+            <Languages size={18} />
+          </button>
+          
           <ul className="hidden md:flex items-center space-x-8">
             <li>
-              <a href="#calculator" className="text-gray-600 hover:text-gray-900 subtle-underline animate-fade-in">
-                Tính toán
+              <a href="#calculator" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in">
+                {t('nav.calculate')}
               </a>
             </li>
             <li>
-              <a href="#about" className="text-gray-600 hover:text-gray-900 subtle-underline animate-fade-in-delay">
-                Giới thiệu
+              <a href="#about" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in-delay">
+                {t('nav.about')}
               </a>
             </li>
             <li>
-              <a href="#meanings" className="text-gray-600 hover:text-gray-900 subtle-underline animate-fade-in-delay">
-                Ý nghĩa
+              <a href="#meanings" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in-delay">
+                {t('nav.meanings')}
               </a>
             </li>
           </ul>
@@ -59,7 +74,7 @@ const NavBar = () => {
             href="#calculator" 
             className="btn-primary animate-fade-in-delay"
           >
-            Bắt đầu
+            {t('nav.start')}
           </a>
         </div>
       </div>
