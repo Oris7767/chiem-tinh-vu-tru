@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "netlify-build": "npm run build && npm run preview"
   }
-}
+},
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-accordion": "^1.2.0",
