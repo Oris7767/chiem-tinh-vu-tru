@@ -6,6 +6,7 @@ import {
 } from '../utils/numerologyCalculator';
 import { numberMeanings } from '../utils/data';
 import { cn } from '../lib/utils';
+import { useLanguage } from '../context/LanguageContext';
 import { 
   Banknote, Heart, GraduationCap, Activity, 
   Users, TrendingUp, Briefcase, Award, 
@@ -45,6 +46,7 @@ const Calculator = () => {
     'birth'
   );
   
+  const { t } = useLanguage();
   const resultRef = useRef<HTMLDivElement>(null);
 
   const isFormValid = name.trim() !== '' && 
@@ -127,13 +129,13 @@ const Calculator = () => {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary mb-4">
-              Công cụ tính toán
+              {t('nav.calculate')}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Khám phá con số của bạn
+              {t('calculator.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Nhập tên đầy đủ và ngày sinh của bạn để khám phá các con số quan trọng theo số học Vệ Đà.
+              {t('calculator.subtitle')}
             </p>
           </div>
           
@@ -145,7 +147,7 @@ const Calculator = () => {
                     <span className="text-white text-xs">📝</span>
                   </div>
                   <label htmlFor="name" className="block text-gray-700 font-medium">
-                    Họ và tên đầy đủ
+                    {t('calculator.fullName')}
                   </label>
                 </div>
                 <input
@@ -153,7 +155,7 @@ const Calculator = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Nhập họ và tên đầy đủ của bạn"
+                  placeholder={t('calculator.fullName')}
                   className="input-field"
                 />
               </div>
@@ -161,7 +163,7 @@ const Calculator = () => {
               <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-4">
                   <label htmlFor="day" className="block text-gray-700 font-medium">
-                    Ngày
+                    {t('calculator.day')}
                   </label>
                   <input
                     id="day"
@@ -170,14 +172,14 @@ const Calculator = () => {
                     max="31"
                     value={day}
                     onChange={(e) => setDay(e.target.value)}
-                    placeholder="Ngày"
+                    placeholder={t('calculator.day')}
                     className="input-field"
                   />
                 </div>
                 
                 <div className="space-y-4">
                   <label htmlFor="month" className="block text-gray-700 font-medium">
-                    Tháng
+                    {t('calculator.month')}
                   </label>
                   <input
                     id="month"
@@ -186,14 +188,14 @@ const Calculator = () => {
                     max="12"
                     value={month}
                     onChange={(e) => setMonth(e.target.value)}
-                    placeholder="Tháng"
+                    placeholder={t('calculator.month')}
                     className="input-field"
                   />
                 </div>
                 
                 <div className="space-y-4">
                   <label htmlFor="year" className="block text-gray-700 font-medium">
-                    Năm
+                    {t('calculator.year')}
                   </label>
                   <input
                     id="year"
@@ -202,7 +204,7 @@ const Calculator = () => {
                     max="2100"
                     value={year}
                     onChange={(e) => setYear(e.target.value)}
-                    placeholder="Năm"
+                    placeholder={t('calculator.year')}
                     className="input-field"
                   />
                 </div>
@@ -223,10 +225,10 @@ const Calculator = () => {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      Đang tính toán...
+                      {t('calculator.calculating')}
                     </div>
                   ) : (
-                    "Tính toán ngay"
+                    t('calculator.button')
                   )}
                 </button>
               </div>
@@ -248,7 +250,7 @@ const Calculator = () => {
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   )}
                 >
-                  Số Sinh (Birth)
+                  {t('tab.birth')}
                 </button>
                 <button
                   onClick={() => setCurrentTab('name')}
@@ -259,7 +261,7 @@ const Calculator = () => {
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   )}
                 >
-                  Số Tên (Name)
+                  {t('tab.name')}
                 </button>
                 <button
                   onClick={() => setCurrentTab('life')}
@@ -270,7 +272,7 @@ const Calculator = () => {
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   )}
                 >
-                  Số Cuộc Đời (Life)
+                  {t('tab.life')}
                 </button>
               </div>
               
@@ -290,15 +292,15 @@ const Calculator = () => {
                       </div>
                       
                       <div className="bg-gray-50 rounded-lg p-4 w-full max-w-sm">
-                        <h4 className="text-sm font-medium text-gray-700 mb-2">Các bước tính toán:</h4>
+                        <h4 className="text-sm font-medium text-gray-700 mb-2">{t('result.steps')}</h4>
                         <div className="text-xs text-gray-600 space-y-1">
                           <p className="font-medium">
-                            Số sinh: {result.birthNumber.totalBeforeReduction} ({result.birthNumber.steps})
+                            {t('tab.birth')}: {result.birthNumber.totalBeforeReduction} ({result.birthNumber.steps})
                           </p>
                           {result.birthNumber.totalBeforeReduction > 9 && (
                             <p className="font-medium">→ {reduceToPythagoras(result.birthNumber.totalBeforeReduction).steps}</p>
                           )}
-                          <p className="text-primary font-medium">Số sinh của bạn là: {result.birthNumber.finalNumber}</p>
+                          <p className="text-primary font-medium">{t('result.birthNumber')} {result.birthNumber.finalNumber}</p>
                         </div>
                       </div>
                     </div>
@@ -309,43 +311,43 @@ const Calculator = () => {
                     
                     <div className="text-gray-700 leading-relaxed">
                       <p>
-                        Một người có con số này có thể được ban phước với <span className="text-green-600 font-medium">những tài sản dồi dào</span>. 
-                        Thành tựu và danh tiếng của họ có thể lan rộng khắp nơi, thường trở thành <span className="text-green-600 font-medium">niềm ghen tị của người khác</span>. 
-                        Họ có thể sống một cuộc sống náo nhiệt, sôi động, thường liên quan đến rất nhiều <span className="text-green-600 font-medium">du lịch</span>.
+                        A person with this number may be blessed with <span className="text-green-600 font-medium">abundant riches</span>. 
+                        Their achievements and fame may spread far and wide, often becoming the <span className="text-green-600 font-medium">envy of others</span>. 
+                        They may lead eventful, dynamic lives, often involving a lot of <span className="text-green-600 font-medium">travel</span>.
                       </p>
                       <p className="mt-2">
-                        Họ có thể tận hưởng <span className="text-green-600 font-medium">những trải nghiệm tuyệt vời</span>, 
-                        <span className="text-green-600 font-medium">thịnh vượng lâu dài</span>, 
-                        <span className="text-green-600 font-medium">tài sản xuất sắc</span>, và 
-                        <span className="text-green-600 font-medium">vận may bất ngờ</span>. Tuy nhiên, họ cũng phải cẩn thận với 
-                        <span className="text-red-600 font-medium">tai nạn đột ngột</span>.
+                        They may enjoy <span className="text-green-600 font-medium">wonderful experiences</span>, 
+                        <span className="text-green-600 font-medium">permanent prosperity</span>, 
+                        <span className="text-green-600 font-medium">excellent properties</span>, and 
+                        <span className="text-green-600 font-medium">sudden fortunes</span>. However, they should also be careful of 
+                        <span className="text-red-600 font-medium">sudden accidents</span>.
                       </p>
                       <p className="mt-2">
-                        Nếu số sinh của họ may mắn, họ có xu hướng sống <span className="text-green-600 font-medium">cuộc sống hạnh phúc</span>. 
-                        Nếu không, có nguy cơ họ có thể <span className="text-orange-600 font-medium">bị ghét bỏ bởi người khác trong xã hội</span> 
-                        hoặc thậm chí gặp phải kết cục bi thảm. Con số này nuôi dưỡng <span className="text-green-600 font-medium">sức mạnh trí tưởng tượng</span> mạnh mẽ.
+                        If their birth number is fortunate, they tend to lead <span className="text-green-600 font-medium">happy lives</span>. 
+                        If not, there's a risk they might <span className="text-orange-600 font-medium">end up being disliked by others in society</span> 
+                        or even face a tragic end. This number nurtures a strong <span className="text-green-600 font-medium">power of imagination</span>.
                       </p>
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).finance, "Tài chính", <Banknote className="w-5 h-5 text-green-600" />)}
-                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
-                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
-                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
-                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).family, "Gia đình", <Users className="w-5 h-5 text-orange-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).finance, t('aspect.finance'), <Banknote className="w-5 h-5 text-green-600" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).romance, t('aspect.romance'), <Heart className="w-5 h-5 text-red-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).education, t('aspect.education'), <GraduationCap className="w-5 h-5 text-blue-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).health, t('aspect.health'), <Activity className="w-5 h-5 text-purple-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).family, t('aspect.family'), <Users className="w-5 h-5 text-orange-500" />)}
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4">
-                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).growth, "Phát triển", <TrendingUp className="w-5 h-5 text-teal-500" />)}
-                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).career_score, "Sự nghiệp", <Briefcase className="w-5 h-5 text-indigo-500" />)}
-                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).reputation, "Danh tiếng", <Award className="w-5 h-5 text-yellow-600" />)}
-                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).spirituality, "Tâm linh", <Compass className="w-5 h-5 text-cyan-600" />)}
-                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).luck, "May mắn", <Zap className="w-5 h-5 text-amber-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).growth, t('aspect.growth'), <TrendingUp className="w-5 h-5 text-teal-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).career_score, t('aspect.career'), <Briefcase className="w-5 h-5 text-indigo-500" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).reputation, t('aspect.reputation'), <Award className="w-5 h-5 text-yellow-600" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).spirituality, t('aspect.spirituality'), <Compass className="w-5 h-5 text-cyan-600" />)}
+                      {renderScoreBar(getMeaning(result.birthNumber.finalNumber).luck, t('aspect.luck'), <Zap className="w-5 h-5 text-amber-500" />)}
                     </div>
                     
                     <div className="grid md:grid-cols-2 gap-6 pt-2">
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-3">Điểm mạnh</h4>
+                        <h4 className="font-medium text-gray-900 mb-3">{t('section.strengths')}</h4>
                         <ul className="space-y-2">
                           {getMeaning(result.birthNumber.finalNumber).strengths.map((strength, index) => (
                             <li key={index} className="flex items-start">
@@ -357,7 +359,7 @@ const Calculator = () => {
                       </div>
                       
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-3">Thách thức</h4>
+                        <h4 className="font-medium text-gray-900 mb-3">{t('section.challenges')}</h4>
                         <ul className="space-y-2">
                           {getMeaning(result.birthNumber.finalNumber).challenges.map((challenge, index) => (
                             <li key={index} className="flex items-start">
@@ -370,14 +372,14 @@ const Calculator = () => {
                     </div>
                     
                     <div className="border-t border-gray-200 pt-6 mt-6">
-                      <h4 className="font-medium text-gray-900 mb-3">Nghề nghiệp phù hợp</h4>
+                      <h4 className="font-medium text-gray-900 mb-3">{t('section.career')}</h4>
                       <p className="text-gray-700">
                         {getMeaning(result.birthNumber.finalNumber).career}
                       </p>
                     </div>
                     
                     <div className="border-t border-gray-200 pt-6">
-                      <h4 className="font-medium text-gray-900 mb-3">Các mối quan hệ</h4>
+                      <h4 className="font-medium text-gray-900 mb-3">{t('section.relationships')}</h4>
                       <p className="text-gray-700">
                         {getMeaning(result.birthNumber.finalNumber).relationships}
                       </p>
@@ -400,15 +402,15 @@ const Calculator = () => {
                       </div>
                       
                       <div className="bg-gray-50 rounded-lg p-4 w-full max-w-sm">
-                        <h4 className="text-sm font-medium text-gray-700 mb-2">Các bước tính toán:</h4>
+                        <h4 className="text-sm font-medium text-gray-700 mb-2">{t('result.steps')}</h4>
                         <div className="text-xs text-gray-600 space-y-1">
                           <p className="font-medium">
-                            Số tên: {result.nameNumber.totalBeforeReduction} ({result.nameNumber.steps})
+                            {t('tab.name')}: {result.nameNumber.totalBeforeReduction} ({result.nameNumber.steps})
                           </p>
                           {result.nameNumber.totalBeforeReduction > 9 && (
                             <p className="font-medium">→ {reduceToPythagoras(result.nameNumber.totalBeforeReduction).steps}</p>
                           )}
-                          <p className="text-primary font-medium">Số tên của bạn là: {result.nameNumber.finalNumber}</p>
+                          <p className="text-primary font-medium">{t('result.nameNumber')} {result.nameNumber.finalNumber}</p>
                         </div>
                       </div>
                     </div>
@@ -419,36 +421,36 @@ const Calculator = () => {
                     
                     <div className="text-gray-700 leading-relaxed">
                       <p>
-                        Một người có tên số {result.nameNumber.finalNumber} có thể được ban phước với <span className="text-green-600 font-medium">những tài sản dồi dào</span>. 
-                        Thành tựu và danh tiếng của họ có thể lan rộng khắp nơi, thường trở thành <span className="text-green-600 font-medium">niềm ghen tị của người khác</span>. 
-                        Họ có thể sống một cuộc sống náo nhiệt, sôi động, thường liên quan đến rất nhiều <span className="text-green-600 font-medium">du lịch</span>.
+                        A person with name number {result.nameNumber.finalNumber} may be blessed with <span className="text-green-600 font-medium">abundant riches</span>. 
+                        Their achievements and fame may spread far and wide, often becoming the <span className="text-green-600 font-medium">envy of others</span>. 
+                        They may lead eventful, dynamic lives, often involving a lot of <span className="text-green-600 font-medium">travel</span>.
                       </p>
                       <p className="mt-2">
-                        Tên với số {result.nameNumber.finalNumber} thường mang lại <span className="text-green-600 font-medium">những trải nghiệm tuyệt vời</span>, 
-                        <span className="text-green-600 font-medium">thịnh vượng lâu dài</span>, và 
-                        <span className="text-green-600 font-medium">vận may bất ngờ</span>. Con số này nuôi dưỡng <span className="text-green-600 font-medium">sức mạnh trí tưởng tượng</span> mạnh mẽ.
+                        Names with number {result.nameNumber.finalNumber} often bring <span className="text-green-600 font-medium">wonderful experiences</span>, 
+                        <span className="text-green-600 font-medium">permanent prosperity</span>, and 
+                        <span className="text-green-600 font-medium">sudden fortunes</span>. This number nurtures a strong <span className="text-green-600 font-medium">power of imagination</span>.
                       </p>
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).finance, "Tài chính", <Banknote className="w-5 h-5 text-green-600" />)}
-                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
-                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
-                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
-                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).family, "Gia đình", <Users className="w-5 h-5 text-orange-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).finance, t('aspect.finance'), <Banknote className="w-5 h-5 text-green-600" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).romance, t('aspect.romance'), <Heart className="w-5 h-5 text-red-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).education, t('aspect.education'), <GraduationCap className="w-5 h-5 text-blue-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).health, t('aspect.health'), <Activity className="w-5 h-5 text-purple-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).family, t('aspect.family'), <Users className="w-5 h-5 text-orange-500" />)}
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4">
-                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).growth, "Phát triển", <TrendingUp className="w-5 h-5 text-teal-500" />)}
-                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).career_score, "Sự nghiệp", <Briefcase className="w-5 h-5 text-indigo-500" />)}
-                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).reputation, "Danh tiếng", <Award className="w-5 h-5 text-yellow-600" />)}
-                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).spirituality, "Tâm linh", <Compass className="w-5 h-5 text-cyan-600" />)}
-                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).luck, "May mắn", <Zap className="w-5 h-5 text-amber-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).growth, t('aspect.growth'), <TrendingUp className="w-5 h-5 text-teal-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).career_score, t('aspect.career'), <Briefcase className="w-5 h-5 text-indigo-500" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).reputation, t('aspect.reputation'), <Award className="w-5 h-5 text-yellow-600" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).spirituality, t('aspect.spirituality'), <Compass className="w-5 h-5 text-cyan-600" />)}
+                      {renderScoreBar(getMeaning(result.nameNumber.finalNumber).luck, t('aspect.luck'), <Zap className="w-5 h-5 text-amber-500" />)}
                     </div>
                     
                     <div className="grid md:grid-cols-2 gap-6 pt-2">
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-3">Điểm mạnh</h4>
+                        <h4 className="font-medium text-gray-900 mb-3">{t('section.strengths')}</h4>
                         <ul className="space-y-2">
                           {getMeaning(result.nameNumber.finalNumber).strengths.map((strength, index) => (
                             <li key={index} className="flex items-start">
@@ -460,7 +462,7 @@ const Calculator = () => {
                       </div>
                       
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-3">Thách thức</h4>
+                        <h4 className="font-medium text-gray-900 mb-3">{t('section.challenges')}</h4>
                         <ul className="space-y-2">
                           {getMeaning(result.nameNumber.finalNumber).challenges.map((challenge, index) => (
                             <li key={index} className="flex items-start">
@@ -489,15 +491,15 @@ const Calculator = () => {
                       </div>
                       
                       <div className="bg-gray-50 rounded-lg p-4 w-full max-w-sm">
-                        <h4 className="text-sm font-medium text-gray-700 mb-2">Các bước tính toán:</h4>
+                        <h4 className="text-sm font-medium text-gray-700 mb-2">{t('result.steps')}</h4>
                         <div className="text-xs text-gray-600 space-y-1">
                           <p className="font-medium">
-                            Số cuộc đời: {result.lifeNumber.totalBeforeReduction} ({result.lifeNumber.steps})
+                            {t('tab.life')}: {result.lifeNumber.totalBeforeReduction} ({result.lifeNumber.steps})
                           </p>
                           {result.lifeNumber.totalBeforeReduction > 9 && (
                             <p className="font-medium">→ {reduceToPythagoras(result.lifeNumber.totalBeforeReduction).steps}</p>
                           )}
-                          <p className="text-primary font-medium">Số cuộc đời của bạn là: {result.lifeNumber.finalNumber}</p>
+                          <p className="text-primary font-medium">{t('result.lifeNumber')} {result.lifeNumber.finalNumber}</p>
                         </div>
                       </div>
                     </div>
@@ -508,36 +510,36 @@ const Calculator = () => {
                     
                     <div className="text-gray-700 leading-relaxed">
                       <p>
-                        Số cuộc đời {result.lifeNumber.finalNumber} kết hợp năng lượng từ số sinh và số tên của bạn. 
-                        Người với số cuộc đời này có thể được ban phước với <span className="text-green-600 font-medium">những tài sản dồi dào</span>. 
-                        Thành tựu và danh tiếng có thể lan rộng khắp nơi, và họ có thể sống một cuộc sống náo nhiệt, sôi động.
+                        Life number {result.lifeNumber.finalNumber} combines energies from both your birth and name numbers. 
+                        People with this life number may be blessed with <span className="text-green-600 font-medium">abundant riches</span>. 
+                        Their achievements and fame may spread far and wide, and they may lead eventful, dynamic lives.
                       </p>
                       <p className="mt-2">
-                        Họ có thể tận hưởng <span className="text-green-600 font-medium">những trải nghiệm tuyệt vời</span>, 
-                        <span className="text-green-600 font-medium">thịnh vượng lâu dài</span>, và 
-                        <span className="text-green-600 font-medium">vận may bất ngờ</span>. Con số này nuôi dưỡng <span className="text-green-600 font-medium">sức mạnh trí tưởng tượng</span> mạnh mẽ.
+                        They may enjoy <span className="text-green-600 font-medium">wonderful experiences</span>, 
+                        <span className="text-green-600 font-medium">permanent prosperity</span>, and 
+                        <span className="text-green-600 font-medium">sudden fortunes</span>. This number nurtures a strong <span className="text-green-600 font-medium">power of imagination</span>.
                       </p>
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).finance, "Tài chính", <Banknote className="w-5 h-5 text-green-600" />)}
-                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).romance, "Tình cảm", <Heart className="w-5 h-5 text-red-500" />)}
-                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).education, "Học vấn", <GraduationCap className="w-5 h-5 text-blue-500" />)}
-                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).health, "Sức khỏe", <Activity className="w-5 h-5 text-purple-500" />)}
-                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).family, "Gia đình", <Users className="w-5 h-5 text-orange-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).finance, t('aspect.finance'), <Banknote className="w-5 h-5 text-green-600" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).romance, t('aspect.romance'), <Heart className="w-5 h-5 text-red-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).education, t('aspect.education'), <GraduationCap className="w-5 h-5 text-blue-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).health, t('aspect.health'), <Activity className="w-5 h-5 text-purple-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).family, t('aspect.family'), <Users className="w-5 h-5 text-orange-500" />)}
                     </div>
                     
                     <div className="grid grid-cols-5 gap-4">
-                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).growth, "Phát triển", <TrendingUp className="w-5 h-5 text-teal-500" />)}
-                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).career_score, "Sự nghiệp", <Briefcase className="w-5 h-5 text-indigo-500" />)}
-                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).reputation, "Danh tiếng", <Award className="w-5 h-5 text-yellow-600" />)}
-                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).spirituality, "Tâm linh", <Compass className="w-5 h-5 text-cyan-600" />)}
-                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).luck, "May mắn", <Zap className="w-5 h-5 text-amber-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).growth, t('aspect.growth'), <TrendingUp className="w-5 h-5 text-teal-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).career_score, t('aspect.career'), <Briefcase className="w-5 h-5 text-indigo-500" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).reputation, t('aspect.reputation'), <Award className="w-5 h-5 text-yellow-600" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).spirituality, t('aspect.spirituality'), <Compass className="w-5 h-5 text-cyan-600" />)}
+                      {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).luck, t('aspect.luck'), <Zap className="w-5 h-5 text-amber-500" />)}
                     </div>
                     
                     <div className="grid md:grid-cols-2 gap-6 pt-2">
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-3">Điểm mạnh</h4>
+                        <h4 className="font-medium text-gray-900 mb-3">{t('section.strengths')}</h4>
                         <ul className="space-y-2">
                           {getMeaning(result.lifeNumber.finalNumber).strengths.map((strength, index) => (
                             <li key={index} className="flex items-start">
@@ -549,7 +551,7 @@ const Calculator = () => {
                       </div>
                       
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-3">Thách thức</h4>
+                        <h4 className="font-medium text-gray-900 mb-3">{t('section.challenges')}</h4>
                         <ul className="space-y-2">
                           {getMeaning(result.lifeNumber.finalNumber).challenges.map((challenge, index) => (
                             <li key={index} className="flex items-start">
@@ -563,8 +565,8 @@ const Calculator = () => {
                     
                     <div className="border-t border-gray-200 pt-6 mt-6">
                       <p className="italic text-gray-600 text-center">
-                        Số cuộc đời kết hợp các ảnh hưởng từ số sinh và số tên của bạn, 
-                        đại diện cho hướng đi tổng thể của cuộc đời.
+                        The life number combines influences from your birth and name numbers, 
+                        representing the overall direction of your life.
                       </p>
                     </div>
                   </div>
