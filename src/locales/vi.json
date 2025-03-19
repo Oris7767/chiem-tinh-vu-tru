@@ -1,0 +1,118 @@
+
+{
+  "nav": {
+    "calculate": "Tính toán",
+    "about": "Giới thiệu",
+    "meanings": "Ý nghĩa",
+    "start": "Bắt đầu"
+  },
+  "hero": {
+    "title": "Số học Vệ Đà",
+    "subtitle": "Khám phá sức mạnh của các con số trong cuộc sống của bạn",
+    "cta": "Tính Số Của Bạn"
+  },
+  "calculator": {
+    "title": "Khám phá con số của bạn",
+    "subtitle": "Nhập tên đầy đủ và ngày sinh của bạn để khám phá các con số quan trọng theo số học Vệ Đà.",
+    "fullName": "Họ và tên đầy đủ",
+    "day": "Ngày",
+    "month": "Tháng",
+    "year": "Năm",
+    "button": "Tính toán ngay",
+    "calculating": "Đang tính toán..."
+  },
+  "tab": {
+    "birth": "Số Sinh (Birth)",
+    "name": "Số Tên (Name)",
+    "life": "Số Cuộc Đời (Life)"
+  },
+  "result": {
+    "steps": "Các bước tính toán:",
+    "birthNumber": "Số sinh của bạn là:",
+    "nameNumber": "Số tên của bạn là:",
+    "lifeNumber": "Số cuộc đời của bạn là:"
+  },
+  "aspect": {
+    "finance": "Tài chính",
+    "romance": "Tình cảm",
+    "education": "Học vấn",
+    "health": "Sức khỏe",
+    "family": "Gia đình",
+    "growth": "Phát triển",
+    "career": "Sự nghiệp",
+    "reputation": "Danh tiếng",
+    "spirituality": "Tâm linh",
+    "luck": "May mắn"
+  },
+  "section": {
+    "strengths": "Điểm mạnh",
+    "challenges": "Thách thức",
+    "career": "Nghề nghiệp phù hợp",
+    "relationships": "Các mối quan hệ"
+  },
+  "about": {
+    "title": "Số học Vệ Đà là gì?",
+    "subtitle": "Khám phá nguồn gốc và ý nghĩa của số học Vệ Đà.",
+    "origins": {
+      "title": "Nguồn gốc cổ đại",
+      "p1": "Số học Vệ Đà có nguồn gốc từ văn hóa Ấn Độ cổ đại và các văn bản Vệ Đà thiêng liêng, được viết cách đây hơn 5.000 năm. Đây là một trong những hệ thống số học lâu đời nhất thế giới.",
+      "p2": "Theo Số học Vệ Đà, mỗi con số mang một rung động và năng lượng riêng biệt, có thể tiết lộ rất nhiều về tính cách, tiềm năng và số phận của một người."
+    },
+    "difference": {
+      "title": "Sự khác biệt",
+      "p1": "Điểm đặc biệt của Số học Vệ Đà so với các hệ thống khác là nó không chỉ phân tích các con số từ ngày sinh, mà còn đặc biệt chú trọng đến tên của một người.",
+      "p2": "Hệ thống này cũng gắn liền với các hành tinh trong hệ mặt trời và các nút của mặt trăng (Rahu và Ketu). Mỗi số tương ứng với một hành tinh, mang năng lượng và đặc tính riêng biệt của hành tinh đó."
+    }
+  },
+  "meanings": {
+    "title": "Ý nghĩa các con số",
+    "subtitle": "Mỗi con số từ 1 đến 9 đều mang những ý nghĩa và năng lượng riêng biệt, gắn liền với các hành tinh."
+  },
+  "number": {
+    "1": {
+      "title": "Mặt Trời",
+      "planet": "Mặt Trời",
+      "shortDescription": "Lãnh đạo, sáng tạo và độc đáo. Số 1 thể hiện sự khởi đầu mới, độc lập và tinh thần tiên phong."
+    },
+    "2": {
+      "title": "Mặt Trăng",
+      "planet": "Mặt Trăng",
+      "shortDescription": "Nhạy cảm, trực giác và hài hòa. Số 2 thể hiện quan hệ đối tác, ngoại giao và năng lượng tiếp nhận."
+    },
+    "3": {
+      "title": "Mộc Tinh",
+      "planet": "Mộc Tinh",
+      "shortDescription": "Biểu đạt, niềm vui và lạc quan. Số 3 thể hiện sự sáng tạo, giao tiếp và mở rộng."
+    },
+    "4": {
+      "title": "Rahu",
+      "planet": "Rahu (Bắc Đẩu)",
+      "shortDescription": "Ổn định, quyết tâm và thực tế. Số 4 thể hiện nền tảng, trật tự và phương pháp tiếp cận có hệ thống."
+    },
+    "5": {
+      "title": "Thủy Tinh",
+      "planet": "Thủy Tinh",
+      "shortDescription": "Tự do, đa năng và thay đổi. Số 5 thể hiện khả năng thích ứng, du lịch và năng lượng tiến bộ."
+    },
+    "6": {
+      "title": "Kim Tinh",
+      "planet": "Kim Tinh",
+      "shortDescription": "Hài hòa, tình yêu và trách nhiệm. Số 6 thể hiện sự nuôi dưỡng, vẻ đẹp và cân bằng."
+    },
+    "7": {
+      "title": "Ketu",
+      "planet": "Ketu (Nam Đẩu)",
+      "shortDescription": "Tâm linh, phân tích và trí tuệ. Số 7 thể hiện nội tâm, huyền bí và kiến thức bên trong."
+    },
+    "8": {
+      "title": "Thổ Tinh",
+      "planet": "Thổ Tinh",
+      "shortDescription": "Quyền lực, thành tựu và sức mạnh. Số 8 thể hiện tham vọng, tổ chức và thành công vật chất."
+    },
+    "9": {
+      "title": "Hỏa Tinh",
+      "planet": "Hỏa Tinh",
+      "shortDescription": "Dũng cảm, năng lượng và hoàn thành. Số 9 thể hiện nhân đạo, lãnh đạo và chuyển đổi."
+    }
+  }
+}

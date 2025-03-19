@@ -1,0 +1,118 @@
+
+{
+  "nav": {
+    "calculate": "Calculate",
+    "about": "About",
+    "meanings": "Meanings",
+    "start": "Get Started"
+  },
+  "hero": {
+    "title": "Vedic Numerology",
+    "subtitle": "Discover the power of numbers in your life",
+    "cta": "Calculate Your Numbers"
+  },
+  "calculator": {
+    "title": "Discover Your Numbers",
+    "subtitle": "Enter your full name and date of birth to discover your important numbers according to Vedic Numerology.",
+    "fullName": "Full Name",
+    "day": "Day",
+    "month": "Month",
+    "year": "Year",
+    "button": "Calculate Now",
+    "calculating": "Calculating..."
+  },
+  "tab": {
+    "birth": "Birth Number",
+    "name": "Name Number",
+    "life": "Life Number"
+  },
+  "result": {
+    "steps": "Calculation steps:",
+    "birthNumber": "Your birth number is:",
+    "nameNumber": "Your name number is:",
+    "lifeNumber": "Your life number is:"
+  },
+  "aspect": {
+    "finance": "Finance",
+    "romance": "Romance",
+    "education": "Education",
+    "health": "Health",
+    "family": "Family",
+    "growth": "Growth",
+    "career": "Career",
+    "reputation": "Reputation",
+    "spirituality": "Spirituality",
+    "luck": "Luck"
+  },
+  "section": {
+    "strengths": "Strengths",
+    "challenges": "Challenges",
+    "career": "Suitable Careers",
+    "relationships": "Relationships"
+  },
+  "about": {
+    "title": "What is Vedic Numerology?",
+    "subtitle": "Discover the origins and meanings of Vedic Numerology.",
+    "origins": {
+      "title": "Ancient Origins",
+      "p1": "Vedic Numerology originates from ancient Indian culture and the sacred Vedic texts, written over 5,000 years ago. It is one of the oldest numerology systems in the world.",
+      "p2": "According to Vedic Numerology, each number carries its own vibration and energy, which can reveal a lot about one's character, potential and destiny."
+    },
+    "difference": {
+      "title": "The Difference",
+      "p1": "What makes Vedic Numerology special compared to other systems is that it not only analyzes numbers from birth dates, but also places special emphasis on a person's name.",
+      "p2": "This system is also closely linked to the planets in the solar system and the nodes of the moon (Rahu and Ketu). Each number corresponds to a planet, carrying the unique energy and characteristics of that planet."
+    }
+  },
+  "meanings": {
+    "title": "Meanings of Numbers",
+    "subtitle": "Each number from 1 to 9 carries unique meanings and energies, linked to the planets."
+  },
+  "number": {
+    "1": {
+      "title": "The Sun",
+      "planet": "Sun",
+      "shortDescription": "Leadership, creativity, and originality. The number 1 represents new beginnings, independence, and pioneering spirit."
+    },
+    "2": {
+      "title": "The Moon",
+      "planet": "Moon",
+      "shortDescription": "Sensitivity, intuition, and harmony. The number 2 represents partnerships, diplomacy, and receptive energy."
+    },
+    "3": {
+      "title": "Jupiter",
+      "planet": "Jupiter",
+      "shortDescription": "Expression, joy, and optimism. The number 3 represents creativity, communication, and expansion."
+    },
+    "4": {
+      "title": "Rahu",
+      "planet": "Rahu (North Node)",
+      "shortDescription": "Stability, determination, and practicality. The number 4 represents foundations, order, and methodical approach."
+    },
+    "5": {
+      "title": "Mercury",
+      "planet": "Mercury",
+      "shortDescription": "Freedom, versatility, and change. The number 5 represents adaptability, travel, and progressive energy."
+    },
+    "6": {
+      "title": "Venus",
+      "planet": "Venus",
+      "shortDescription": "Harmony, love, and responsibility. The number 6 represents nurturing, beauty, and balance."
+    },
+    "7": {
+      "title": "Ketu",
+      "planet": "Ketu (South Node)",
+      "shortDescription": "Spirituality, analysis, and wisdom. The number 7 represents introspection, mysticism, and inner knowledge."
+    },
+    "8": {
+      "title": "Saturn",
+      "planet": "Saturn",
+      "shortDescription": "Authority, achievement, and strength. The number 8 represents ambition, organization, and material success."
+    },
+    "9": {
+      "title": "Mars",
+      "planet": "Mars",
+      "shortDescription": "Courage, energy, and completion. The number 9 represents humanitarianism, leadership, and transformation."
+    }
+  }
+}
