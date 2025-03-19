@@ -1,3 +1,4 @@
+
 // Function to convert a name to a number according to Vedic numerology principles
 export const calculateNameNumber = (name: string): { steps: string; totalBeforeReduction: number; total: number; finalNumber: number } => {
   // Remove spaces and convert to uppercase
@@ -62,16 +63,36 @@ export const calculateBirthNumber = (day: number, month: number, year: number): 
   };
 };
 
-// Function to calculate life number by combining birth number and name number
-export const calculateLifeNumber = (birthNumber: number, nameNumber: number): { steps: string; totalBeforeReduction: number; total: number; finalNumber: number } => {
-  const totalBeforeReduction = birthNumber + nameNumber;
-  const steps = `${birthNumber} + ${nameNumber} = ${totalBeforeReduction}`;
-  const result = reduceToPythagoras(totalBeforeReduction);
+// Function to calculate life number using the full birth date (day, month, year)
+export const calculateLifeNumber = (day: number, month: number, year: number): { steps: string; totalBeforeReduction: number; total: number; finalNumber: number } => {
+  // Convert all parts to strings
+  const dayStr = day.toString();
+  const monthStr = month.toString();
+  const yearStr = year.toString();
+  
+  // Split each part into digits and add them up
+  const dayDigits = dayStr.split('').map(d => parseInt(d, 10));
+  const monthDigits = monthStr.split('').map(d => parseInt(d, 10));
+  const yearDigits = yearStr.split('').map(d => parseInt(d, 10));
+  
+  // Sum each part separately
+  const daySum = dayDigits.reduce((sum, digit) => sum + digit, 0);
+  const monthSum = monthDigits.reduce((sum, digit) => sum + digit, 0);
+  const yearSum = yearDigits.reduce((sum, digit) => sum + digit, 0);
+  
+  // Total sum
+  const totalSum = daySum + monthSum + yearSum;
+  
+  // Create readable steps
+  const steps = `(${dayStr}=${daySum}) + (${monthStr}=${monthSum}) + (${yearStr}=${yearSum}) = ${totalSum}`;
+  
+  // Reduce to a single digit if needed
+  const result = reduceToPythagoras(totalSum);
   
   return {
     steps,
-    totalBeforeReduction,
-    total: result.totalBeforeReduction || totalBeforeReduction,
+    totalBeforeReduction: totalSum,
+    total: result.totalBeforeReduction || totalSum,
     finalNumber: result.finalNumber
   };
 };
@@ -105,34 +126,24 @@ export const reduceToPythagoras = (num: number): { steps: string; totalBeforeRed
 
 // For backward compatibility - named same as before
 export const calculateBirthPathNumber = (day: number, month: number, year: number): { steps: string; total: number; finalNumber: number } => {
-  // Add all digits of the birth date
-  const dayStr = day.toString();
-  const monthStr = month.toString();
-  const yearStr = year.toString();
+  const lifeNumber = calculateLifeNumber(day, month, year);
   
-  const daySum = dayStr.split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0);
-  const monthSum = monthStr.split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0);
-  const yearSum = yearStr.split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0);
-  
-  const total = daySum + monthSum + yearSum;
-  const steps = `(${dayStr}=${daySum}) + (${monthStr}=${monthSum}) + (${yearStr}=${yearSum}) = ${total}`;
-  
-  // Reduce to a single digit
+  return {
+    steps: lifeNumber.steps,
+    total: lifeNumber.totalBeforeReduction,
+    finalNumber: lifeNumber.finalNumber
+  };
+};
+
+// For backward compatibility - but no longer used as life number is now calculated from birth date only
+export const calculateDestinyNumber = (birthPath: number, nameNumber: number): { steps: string; total: number; finalNumber: number } => {
+  const total = birthPath + nameNumber;
+  const steps = `${birthPath} + ${nameNumber} = ${total}`;
   const result = reduceToPythagoras(total);
   
   return {
     steps,
     total,
-    finalNumber: result.finalNumber
-  };
-};
-
-// For backward compatibility - named same as before but now calls the new function
-export const calculateDestinyNumber = (birthPath: number, nameNumber: number): { steps: string; total: number; finalNumber: number } => {
-  const result = calculateLifeNumber(birthPath, nameNumber);
-  return {
-    steps: result.steps,
-    total: result.totalBeforeReduction,
     finalNumber: result.finalNumber
   };
 };

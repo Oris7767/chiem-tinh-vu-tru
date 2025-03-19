@@ -68,7 +68,11 @@ const Calculator = () => {
         parseInt(month),
         parseInt(year)
       );
-      const lifeNum = calculateLifeNumber(birthNum.finalNumber, nameNum.finalNumber);
+      const lifeNum = calculateLifeNumber(
+        parseInt(day),
+        parseInt(month),
+        parseInt(year)
+      );
       
       setResult({
         nameNumber: nameNum,
@@ -89,26 +93,6 @@ const Calculator = () => {
 
   const getMeaning = (number: number) => {
     return numberMeanings.find(m => m.number === number) || numberMeanings[0];
-  };
-
-  const renderHighlight = (text: string) => {
-    const highlights = [
-      'abundant riches', 'envy of others', 'travel', 'wonderful experiences',
-      'permanent prosperity', 'excellent properties', 'sudden fortunes',
-      'sudden accidents', 'happy lives', 'end up being disliked by others in society',
-      'power of imagination'
-    ];
-    
-    let formattedText = text;
-    
-    highlights.forEach(highlight => {
-      const regex = new RegExp(highlight, 'gi');
-      formattedText = formattedText.replace(regex, match => 
-        `<span class="text-green-600 font-medium">${match}</span>`
-      );
-    });
-    
-    return formattedText;
   };
 
   const renderScoreBar = (score: number, label: string, icon: React.ReactNode) => (
@@ -510,7 +494,7 @@ const Calculator = () => {
                     
                     <div className="text-gray-700 leading-relaxed">
                       <p>
-                        Life number {result.lifeNumber.finalNumber} combines energies from both your birth and name numbers. 
+                        Life number {result.lifeNumber.finalNumber} represents the complete sum of your birth date. 
                         People with this life number may be blessed with <span className="text-green-600 font-medium">abundant riches</span>. 
                         Their achievements and fame may spread far and wide, and they may lead eventful, dynamic lives.
                       </p>
@@ -565,8 +549,8 @@ const Calculator = () => {
                     
                     <div className="border-t border-gray-200 pt-6 mt-6">
                       <p className="italic text-gray-600 text-center">
-                        The life number combines influences from your birth and name numbers, 
-                        representing the overall direction of your life.
+                        {t('tab.life')} represents the sum of all digits in your full birth date, 
+                        showing your overall life path and destiny.
                       </p>
                     </div>
                   </div>

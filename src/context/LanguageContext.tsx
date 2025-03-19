@@ -73,7 +73,44 @@ const translations = {
     
     // Meanings section
     'meanings.title': 'Meanings of Numbers',
-    'meanings.subtitle': 'Each number from 1 to 9 carries unique meanings and energies, linked to the planets.'
+    'meanings.subtitle': 'Each number from 1 to 9 carries unique meanings and energies, linked to the planets.',
+
+    // Number meanings
+    'number.1.title': 'The Sun',
+    'number.1.planet': 'Sun',
+    'number.1.shortDescription': 'Leadership, creativity, and originality. The number 1 represents new beginnings, independence, and pioneering spirit.',
+    
+    'number.2.title': 'The Moon',
+    'number.2.planet': 'Moon',
+    'number.2.shortDescription': 'Sensitivity, intuition, and harmony. The number 2 represents partnerships, diplomacy, and receptive energy.',
+    
+    'number.3.title': 'Jupiter',
+    'number.3.planet': 'Jupiter',
+    'number.3.shortDescription': 'Expression, joy, and optimism. The number 3 represents creativity, communication, and expansion.',
+    
+    'number.4.title': 'Rahu',
+    'number.4.planet': 'Rahu (North Node)',
+    'number.4.shortDescription': 'Stability, determination, and practicality. The number 4 represents foundations, order, and methodical approach.',
+    
+    'number.5.title': 'Mercury',
+    'number.5.planet': 'Mercury',
+    'number.5.shortDescription': 'Freedom, versatility, and change. The number 5 represents adaptability, travel, and progressive energy.',
+    
+    'number.6.title': 'Venus',
+    'number.6.planet': 'Venus',
+    'number.6.shortDescription': 'Harmony, love, and responsibility. The number 6 represents nurturing, beauty, and balance.',
+    
+    'number.7.title': 'Ketu',
+    'number.7.planet': 'Ketu (South Node)',
+    'number.7.shortDescription': 'Spirituality, analysis, and wisdom. The number 7 represents introspection, mysticism, and inner knowledge.',
+    
+    'number.8.title': 'Saturn',
+    'number.8.planet': 'Saturn',
+    'number.8.shortDescription': 'Authority, achievement, and strength. The number 8 represents ambition, organization, and material success.',
+    
+    'number.9.title': 'Mars',
+    'number.9.planet': 'Mars',
+    'number.9.shortDescription': 'Courage, energy, and completion. The number 9 represents humanitarianism, leadership, and transformation.'
   },
   vi: {
     // Navigation
@@ -138,7 +175,44 @@ const translations = {
     
     // Meanings section
     'meanings.title': 'Ý nghĩa các con số',
-    'meanings.subtitle': 'Mỗi con số từ 1 đến 9 đều mang những ý nghĩa và năng lượng riêng biệt, gắn liền với các hành tinh.'
+    'meanings.subtitle': 'Mỗi con số từ 1 đến 9 đều mang những ý nghĩa và năng lượng riêng biệt, gắn liền với các hành tinh.',
+
+    // Number meanings
+    'number.1.title': 'Mặt Trời',
+    'number.1.planet': 'Mặt Trời',
+    'number.1.shortDescription': 'Lãnh đạo, sáng tạo và độc đáo. Số 1 thể hiện sự khởi đầu mới, độc lập và tinh thần tiên phong.',
+    
+    'number.2.title': 'Mặt Trăng',
+    'number.2.planet': 'Mặt Trăng',
+    'number.2.shortDescription': 'Nhạy cảm, trực giác và hài hòa. Số 2 thể hiện quan hệ đối tác, ngoại giao và năng lượng tiếp nhận.',
+    
+    'number.3.title': 'Mộc Tinh',
+    'number.3.planet': 'Mộc Tinh',
+    'number.3.shortDescription': 'Biểu đạt, niềm vui và lạc quan. Số 3 thể hiện sự sáng tạo, giao tiếp và mở rộng.',
+    
+    'number.4.title': 'Rahu',
+    'number.4.planet': 'Rahu (Bắc Đẩu)',
+    'number.4.shortDescription': 'Ổn định, quyết tâm và thực tế. Số 4 thể hiện nền tảng, trật tự và phương pháp tiếp cận có hệ thống.',
+    
+    'number.5.title': 'Thủy Tinh',
+    'number.5.planet': 'Thủy Tinh',
+    'number.5.shortDescription': 'Tự do, đa năng và thay đổi. Số 5 thể hiện khả năng thích ứng, du lịch và năng lượng tiến bộ.',
+    
+    'number.6.title': 'Kim Tinh',
+    'number.6.planet': 'Kim Tinh',
+    'number.6.shortDescription': 'Hài hòa, tình yêu và trách nhiệm. Số 6 thể hiện sự nuôi dưỡng, vẻ đẹp và cân bằng.',
+    
+    'number.7.title': 'Ketu',
+    'number.7.planet': 'Ketu (Nam Đẩu)',
+    'number.7.shortDescription': 'Tâm linh, phân tích và trí tuệ. Số 7 thể hiện nội tâm, huyền bí và kiến thức bên trong.',
+    
+    'number.8.title': 'Thổ Tinh',
+    'number.8.planet': 'Thổ Tinh',
+    'number.8.shortDescription': 'Quyền lực, thành tựu và sức mạnh. Số 8 thể hiện tham vọng, tổ chức và thành công vật chất.',
+    
+    'number.9.title': 'Hỏa Tinh',
+    'number.9.planet': 'Hỏa Tinh',
+    'number.9.shortDescription': 'Dũng cảm, năng lượng và hoàn thành. Số 9 thể hiện nhân đạo, lãnh đạo và chuyển đổi.'
   }
 };
 
@@ -148,8 +222,17 @@ export const LanguageProvider: React.FC<{children: ReactNode}> = ({ children }) 
   const [language, setLanguage] = useState<Language>('en');
 
   const t = (key: string): string => {
-    const translation = translations[language][key as keyof typeof translations[typeof language]];
-    return translation || key;
+    if (!translations[language][key as keyof typeof translations[typeof language]]) {
+      console.warn(`Translation missing for key: ${key} in language ${language}`);
+      // If the key doesn't exist in the current language, try to get it from English
+      if (language !== 'en' && translations['en'][key as keyof typeof translations['en']]) {
+        return translations['en'][key as keyof typeof translations['en']];
+      }
+      // Return the key itself if no translation exists
+      return key;
+    }
+    
+    return translations[language][key as keyof typeof translations[typeof language]];
   };
 
   return (

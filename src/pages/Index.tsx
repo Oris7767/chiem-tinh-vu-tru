@@ -76,12 +76,12 @@ const Index = () => {
                       <span className="text-2xl font-serif font-bold text-amber-700">{num}</span>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-amber-900">{getNumberTitle(num)}</h3>
-                      <p className="text-sm text-amber-700">{getPlanetName(num)}</p>
+                      <h3 className="text-xl font-bold text-amber-900">{t(`number.${num}.title`)}</h3>
+                      <p className="text-sm text-amber-700">{t(`number.${num}.planet`)}</p>
                     </div>
                   </div>
                   <p className="text-amber-800">
-                    {getNumberShortDescription(num)}
+                    {t(`number.${num}.shortDescription`)}
                   </p>
                 </div>
               ))}
@@ -92,22 +92,6 @@ const Index = () => {
       <Footer />
     </div>
   );
-};
-
-// Helper functions for number meanings
-const getNumberTitle = (num: number): string => {
-  const meaning = numberMeanings.find(m => m.number === num);
-  return meaning ? meaning.title : "";
-};
-
-const getPlanetName = (num: number): string => {
-  const meaning = numberMeanings.find(m => m.number === num);
-  return meaning ? meaning.planet : "";
-};
-
-const getNumberShortDescription = (num: number): string => {
-  const meaning = numberMeanings.find(m => m.number === num);
-  return meaning ? meaning.description.split('.')[0] + '.' : "";
 };
 
 export default Index;
