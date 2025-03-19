@@ -132,7 +132,7 @@ export const detailedNumberMeanings: { [key: number]: DetailedNumberMeaning } = 
   19: {
     number: 19,
     description: {
-      en: "Ancient books on this subject attribute mastery over the Three Worlds to this Number and as such, these people will be the focus of attention wherever they are. This number indicates the Rising Sun. This also has been described as the "Prince of the Celestial World" in ancient Indian texts and as an ''Ideal Lover'' in Egyptian scriptures. The sun becomes brighter as the day lengthens and so also these people progress as their age advances. Position, status, happiness, success and wealth will be gradually on the rise. Being well-disciplined, they will look young and will be very active even in their advanced age. They must be honest even in matters related to sensual pleasures.",
+      en: "Ancient books on this subject attribute mastery over the Three Worlds to this Number and as such, these people will be the focus of attention wherever they are. This number indicates the Rising Sun. This also has been described as the \"Prince of the Celestial World\" in ancient Indian texts and as an \"Ideal Lover\" in Egyptian scriptures. The sun becomes brighter as the day lengthens and so also these people progress as their age advances. Position, status, happiness, success and wealth will be gradually on the rise. Being well-disciplined, they will look young and will be very active even in their advanced age. They must be honest even in matters related to sensual pleasures.",
       vi: "Những cuốn sách cổ về chủ đề này gán cho sự làm chủ trên Ba Thế giới cho Số này và do đó, những người này sẽ là tâm điểm của sự chú ý dù họ ở đâu. Số này chỉ Mặt trời mọc. Điều này cũng đã được mô tả là \"Hoàng tử của Thế giới Thiên thượng\" trong các văn bản Ấn Độ cổ đại và như một \"Người yêu lý tưởng\" trong các thánh thư Ai Cập. Mặt trời trở nên sáng hơn khi ngày kéo dài và do đó những người này tiến bộ khi tuổi tác của họ tiến triển. Vị trí, địa vị, hạnh phúc, thành công và giàu có sẽ dần dần gia tăng. Được kỷ luật tốt, họ sẽ trông trẻ và sẽ rất năng động ngay cả trong tuổi già của họ. Họ phải trung thực ngay cả trong những vấn đề liên quan đến niềm vui khoái cảm."
     }
   },
@@ -151,4 +151,3 @@ export const getDetailedMeaning = (number: number): DetailedNumberMeaning | unde
   // If not found, return undefined
   return undefined;
 };
-
