@@ -7,7 +7,7 @@ import { numberMeanings } from '../utils/data';
 import { useLanguage } from '../context/LanguageContext';
 
 const Index = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   return (
     <div className="min-h-screen flex flex-col">

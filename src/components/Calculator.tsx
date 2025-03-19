@@ -46,7 +46,7 @@ const Calculator = () => {
     'birth'
   );
   
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const resultRef = useRef<HTMLDivElement>(null);
 
   const isFormValid = name.trim() !== '' && 
@@ -295,21 +295,62 @@ const Calculator = () => {
                     
                     <div className="text-gray-700 leading-relaxed">
                       <p>
-                        A person with this number may be blessed with <span className="text-green-600 font-medium">abundant riches</span>. 
-                        Their achievements and fame may spread far and wide, often becoming the <span className="text-green-600 font-medium">envy of others</span>. 
-                        They may lead eventful, dynamic lives, often involving a lot of <span className="text-green-600 font-medium">travel</span>.
+                        {language === 'en' ? 
+                          `A person with birth number ${result.birthNumber.finalNumber} may be blessed with ` : 
+                          `Người có số sinh ${result.birthNumber.finalNumber} có thể được ban phước với `}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'abundant riches' : 'tài sản dồi dào'}
+                        </span>. 
+                        {language === 'en' ? 
+                          'Their achievements and fame may spread far and wide, often becoming the ' : 
+                          'Thành tựu và danh tiếng của họ có thể lan rộng khắp nơi, thường trở thành '}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'envy of others' : 'sự ghen tị của người khác'}
+                        </span>. 
+                        {language === 'en' ?
+                          'They may lead eventful, dynamic lives, often involving a lot of ' :
+                          'Họ có thể sống một cuộc sống sôi động và đầy biến cố, thường xuyên '}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'travel' : 'du lịch'}
+                        </span>.
                       </p>
                       <p className="mt-2">
-                        They may enjoy <span className="text-green-600 font-medium">wonderful experiences</span>, 
-                        <span className="text-green-600 font-medium">permanent prosperity</span>, 
-                        <span className="text-green-600 font-medium">excellent properties</span>, and 
-                        <span className="text-green-600 font-medium">sudden fortunes</span>. However, they should also be careful of 
-                        <span className="text-red-600 font-medium">sudden accidents</span>.
+                        {language === 'en' ?
+                          'They may enjoy ' :
+                          'Họ có thể thưởng thức '}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'wonderful experiences' : 'những trải nghiệm tuyệt vời'}
+                        </span>, 
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'permanent prosperity' : 'sự thịnh vượng lâu dài'}
+                        </span>, 
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'excellent properties' : 'tài sản xuất sắc'}
+                        </span>, {language === 'en' ? 'and' : 'và'} 
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'sudden fortunes' : 'tài sản bất ngờ'}
+                        </span>. {language === 'en' ? 'However, they should also be careful of' : 'Tuy nhiên, họ cũng nên cẩn thận với'} 
+                        <span className="text-red-600 font-medium">
+                          {language === 'en' ? 'sudden accidents' : 'tai nạn đột ngột'}
+                        </span>.
                       </p>
                       <p className="mt-2">
-                        If their birth number is fortunate, they tend to lead <span className="text-green-600 font-medium">happy lives</span>. 
-                        If not, there's a risk they might <span className="text-orange-600 font-medium">end up being disliked by others in society</span> 
-                        or even face a tragic end. This number nurtures a strong <span className="text-green-600 font-medium">power of imagination</span>.
+                        {language === 'en' ?
+                          'If their birth number is fortunate, they tend to lead ' :
+                          'Nếu số sinh của họ may mắn, họ có xu hướng sống '}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'happy lives' : 'cuộc sống hạnh phúc'}
+                        </span>. 
+                        {language === 'en' ?
+                          'If not, there\'s a risk they might ' :
+                          'Nếu không, có nguy cơ họ có thể '}
+                        <span className="text-orange-600 font-medium">
+                          {language === 'en' ? 'end up being disliked by others in society' : 'bị người khác trong xã hội không ưa thích'}
+                        </span> 
+                        {language === 'en' ? 'or even face a tragic end. This number nurtures a strong' : 'hoặc thậm chí đối mặt với kết cục bi thảm. Số này nuôi dưỡng một sức mạnh'}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? ' power of imagination' : ' sức mạnh của trí tưởng tượng'}
+                        </span>.
                       </p>
                     </div>
                     
@@ -405,14 +446,41 @@ const Calculator = () => {
                     
                     <div className="text-gray-700 leading-relaxed">
                       <p>
-                        A person with name number {result.nameNumber.finalNumber} may be blessed with <span className="text-green-600 font-medium">abundant riches</span>. 
-                        Their achievements and fame may spread far and wide, often becoming the <span className="text-green-600 font-medium">envy of others</span>. 
-                        They may lead eventful, dynamic lives, often involving a lot of <span className="text-green-600 font-medium">travel</span>.
+                        {language === 'en' ? 
+                          `A person with name number ${result.nameNumber.finalNumber} may be blessed with ` : 
+                          `Người có số tên ${result.nameNumber.finalNumber} có thể được ban phước với `}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'abundant riches' : 'tài sản dồi dào'}
+                        </span>. 
+                        {language === 'en' ? 
+                          'Their achievements and fame may spread far and wide, often becoming the ' : 
+                          'Thành tựu và danh tiếng của họ có thể lan rộng khắp nơi, thường trở thành '}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'envy of others' : 'sự ghen tị của người khác'}
+                        </span>. 
+                        {language === 'en' ?
+                          'They may lead eventful, dynamic lives, often involving a lot of ' :
+                          'Họ có thể sống một cuộc sống sôi động và đầy biến cố, thường xuyên '}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'travel' : 'du lịch'}
+                        </span>.
                       </p>
                       <p className="mt-2">
-                        Names with number {result.nameNumber.finalNumber} often bring <span className="text-green-600 font-medium">wonderful experiences</span>, 
-                        <span className="text-green-600 font-medium">permanent prosperity</span>, and 
-                        <span className="text-green-600 font-medium">sudden fortunes</span>. This number nurtures a strong <span className="text-green-600 font-medium">power of imagination</span>.
+                        {language === 'en' ?
+                          `Names with number ${result.nameNumber.finalNumber} often bring ` :
+                          `Những cái tên với số ${result.nameNumber.finalNumber} thường mang lại `}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'wonderful experiences' : 'những trải nghiệm tuyệt vời'}
+                        </span>, 
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'permanent prosperity' : 'sự thịnh vượng lâu dài'}
+                        </span>, {language === 'en' ? 'and' : 'và'} 
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'sudden fortunes' : 'tài sản bất ngờ'}
+                        </span>. {language === 'en' ? 'This number nurtures a strong' : 'Số này nuôi dưỡng một sức mạnh'}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? ' power of imagination' : ' sức mạnh của trí tưởng tượng'}
+                        </span>.
                       </p>
                     </div>
                     
@@ -494,14 +562,35 @@ const Calculator = () => {
                     
                     <div className="text-gray-700 leading-relaxed">
                       <p>
-                        Life number {result.lifeNumber.finalNumber} represents the complete sum of your birth date. 
-                        People with this life number may be blessed with <span className="text-green-600 font-medium">abundant riches</span>. 
-                        Their achievements and fame may spread far and wide, and they may lead eventful, dynamic lives.
+                        {language === 'en' ? 
+                          `Life number ${result.lifeNumber.finalNumber} represents the complete sum of your birth date. ` : 
+                          `Số cuộc đời ${result.lifeNumber.finalNumber} thể hiện tổng hoàn chỉnh của ngày sinh của bạn. `}
+                        {language === 'en' ? 
+                          `People with this life number may be blessed with ` : 
+                          `Người có số cuộc đời này có thể được ban phước với `}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'abundant riches' : 'tài sản dồi dào'}
+                        </span>. 
+                        {language === 'en' ? 
+                          'Their achievements and fame may spread far and wide, and they may lead eventful, dynamic lives.' : 
+                          'Thành tựu và danh tiếng của họ có thể lan rộng khắp nơi, và họ có thể sống một cuộc sống sôi động và đầy biến cố.'}
                       </p>
                       <p className="mt-2">
-                        They may enjoy <span className="text-green-600 font-medium">wonderful experiences</span>, 
-                        <span className="text-green-600 font-medium">permanent prosperity</span>, and 
-                        <span className="text-green-600 font-medium">sudden fortunes</span>. This number nurtures a strong <span className="text-green-600 font-medium">power of imagination</span>.
+                        {language === 'en' ?
+                          'They may enjoy ' :
+                          'Họ có thể thưởng thức '}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'wonderful experiences' : 'những trải nghiệm tuyệt vời'}
+                        </span>, 
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'permanent prosperity' : 'sự thịnh vượng lâu dài'}
+                        </span>, {language === 'en' ? 'and' : 'và'} 
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? 'sudden fortunes' : 'tài sản bất ngờ'}
+                        </span>. {language === 'en' ? 'This number nurtures a strong' : 'Số này nuôi dưỡng một sức mạnh'}
+                        <span className="text-green-600 font-medium">
+                          {language === 'en' ? ' power of imagination' : ' sức mạnh của trí tưởng tượng'}
+                        </span>.
                       </p>
                     </div>
                     
@@ -549,8 +638,9 @@ const Calculator = () => {
                     
                     <div className="border-t border-gray-200 pt-6 mt-6">
                       <p className="italic text-gray-600 text-center">
-                        {t('tab.life')} represents the sum of all digits in your full birth date, 
-                        showing your overall life path and destiny.
+                        {language === 'en' ? 
+                          `${t('tab.life')} represents the sum of all digits in your full birth date, showing your overall life path and destiny.` : 
+                          `${t('tab.life')} thể hiện tổng tất cả các chữ số trong ngày sinh đầy đủ của bạn, cho thấy con đường đời và số phận tổng thể của bạn.`}
                       </p>
                     </div>
                   </div>
