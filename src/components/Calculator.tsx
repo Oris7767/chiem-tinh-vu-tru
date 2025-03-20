@@ -616,8 +616,8 @@ const Calculator = () => {
         </div>
       </div>
     </div>
-  </section>
-);
+   </section>
+  );
 };
 
 export default Calculator;
