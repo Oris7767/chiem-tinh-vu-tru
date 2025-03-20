@@ -1,4 +1,3 @@
-
 import { useState, useRef } from 'react';
 import { 
   calculateNameNumber, calculateBirthNumber, calculateLifeNumber,
@@ -60,27 +59,18 @@ const Calculator = () => {
     setIsCalculating(true);
     setShowResult(false);
     
-    // Add console logs to debug
-    console.log("Starting calculation with:", { name, day, month, year });
-    
-    try {
-      // Immediately calculate instead of using setTimeout which might cause issues
+    setTimeout(() => {
       const nameNum = calculateNameNumber(name);
-      console.log("Name calculation result:", nameNum);
-      
       const birthNum = calculateBirthNumber(
         parseInt(day),
         parseInt(month),
         parseInt(year)
       );
-      console.log("Birth calculation result:", birthNum);
-      
       const lifeNum = calculateLifeNumber(
         parseInt(day),
         parseInt(month),
         parseInt(year)
       );
-      console.log("Life calculation result:", lifeNum);
       
       setResult({
         nameNumber: nameNum,
@@ -96,10 +86,7 @@ const Calculator = () => {
           resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 300);
       }
-    } catch (error) {
-      console.error("Error during calculation:", error);
-      setIsCalculating(false);
-    }
+    }, 1500);
   };
 
   const getMeaning = (number: number) => {
@@ -107,20 +94,14 @@ const Calculator = () => {
   };
 
   const getDetailedDescription = (number: number, lang: 'en' | 'vi'): string => {
-    try {
-      const { getDetailedMeaning } = require('../utils/numberDetailedMeanings');
-      const detailedMeaning = getDetailedMeaning(number);
-      
-      if (detailedMeaning && detailedMeaning.description && detailedMeaning.description[lang]) {
-        return detailedMeaning.description[lang];
-      }
-      
-      // Fallback to basic meaning if detailed one is not available
-      return getMeaning(reduceToPythagoras(number).finalNumber).description;
-    } catch (error) {
-      console.error("Error getting detailed description:", error);
-      return "Description not available";
+    const { getDetailedMeaning } = require('../utils/numberDetailedMeanings');
+    const detailedMeaning = getDetailedMeaning(number);
+    
+    if (detailedMeaning) {
+      return detailedMeaning.description[lang];
     }
+    
+    return getMeaning(reduceToPythagoras(number).finalNumber).description;
   };
 
   const renderScoreBar = (score: number, label: string, icon: React.ReactNode) => (
