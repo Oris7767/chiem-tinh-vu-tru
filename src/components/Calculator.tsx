@@ -1,4 +1,3 @@
-
 import { useState, useRef } from 'react';
 import { 
   calculateNameNumber, calculateBirthNumber, calculateLifeNumber,
@@ -12,6 +11,7 @@ import {
   Users, TrendingUp, Briefcase, Award, 
   Compass, Zap 
 } from 'lucide-react';
+import { getDescription } from '../utils/numberDetailedMeanings';
 
 interface CalculationResult {
   nameNumber: {
@@ -60,11 +60,9 @@ const Calculator = () => {
     setIsCalculating(true);
     setShowResult(false);
     
-    // Add console logs to debug
     console.log("Starting calculation with:", { name, day, month, year });
     
     try {
-      // Immediately calculate instead of using setTimeout which might cause issues
       const nameNum = calculateNameNumber(name);
       console.log("Name calculation result:", nameNum);
       
@@ -108,18 +106,15 @@ const Calculator = () => {
 
   const getDetailedDescription = (number: number, lang: 'en' | 'vi'): string => {
     try {
-      const { getDetailedMeaning } = require('../utils/numberDetailedMeanings');
-      const detailedMeaning = getDetailedMeaning(number);
-      
-      if (detailedMeaning && detailedMeaning.description && detailedMeaning.description[lang]) {
-        return detailedMeaning.description[lang];
+      const description = getDescription(number, lang);
+      if (description && description !== "Description not available" && description !== "Mô tả không có sẵn") {
+        return description;
       }
       
-      // Fallback to basic meaning if detailed one is not available
       return getMeaning(reduceToPythagoras(number).finalNumber).description;
     } catch (error) {
       console.error("Error getting detailed description:", error);
-      return "Description not available";
+      return lang === 'en' ? "Description not available" : "Mô tả không có sẵn";
     }
   };
 
@@ -644,3 +639,4 @@ const Calculator = () => {
 };
 
 export default Calculator;
+
