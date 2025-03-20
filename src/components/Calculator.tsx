@@ -11,6 +11,7 @@ import {
   Users, TrendingUp, Briefcase, Award, 
   Compass, Zap 
 } from 'lucide-react';
+import { getDescription } from '../utils/numberDetailedMeanings';
 
 interface CalculationResult {
   nameNumber: {
@@ -59,18 +60,25 @@ const Calculator = () => {
     setIsCalculating(true);
     setShowResult(false);
     
-    setTimeout(() => {
+    console.log("Starting calculation with:", { name, day, month, year });
+    
+    try {
       const nameNum = calculateNameNumber(name);
+      console.log("Name calculation result:", nameNum);
+      
       const birthNum = calculateBirthNumber(
         parseInt(day),
         parseInt(month),
         parseInt(year)
       );
+      console.log("Birth calculation result:", birthNum);
+      
       const lifeNum = calculateLifeNumber(
         parseInt(day),
         parseInt(month),
         parseInt(year)
       );
+      console.log("Life calculation result:", lifeNum);
       
       setResult({
         nameNumber: nameNum,
@@ -86,7 +94,10 @@ const Calculator = () => {
           resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 300);
       }
-    }, 1500);
+    } catch (error) {
+      console.error("Error during calculation:", error);
+      setIsCalculating(false);
+    }
   };
 
   const getMeaning = (number: number) => {
@@ -94,14 +105,17 @@ const Calculator = () => {
   };
 
   const getDetailedDescription = (number: number, lang: 'en' | 'vi'): string => {
-    const { getDetailedMeaning } = require('../utils/numberDetailedMeanings');
-    const detailedMeaning = getDetailedMeaning(number);
-    
-    if (detailedMeaning) {
-      return detailedMeaning.description[lang];
+    try {
+      const description = getDescription(number, lang);
+      if (description && description !== "Description not available" && description !== "Mô tả không có sẵn") {
+        return description;
+      }
+      
+      return getMeaning(reduceToPythagoras(number).finalNumber).description;
+    } catch (error) {
+      console.error("Error getting detailed description:", error);
+      return lang === 'en' ? "Description not available" : "Mô tả không có sẵn";
     }
-    
-    return getMeaning(reduceToPythagoras(number).finalNumber).description;
   };
 
   const renderScoreBar = (score: number, label: string, icon: React.ReactNode) => (
@@ -625,3 +639,4 @@ const Calculator = () => {
 };
 
 export default Calculator;
+
