@@ -31,14 +31,9 @@ export const getNestedTranslation = (obj: any, path: string): string => {
 export const getLocalizedContent = (content: any, language: Language, fallback: string = ""): string => {
   if (!content) return fallback;
   
-  // For Vietnamese language
-  if (language === 'vi') {
-    if (content && typeof content === 'string' && content.trim() !== '') {
-      return content; // Return Vietnamese content if it exists
-    }
-    return fallback || ''; // Return fallback if Vietnamese content is empty
+  if (language === 'vi' && fallback) {
+    return fallback;
   }
   
-  // For English language
-  return fallback || '';
+  return content.toString() || fallback;
 };
