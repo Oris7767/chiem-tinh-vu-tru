@@ -1,3 +1,4 @@
+
 // Type definitions for numerology data
 export enum PlanetName {
   Sun = "Sun",
@@ -37,9 +38,7 @@ export interface NumberMeaning {
   strengths: string[];
   challenges: string[];
   career: string;
-  career_vi?: string; // Add as optional
   relationships: string;
-  relationships_vi?: string; // Add as optional
 }
 
 // Number data
