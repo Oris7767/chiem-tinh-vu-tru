@@ -26,3 +26,19 @@ export const getNestedTranslation = (obj: any, path: string): string => {
   
   return typeof result === 'string' ? result : path;
 };
+
+// Helper function to get localized content based on language
+export const getLocalizedContent = (content: any, language: Language, fallback: string = ""): string => {
+  if (!content) return fallback;
+  
+  // For Vietnamese language
+  if (language === 'vi') {
+    if (content && typeof content === 'string' && content.trim() !== '') {
+      return content; // Return Vietnamese content if it exists
+    }
+    return fallback || ''; // Return fallback if Vietnamese content is empty
+  }
+  
+  // For English language
+  return fallback || '';
+};
