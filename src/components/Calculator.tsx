@@ -297,7 +297,6 @@ const Calculator = () => {
                           {getMeaning(result.birthNumber.finalNumber).planet}
                         </div>
                       </div>
-                      
                       <div className="bg-gray-50 rounded-lg p-4 w-full max-w-sm">
                         <h4 className="text-sm font-medium text-gray-700 mb-2">{t('result.steps')}</h4>
                         <div className="text-xs text-gray-600 space-y-1">
@@ -328,41 +327,20 @@ const Calculator = () => {
                         </p>
                       </div>
                       
-                      <p>
-                        {language === 'en' ? 
-                          `A person with birth number ${result.birthNumber.finalNumber} may be blessed with ` : 
-                          `Người có số sinh ${result.birthNumber.finalNumber} có thể được ban phước với `}
-                        <span className="text-green-600 font-medium">
-                          {language === 'en' ? 'abundant riches' : 'tài sản dồi dào'}
-                        </span>. 
-                        {language === 'en' ? 
-                          'Their achievements and fame may spread far and wide, often becoming the ' : 
-                          'Thành tựu và danh tiếng của họ có thể lan rộng khắp nơi, thường trở thành '}
-                        <span className="text-green-600 font-medium">
-                          {language === 'en' ? 'envy of others' : 'sự ghen tị của người khác'}
-                        </span>. 
-                        {language === 'en' ?
-                          'They may lead eventful, dynamic lives, often involving a lot of ' :
-                          'Họ có thể sống một cuộc sống sôi động và đầy biến cố, thường xuyên '}
-                        <span className="text-green-600 font-medium">
-                          {language === 'en' ? 'travel' : 'du lịch'}
-                        </span>.
-                      </p>
-                      
                       <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).finance, t('aspect.finance'), <Banknote className="w-5 h-5 text-green-600" />)}
-                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).romance, t('aspect.romance'), <Heart className="w-5 h-5 text-red-500" />)}
-                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).education, t('aspect.education'), <GraduationCap className="w-5 h-5 text-blue-500" />)}
-                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).health, t('aspect.health'), <Activity className="w-5 h-5 text-purple-500" />)}
-                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).family, t('aspect.family'), <Users className="w-5 h-5 text-orange-500" />)}
+                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).finance, t('aspect.finance'), <Banknote className="w-8 h-8 text-green-600" />)}
+                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).romance, t('aspect.romance'), <Heart className="w-8 h-8 text-red-500" />)}
+                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).education, t('aspect.education'), <GraduationCap className="w-8 h-8 text-blue-500" />)}
+                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).health, t('aspect.health'), <Activity className="w-8 h-8 text-purple-500" />)}
+                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).family, t('aspect.family'), <Users className="w-8 h-8 text-orange-500" />)}
                       </div>
                       
-                      <div className="grid grid-cols-5 gap-4">
-                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).growth, t('aspect.growth'), <TrendingUp className="w-5 h-5 text-teal-500" />)}
-                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).career_score, t('aspect.career'), <Briefcase className="w-5 h-5 text-indigo-500" />)}
-                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).reputation, t('aspect.reputation'), <Award className="w-5 h-5 text-yellow-600" />)}
-                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).spirituality, t('aspect.spirituality'), <Compass className="w-5 h-5 text-cyan-600" />)}
-                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).luck, t('aspect.luck'), <Zap className="w-5 h-5 text-amber-500" />)}
+                      <div className="grid grid-cols-5 gap-4 pb-6">
+                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).growth, t('aspect.growth'), <TrendingUp className="w-8 h-8 text-teal-500" />)}
+                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).career_score, t('aspect.career'), <Briefcase className="w-8 h-8 text-indigo-500" />)}
+                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).reputation, t('aspect.reputation'), <Award className="w-8 h-8 text-yellow-600" />)}
+                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).spirituality, t('aspect.spirituality'), <Compass className="w-8 h-8 text-cyan-600" />)}
+                        {renderScoreBar(getMeaning(result.birthNumber.finalNumber).luck, t('aspect.luck'), <Zap className="w-8 h-8 text-amber-500" />)}
                       </div>
                       
                       <div className="grid md:grid-cols-2 gap-6 pt-2">
@@ -394,14 +372,18 @@ const Calculator = () => {
                       <div className="border-t border-gray-200 pt-6 mt-6">
                         <h4 className="font-medium text-gray-900 mb-3">{t('section.career')}</h4>
                         <p className="text-gray-700">
-                          {getMeaning(result.birthNumber.finalNumber).career}
+                          {language === 'vi' && getMeaning(result.birthNumber.finalNumber).career_vi
+                            ? getMeaning(result.birthNumber.finalNumber).career_vi
+                            : getMeaning(result.birthNumber.finalNumber).career}
                         </p>
                       </div>
                       
                       <div className="border-t border-gray-200 pt-6">
                         <h4 className="font-medium text-gray-900 mb-3">{t('section.relationships')}</h4>
                         <p className="text-gray-700">
-                          {getMeaning(result.birthNumber.finalNumber).relationships}
+                          {language === 'vi' && getMeaning(result.birthNumber.finalNumber).relationships_vi
+                            ? getMeaning(result.birthNumber.finalNumber).relationships_vi
+                            : getMeaning(result.birthNumber.finalNumber).relationships}
                         </p>
                       </div>
                     </div>
@@ -452,41 +434,20 @@ const Calculator = () => {
                         </p>
                       </div>
                       
-                      <p>
-                        {language === 'en' ? 
-                          `A person with name number ${result.nameNumber.finalNumber} may be blessed with ` : 
-                          `Người có số tên ${result.nameNumber.finalNumber} có thể được ban phước với `}
-                        <span className="text-green-600 font-medium">
-                          {language === 'en' ? 'abundant riches' : 'tài sản dồi dào'}
-                        </span>. 
-                        {language === 'en' ? 
-                          'Their achievements and fame may spread far and wide, often becoming the ' : 
-                          'Thành tựu và danh tiếng của họ có thể lan rộng khắp nơi, thường trở thành '}
-                        <span className="text-green-600 font-medium">
-                          {language === 'en' ? 'envy of others' : 'sự ghen tị của người khác'}
-                        </span>. 
-                        {language === 'en' ?
-                          'They may lead eventful, dynamic lives, often involving a lot of ' :
-                          'Họ có thể sống một cuộc sống sôi động và đầy biến cố, thường xuyên '}
-                        <span className="text-green-600 font-medium">
-                          {language === 'en' ? 'travel' : 'du lịch'}
-                        </span>.
-                      </p>
-                      
                       <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).finance, t('aspect.finance'), <Banknote className="w-5 h-5 text-green-600" />)}
-                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).romance, t('aspect.romance'), <Heart className="w-5 h-5 text-red-500" />)}
-                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).education, t('aspect.education'), <GraduationCap className="w-5 h-5 text-blue-500" />)}
-                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).health, t('aspect.health'), <Activity className="w-5 h-5 text-purple-500" />)}
-                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).family, t('aspect.family'), <Users className="w-5 h-5 text-orange-500" />)}
+                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).finance, t('aspect.finance'), <Banknote className="w-8 h-8 text-green-600" />)}
+                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).romance, t('aspect.romance'), <Heart className="w-8 h-8 text-red-500" />)}
+                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).education, t('aspect.education'), <GraduationCap className="w-8 h-8 text-blue-500" />)}
+                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).health, t('aspect.health'), <Activity className="w-8 h-8 text-purple-500" />)}
+                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).family, t('aspect.family'), <Users className="w-8 h-8 text-orange-500" />)}
                       </div>
                       
-                      <div className="grid grid-cols-5 gap-4">
-                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).growth, t('aspect.growth'), <TrendingUp className="w-5 h-5 text-teal-500" />)}
-                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).career_score, t('aspect.career'), <Briefcase className="w-5 h-5 text-indigo-500" />)}
-                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).reputation, t('aspect.reputation'), <Award className="w-5 h-5 text-yellow-600" />)}
-                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).spirituality, t('aspect.spirituality'), <Compass className="w-5 h-5 text-cyan-600" />)}
-                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).luck, t('aspect.luck'), <Zap className="w-5 h-5 text-amber-500" />)}
+                      <div className="grid grid-cols-5 gap-4 pb-6">
+                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).growth, t('aspect.growth'), <TrendingUp className="w-8 h-8 text-teal-500" />)}
+                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).career_score, t('aspect.career'), <Briefcase className="w-8 h-8 text-indigo-500" />)}
+                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).reputation, t('aspect.reputation'), <Award className="w-8 h-8 text-yellow-600" />)}
+                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).spirituality, t('aspect.spirituality'), <Compass className="w-8 h-8 text-cyan-600" />)}
+                        {renderScoreBar(getMeaning(result.nameNumber.finalNumber).luck, t('aspect.luck'), <Zap className="w-8 h-8 text-amber-500" />)}
                       </div>
                       
                       <div className="grid md:grid-cols-2 gap-6 pt-2">
@@ -513,6 +474,24 @@ const Calculator = () => {
                             ))}
                           </ul>
                         </div>
+                      </div>
+                      
+                      <div className="border-t border-gray-200 pt-6 mt-6">
+                        <h4 className="font-medium text-gray-900 mb-3">{t('section.career')}</h4>
+                        <p className="text-gray-700">
+                          {language === 'vi' && getMeaning(result.nameNumber.finalNumber).career_vi
+                            ? getMeaning(result.nameNumber.finalNumber).career_vi
+                            : getMeaning(result.nameNumber.finalNumber).career}
+                        </p>
+                      </div>
+                      
+                      <div className="border-t border-gray-200 pt-6">
+                        <h4 className="font-medium text-gray-900 mb-3">{t('section.relationships')}</h4>
+                        <p className="text-gray-700">
+                          {language === 'vi' && getMeaning(result.nameNumber.finalNumber).relationships_vi
+                            ? getMeaning(result.nameNumber.finalNumber).relationships_vi
+                            : getMeaning(result.nameNumber.finalNumber).relationships}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -562,35 +541,20 @@ const Calculator = () => {
                         </p>
                       </div>
                       
-                      <p>
-                        {language === 'en' ? 
-                          `Life number ${result.lifeNumber.finalNumber} represents the complete sum of your birth date. ` : 
-                          `Số cuộc đời ${result.lifeNumber.finalNumber} thể hiện tổng hoàn chỉnh của ngày sinh của bạn. `}
-                        {language === 'en' ? 
-                          `People with this life number may be blessed with ` : 
-                          `Người có số cuộc đời này có thể được ban phước với `}
-                        <span className="text-green-600 font-medium">
-                          {language === 'en' ? 'abundant riches' : 'tài sản dồi dào'}
-                        </span>. 
-                        {language === 'en' ? 
-                          'Their achievements and fame may spread far and wide, and they may lead eventful, dynamic lives.' : 
-                          'Thành tựu và danh tiếng của họ có thể lan rộng khắp nơi, và họ có thể sống một cuộc sống sôi động và đầy biến cố.'}
-                      </p>
-                      
                       <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).finance, t('aspect.finance'), <Banknote className="w-5 h-5 text-green-600" />)}
-                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).romance, t('aspect.romance'), <Heart className="w-5 h-5 text-red-500" />)}
-                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).education, t('aspect.education'), <GraduationCap className="w-5 h-5 text-blue-500" />)}
-                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).health, t('aspect.health'), <Activity className="w-5 h-5 text-purple-500" />)}
-                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).family, t('aspect.family'), <Users className="w-5 h-5 text-orange-500" />)}
+                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).finance, t('aspect.finance'), <Banknote className="w-8 h-8 text-green-600" />)}
+                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).romance, t('aspect.romance'), <Heart className="w-8 h-8 text-red-500" />)}
+                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).education, t('aspect.education'), <GraduationCap className="w-8 h-8 text-blue-500" />)}
+                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).health, t('aspect.health'), <Activity className="w-8 h-8 text-purple-500" />)}
+                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).family, t('aspect.family'), <Users className="w-8 h-8 text-orange-500" />)}
                       </div>
                       
-                      <div className="grid grid-cols-5 gap-4">
-                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).growth, t('aspect.growth'), <TrendingUp className="w-5 h-5 text-teal-500" />)}
-                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).career_score, t('aspect.career'), <Briefcase className="w-5 h-5 text-indigo-500" />)}
-                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).reputation, t('aspect.reputation'), <Award className="w-5 h-5 text-yellow-600" />)}
-                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).spirituality, t('aspect.spirituality'), <Compass className="w-5 h-5 text-cyan-600" />)}
-                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).luck, t('aspect.luck'), <Zap className="w-5 h-5 text-amber-500" />)}
+                      <div className="grid grid-cols-5 gap-4 pb-6">
+                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).growth, t('aspect.growth'), <TrendingUp className="w-8 h-8 text-teal-500" />)}
+                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).career_score, t('aspect.career'), <Briefcase className="w-8 h-8 text-indigo-500" />)}
+                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).reputation, t('aspect.reputation'), <Award className="w-8 h-8 text-yellow-600" />)}
+                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).spirituality, t('aspect.spirituality'), <Compass className="w-8 h-8 text-cyan-600" />)}
+                        {renderScoreBar(getMeaning(result.lifeNumber.finalNumber).luck, t('aspect.luck'), <Zap className="w-8 h-8 text-amber-500" />)}
                       </div>
                       
                       <div className="grid md:grid-cols-2 gap-6 pt-2">
@@ -617,6 +581,24 @@ const Calculator = () => {
                             ))}
                           </ul>
                         </div>
+                      </div>
+                      
+                      <div className="border-t border-gray-200 pt-6 mt-6">
+                        <h4 className="font-medium text-gray-900 mb-3">{t('section.career')}</h4>
+                        <p className="text-gray-700">
+                          {language === 'vi' && getMeaning(result.lifeNumber.finalNumber).career_vi
+                            ? getMeaning(result.lifeNumber.finalNumber).career_vi
+                            : getMeaning(result.lifeNumber.finalNumber).career}
+                        </p>
+                      </div>
+                      
+                      <div className="border-t border-gray-200 pt-6">
+                        <h4 className="font-medium text-gray-900 mb-3">{t('section.relationships')}</h4>
+                        <p className="text-gray-700">
+                          {language === 'vi' && getMeaning(result.lifeNumber.finalNumber).relationships_vi
+                            ? getMeaning(result.lifeNumber.finalNumber).relationships_vi
+                            : getMeaning(result.lifeNumber.finalNumber).relationships}
+                        </p>
                       </div>
                       
                       <div className="border-t border-gray-200 pt-6 mt-6">
