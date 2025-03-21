@@ -25,6 +25,20 @@ const NumberDetailSection = ({
 }: NumberDetailSectionProps) => {
   const { t, language } = useLanguage();
   
+  // Helper function to get localized arrays with fallback
+  const getLocalizedArray = (array: string[], fallbackArray: string[] = []): string[] => {
+    if (language === 'vi') {
+      // If we have Vietnamese translations for this array, use them
+      const viArray = meaning[`${array === meaning.strengths ? 'strengths' : 'challenges'}_vi`] as string[] | undefined;
+      return viArray && viArray.length > 0 ? viArray : fallbackArray;
+    }
+    return array;
+  };
+  
+  // Get localized strengths and challenges
+  const localizedStrengths = getLocalizedArray(meaning.strengths);
+  const localizedChallenges = getLocalizedArray(meaning.challenges);
+  
   return (
     <div className="text-gray-700 leading-relaxed">
       <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-100">
@@ -58,7 +72,7 @@ const NumberDetailSection = ({
         <div>
           <h4 className="font-medium text-gray-900 mb-3">{t('section.strengths')}</h4>
           <ul className="space-y-2">
-            {meaning.strengths.map((strength, index) => (
+            {localizedStrengths.map((strength, index) => (
               <li key={index} className="flex items-start">
                 <span className="text-primary mr-2">•</span>
                 <span>{strength}</span>
@@ -70,7 +84,7 @@ const NumberDetailSection = ({
         <div>
           <h4 className="font-medium text-gray-900 mb-3">{t('section.challenges')}</h4>
           <ul className="space-y-2">
-            {meaning.challenges.map((challenge, index) => (
+            {localizedChallenges.map((challenge, index) => (
               <li key={index} className="flex items-start">
                 <span className="text-primary mr-2">•</span>
                 <span>{challenge}</span>
