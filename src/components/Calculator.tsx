@@ -14,6 +14,7 @@ import {
 import { getDescription } from '../utils/numberDetailedMeanings';
 import { getCareerDescription } from '../utils/careerMeanings';
 import { getRelationshipDescription } from '../utils/relationshipMeanings';
+import { getStrengths, getChallenges } from '../utils/strengthsAndChallenges';
 
 interface CalculationResult {
   nameNumber: {
@@ -299,6 +300,7 @@ const Calculator = () => {
                           {t(`number.${result.birthNumber.finalNumber}.planet`)}
                         </div>
                       </div>
+                      
                       <div className="bg-gray-50 rounded-lg p-4 w-full max-w-sm">
                         <h4 className="text-sm font-medium text-gray-700 mb-2">{t('result.steps')}</h4>
                         <div className="text-xs text-gray-600 space-y-1">
@@ -349,36 +351,24 @@ const Calculator = () => {
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.strengths')}</h4>
                           <ul className="space-y-2">
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Leadership</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Creativity</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Confidence</span>
-                            </li>
+                            {getStrengths(result.birthNumber.finalNumber, language as 'en' | 'vi').map((strength, index) => (
+                              <li key={index} className="flex items-start">
+                                <span className="text-primary mr-2">•</span>
+                                <span>{strength}</span>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                         
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.challenges')}</h4>
                           <ul className="space-y-2">
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Impatience</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Stubbornness</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Ego</span>
-                            </li>
+                            {getChallenges(result.birthNumber.finalNumber, language as 'en' | 'vi').map((challenge, index) => (
+                              <li key={index} className="flex items-start">
+                                <span className="text-primary mr-2">•</span>
+                                <span>{challenge}</span>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       </div>
@@ -464,36 +454,24 @@ const Calculator = () => {
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.strengths')}</h4>
                           <ul className="space-y-2">
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Leadership</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Creativity</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Confidence</span>
-                            </li>
+                            {getStrengths(result.nameNumber.finalNumber, language as 'en' | 'vi').map((strength, index) => (
+                              <li key={index} className="flex items-start">
+                                <span className="text-primary mr-2">•</span>
+                                <span>{strength}</span>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                         
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.challenges')}</h4>
                           <ul className="space-y-2">
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Impatience</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Stubbornness</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Ego</span>
-                            </li>
+                            {getChallenges(result.nameNumber.finalNumber, language as 'en' | 'vi').map((challenge, index) => (
+                              <li key={index} className="flex items-start">
+                                <span className="text-primary mr-2">•</span>
+                                <span>{challenge}</span>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       </div>
@@ -579,36 +557,24 @@ const Calculator = () => {
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.strengths')}</h4>
                           <ul className="space-y-2">
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Leadership</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Creativity</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Confidence</span>
-                            </li>
+                            {getStrengths(result.lifeNumber.finalNumber, language as 'en' | 'vi').map((strength, index) => (
+                              <li key={index} className="flex items-start">
+                                <span className="text-primary mr-2">•</span>
+                                <span>{strength}</span>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                         
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.challenges')}</h4>
                           <ul className="space-y-2">
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Impatience</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Stubbornness</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-primary mr-2">•</span>
-                              <span>Ego</span>
-                            </li>
+                            {getChallenges(result.lifeNumber.finalNumber, language as 'en' | 'vi').map((challenge, index) => (
+                              <li key={index} className="flex items-start">
+                                <span className="text-primary mr-2">•</span>
+                                <span>{challenge}</span>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       </div>
