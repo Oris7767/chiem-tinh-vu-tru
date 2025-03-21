@@ -1,4 +1,3 @@
-
 import { useState, useRef } from 'react';
 import { 
   calculateNameNumber, calculateBirthNumber, calculateLifeNumber,
@@ -112,9 +111,7 @@ const Calculator = () => {
         return description;
       }
       
-      // Use shortDescription as fallback instead of undefined 'description' property
-      const meaning = getMeaning(reduceToPythagoras(number).finalNumber);
-      return lang === 'en' ? meaning.shortDescription : meaning.shortDescription;
+      return t(`number.${reduceToPythagoras(number).finalNumber}.shortDescription`);
     } catch (error) {
       console.error("Error getting detailed description:", error);
       return lang === 'en' ? "Description not available" : "Mô tả không có sẵn";
@@ -350,7 +347,6 @@ const Calculator = () => {
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.strengths')}</h4>
                           <ul className="space-y-2">
-                            {/* Use static strengths since they're not available in the data */}
                             <li className="flex items-start">
                               <span className="text-primary mr-2">•</span>
                               <span>Leadership</span>
@@ -369,7 +365,6 @@ const Calculator = () => {
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.challenges')}</h4>
                           <ul className="space-y-2">
-                            {/* Use static challenges since they're not available in the data */}
                             <li className="flex items-start">
                               <span className="text-primary mr-2">•</span>
                               <span>Impatience</span>
@@ -467,7 +462,6 @@ const Calculator = () => {
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.strengths')}</h4>
                           <ul className="space-y-2">
-                            {/* Use static strengths since they're not available in the data */}
                             <li className="flex items-start">
                               <span className="text-primary mr-2">•</span>
                               <span>Leadership</span>
@@ -486,7 +480,6 @@ const Calculator = () => {
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.challenges')}</h4>
                           <ul className="space-y-2">
-                            {/* Use static challenges since they're not available in the data */}
                             <li className="flex items-start">
                               <span className="text-primary mr-2">•</span>
                               <span>Impatience</span>
@@ -584,7 +577,6 @@ const Calculator = () => {
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.strengths')}</h4>
                           <ul className="space-y-2">
-                            {/* Use static strengths since they're not available in the data */}
                             <li className="flex items-start">
                               <span className="text-primary mr-2">•</span>
                               <span>Leadership</span>
@@ -603,7 +595,6 @@ const Calculator = () => {
                         <div>
                           <h4 className="font-medium text-gray-900 mb-3">{t('section.challenges')}</h4>
                           <ul className="space-y-2">
-                            {/* Use static challenges since they're not available in the data */}
                             <li className="flex items-start">
                               <span className="text-primary mr-2">•</span>
                               <span>Impatience</span>
