@@ -1,5 +1,3 @@
-
-// Type definitions for numerology data
 export enum PlanetName {
   Sun = "Sun",
   Moon = "Moon",
@@ -17,311 +15,1894 @@ export enum LifeAspect {
   Romance = "Romance",
   Education = "Education",
   Health = "Health",
-  Family = "Family"
+  Family = "Family",
+  Growth = "Growth",
+  Career = "Career",
+  Reputation = "Reputation",
+  Spirituality = "Spirituality",
+  Luck = "Luck"
 }
 
 export interface NumberMeaning {
   number: number;
-  planet: string;
-  title: string;
-  description: string;
-  finance: number;
-  romance: number;
-  education: number;
-  health: number;
-  family: number;
-  growth: number;
-  career_score: number;
-  reputation: number;
-  spirituality: number;
-  luck: number;
-  strengths: string[];
-  challenges: string[];
-  career: string;
-  relationships: string;
+  planetName: PlanetName;
+  lifeAspects: Record<LifeAspect, number>;
 }
 
-// Number data
+// Function to get planet name based on number
+export const getPlanetForNumber = (num: number): PlanetName => {
+  // Reduce to a single digit or master number
+  let reduced = num;
+  while (reduced > 9) {
+    reduced = Array.from(String(reduced), Number).reduce((a, b) => a + b, 0);
+  }
+
+  // Based on original Vedic numerology
+  switch (reduced) {
+    case 1: return PlanetName.Sun;
+    case 2: return PlanetName.Moon;
+    case 3: return PlanetName.Jupiter;
+    case 4: return PlanetName.Rahu;
+    case 5: return PlanetName.Mercury;
+    case 6: return PlanetName.Venus;
+    case 7: return PlanetName.Ketu;
+    case 8: return PlanetName.Saturn;
+    case 9: return PlanetName.Mars;
+    default: return PlanetName.Sun; // Default case
+  }
+};
+
+// Function to get life aspects for a number based on the data
+export const getLifeAspectsForNumber = (num: number): Record<LifeAspect, number> => {
+  // Find the number in our detailed meanings
+  const numberData = numberMeanings.find(item => item.number === num);
+  
+  if (numberData) {
+    return numberData.lifeAspects;
+  }
+  
+  // Default values if not found
+  return {
+    [LifeAspect.Finance]: 50,
+    [LifeAspect.Romance]: 50,
+    [LifeAspect.Education]: 50,
+    [LifeAspect.Health]: 50,
+    [LifeAspect.Family]: 50,
+    [LifeAspect.Growth]: 50,
+    [LifeAspect.Career]: 50,
+    [LifeAspect.Reputation]: 50,
+    [LifeAspect.Spirituality]: 50,
+    [LifeAspect.Luck]: 50
+  };
+};
+
+// Data for all number meanings with associated aspects based on Vedic numerology
 export const numberMeanings: NumberMeaning[] = [
+  // SUN (1) numbers - 1, 10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100
   {
     number: 1,
-    planet: "Sun",
-    title: "The Sun",
-    description: "Number 1 is ruled by the Sun. People with this number are natural leaders, ambitious and independent. They are creative, original, and have strong willpower.",
-    finance: 80,
-    romance: 60,
-    education: 70,
-    health: 75,
-    family: 65,
-    growth: 85,
-    career_score: 90,
-    reputation: 80,
-    spirituality: 60,
-    luck: 75,
-    strengths: ["Leadership", "Creativity", "Confidence", "Independence", "Determination"],
-    challenges: ["Ego issues", "Domineering tendencies", "Stubbornness", "Impatience"],
-    career: "Number 1 individuals excel in leadership positions, entrepreneurship, management, and creative fields. They make excellent CEOs, directors, managers, artists, and inventors.",
-    relationships: "In relationships, number 1 individuals are protective and loyal. They need partners who respect their independence and ambition. They can be passionate and devoted but sometimes need to work on patience and compromise."
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 70,
+      [LifeAspect.Family]: 60,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 70
+    }
   },
+  {
+    number: 10,
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 20,
+      [LifeAspect.Education]: 10,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 60,
+      [LifeAspect.Growth]: 70,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 85,
+      [LifeAspect.Spirituality]: 50,
+      [LifeAspect.Luck]: 60
+    }
+  },
+  {
+    number: 19,
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 90,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 80
+    }
+  },
+  {
+    number: 28,
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 20,
+      [LifeAspect.Romance]: 10,
+      [LifeAspect.Education]: 40,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 30,
+      [LifeAspect.Growth]: 40,
+      [LifeAspect.Career]: 30,
+      [LifeAspect.Reputation]: 20,
+      [LifeAspect.Spirituality]: 30,
+      [LifeAspect.Luck]: 10
+    }
+  },
+  {
+    number: 37,
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 80,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 85,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 80
+    }
+  },
+  {
+    number: 46,
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 70,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 90,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 85
+    }
+  },
+  {
+    number: 55,
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 90,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 85,
+      [LifeAspect.Spirituality]: 80,
+      [LifeAspect.Luck]: 75
+    }
+  },
+  {
+    number: 64,
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 73,
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 80,
+      [LifeAspect.Reputation]: 85,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 75
+    }
+  },
+  {
+    number: 82,
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 90,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 85
+    }
+  },
+  {
+    number: 91,
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 100,
+    planetName: PlanetName.Sun,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 60,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 60,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 50,
+      [LifeAspect.Luck]: 55
+    }
+  },
+  
+  // MOON (2) numbers - 2, 11, 20, 29, 38, 47, 56, 65, 74, 83, 92, 101
   {
     number: 2,
-    planet: "Moon",
-    title: "The Moon",
-    description: "Number 2 is ruled by the Moon. These individuals are diplomatic, sensitive, and cooperative. They excel at partnerships and are natural peacemakers.",
-    finance: 65,
-    romance: 85,
-    education: 70,
-    health: 70,
-    family: 90,
-    growth: 75,
-    career_score: 70,
-    reputation: 75,
-    spirituality: 80,
-    luck: 70,
-    strengths: ["Diplomacy", "Cooperation", "Sensitivity", "Intuition", "Harmony"],
-    challenges: ["Oversensitivity", "Indecisiveness", "Dependency", "Mood swings"],
-    career: "Number 2 individuals thrive in cooperative environments such as counseling, teaching, nursing, social work, customer service, and team-based projects. They excel as mediators and in support roles.",
-    relationships: "In relationships, number 2 individuals are caring, romantic, and dedicated. They seek harmony and emotional connection, making them loyal and attentive partners. They may need reassurance and should avoid becoming overly dependent."
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 80,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 65
+    }
   },
+  {
+    number: 11,
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 85,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 20,
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 55,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 60,
+      [LifeAspect.Reputation]: 70,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 45
+    }
+  },
+  {
+    number: 29,
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 20,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 20,
+      [LifeAspect.Growth]: 40,
+      [LifeAspect.Career]: 30,
+      [LifeAspect.Reputation]: 25,
+      [LifeAspect.Spirituality]: 30,
+      [LifeAspect.Luck]: 20
+    }
+  },
+  {
+    number: 38,
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 70,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 60
+    }
+  },
+  {
+    number: 47,
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 80,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 80
+    }
+  },
+  {
+    number: 56,
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 30,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 20,
+      [LifeAspect.Family]: 35,
+      [LifeAspect.Growth]: 30,
+      [LifeAspect.Career]: 40,
+      [LifeAspect.Reputation]: 35,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 25
+    }
+  },
+  {
+    number: 65,
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 85,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 74,
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 30,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 20,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 40,
+      [LifeAspect.Career]: 35,
+      [LifeAspect.Reputation]: 50,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 25
+    }
+  },
+  {
+    number: 83,
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 85,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 90,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 80
+    }
+  },
+  {
+    number: 92,
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 85,
+      [LifeAspect.Luck]: 75
+    }
+  },
+  {
+    number: 101,
+    planetName: PlanetName.Moon,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 30,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 20,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 40,
+      [LifeAspect.Career]: 30,
+      [LifeAspect.Reputation]: 35,
+      [LifeAspect.Spirituality]: 45,
+      [LifeAspect.Luck]: 20
+    }
+  },
+  
+  // JUPITER (3) numbers - 3, 12, 21, 30, 39, 48, 57, 66, 75, 84, 93, 102
   {
     number: 3,
-    planet: "Jupiter",
-    title: "Jupiter",
-    description: "Number 3 is ruled by Jupiter. These individuals are expressive, optimistic, and creative. They have a natural joy for life and excellent communication skills.",
-    finance: 75,
-    romance: 80,
-    education: 85,
-    health: 70,
-    family: 75,
-    growth: 80,
-    career_score: 75,
-    reputation: 85,
-    spirituality: 75,
-    luck: 90,
-    strengths: ["Communication", "Creativity", "Optimism", "Enthusiasm", "Sociability"],
-    challenges: ["Scattered energy", "Superficiality", "Exaggeration", "Lack of focus"],
-    career: "Number 3 individuals excel in creative and communication-focused careers such as writing, speaking, acting, teaching, marketing, and entertainment. They are often successful in roles that allow self-expression.",
-    relationships: "In relationships, number 3 individuals are charming, entertaining, and bring joy and creativity. They need intellectual stimulation and freedom of expression. They may need to work on deeper emotional connections and consistency."
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 90,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 75
+    }
   },
+  {
+    number: 12,
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 85,
+      [LifeAspect.Growth]: 70,
+      [LifeAspect.Career]: 65,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 21,
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 80
+    }
+  },
+  {
+    number: 30,
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 60,
+      [LifeAspect.Growth]: 70,
+      [LifeAspect.Career]: 55,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 80,
+      [LifeAspect.Luck]: 50
+    }
+  },
+  {
+    number: 39,
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 50,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 60,
+      [LifeAspect.Growth]: 55,
+      [LifeAspect.Career]: 50,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 45
+    }
+  },
+  {
+    number: 48,
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 30,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 20,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 40,
+      [LifeAspect.Career]: 35,
+      [LifeAspect.Reputation]: 50,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 30
+    }
+  },
+  {
+    number: 57,
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 70,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 70,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 65
+    }
+  },
+  {
+    number: 66,
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 85,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 90,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 80
+    }
+  },
+  {
+    number: 75,
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 80,
+      [LifeAspect.Reputation]: 90,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 85
+    }
+  },
+  {
+    number: 84,
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 50,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 55,
+      [LifeAspect.Growth]: 50,
+      [LifeAspect.Career]: 45,
+      [LifeAspect.Reputation]: 60,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 40
+    }
+  },
+  {
+    number: 93,
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 80,
+      [LifeAspect.Reputation]: 85,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 80
+    }
+  },
+  {
+    number: 102,
+    planetName: PlanetName.Jupiter,
+    lifeAspects: {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 55,
+      [LifeAspect.Growth]: 50,
+      [LifeAspect.Career]: 55,
+      [LifeAspect.Reputation]: 60,
+      [LifeAspect.Spirituality]: 55,
+      [LifeAspect.Luck]: 45
+    }
+  },
+  
+  // RAHU (4) numbers - 4, 13, 22, 31, 40, 49, 58, 67, 76, 85, 94, 103
   {
     number: 4,
-    planet: "Rahu",
-    title: "Rahu",
-    description: "Number 4 is influenced by Rahu (North Node). These individuals are practical, methodical, and hard-working. They build solid foundations and value stability.",
-    finance: 70,
-    romance: 60,
-    education: 75,
-    health: 65,
-    family: 80,
-    growth: 65,
-    career_score: 85,
-    reputation: 70,
-    spirituality: 55,
-    luck: 60,
-    strengths: ["Organization", "Reliability", "Practicality", "Determination", "Patience"],
-    challenges: ["Rigidity", "Stubbornness", "Overcautiousness", "Resistance to change"],
-    career: "Number 4 individuals excel in structured environments such as accounting, engineering, architecture, project management, technical fields, and any role requiring attention to detail and systematic thinking.",
-    relationships: "In relationships, number 4 individuals are loyal, stable, and dependable. They seek security and long-term commitment. They show love through practical actions rather than words and need partners who appreciate their reliability and work ethic."
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 30,
+      [LifeAspect.Romance]: 20,
+      [LifeAspect.Education]: 40,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 50,
+      [LifeAspect.Growth]: 40,
+      [LifeAspect.Career]: 60,
+      [LifeAspect.Reputation]: 40,
+      [LifeAspect.Spirituality]: 30,
+      [LifeAspect.Luck]: 20
+    }
   },
+  {
+    number: 13,
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 20,
+      [LifeAspect.Romance]: 10,
+      [LifeAspect.Education]: 30,
+      [LifeAspect.Health]: 20,
+      [LifeAspect.Family]: 30,
+      [LifeAspect.Growth]: 25,
+      [LifeAspect.Career]: 25,
+      [LifeAspect.Reputation]: 20,
+      [LifeAspect.Spirituality]: 25,
+      [LifeAspect.Luck]: 10
+    }
+  },
+  {
+    number: 22,
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 30,
+      [LifeAspect.Romance]: 20,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 20,
+      [LifeAspect.Family]: 25,
+      [LifeAspect.Growth]: 40,
+      [LifeAspect.Career]: 45,
+      [LifeAspect.Reputation]: 30,
+      [LifeAspect.Spirituality]: 20,
+      [LifeAspect.Luck]: 25
+    }
+  },
+  {
+    number: 31,
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 20,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 55,
+      [LifeAspect.Career]: 50,
+      [LifeAspect.Reputation]: 45,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 30
+    }
+  },
+  {
+    number: 40,
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 50,
+      [LifeAspect.Romance]: 30,
+      [LifeAspect.Education]: 40,
+      [LifeAspect.Health]: 20,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 40,
+      [LifeAspect.Career]: 45,
+      [LifeAspect.Reputation]: 50,
+      [LifeAspect.Spirituality]: 30,
+      [LifeAspect.Luck]: 25
+    }
+  },
+  {
+    number: 49,
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 65
+    }
+  },
+  {
+    number: 58,
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 60,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 55,
+      [LifeAspect.Luck]: 60
+    }
+  },
+  {
+    number: 67,
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 60,
+      [LifeAspect.Career]: 55,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 55
+    }
+  },
+  {
+    number: 76,
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 20,
+      [LifeAspect.Education]: 30,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 35,
+      [LifeAspect.Career]: 40,
+      [LifeAspect.Reputation]: 50,
+      [LifeAspect.Spirituality]: 45,
+      [LifeAspect.Luck]: 35
+    }
+  },
+  {
+    number: 85,
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 65
+    }
+  },
+  {
+    number: 94,
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 103,
+    planetName: PlanetName.Rahu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 65,
+      [LifeAspect.Reputation]: 70,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 60
+    }
+  },
+  
+  // MERCURY (5) numbers - 5, 14, 23, 32, 41, 50, 59, 68, 77, 86, 95, 104
   {
     number: 5,
-    planet: "Mercury",
-    title: "Mercury",
-    description: "Number 5 is ruled by Mercury. These individuals are versatile, adventurous, and freedom-loving. They adapt easily to change and seek variety in life.",
-    finance: 75,
-    romance: 80,
-    education: 85,
-    health: 70,
-    family: 65,
-    growth: 90,
-    career_score: 75,
-    reputation: 75,
-    spirituality: 70,
-    luck: 80,
-    strengths: ["Adaptability", "Versatility", "Communication", "Adventurousness", "Resourcefulness"],
-    challenges: ["Restlessness", "Inconsistency", "Fear of commitment", "Overindulgence"],
-    career: "Number 5 individuals thrive in dynamic, changing environments such as travel, sales, public relations, marketing, journalism, and entrepreneurship. They excel in roles that offer variety and freedom.",
-    relationships: "In relationships, number 5 individuals are exciting, spontaneous, and bring adventure. They need space and may fear routine or feeling trapped. They are passionate but require intellectual stimulation and must work on commitment and consistency."
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 60,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 70,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 75
+    }
   },
+  {
+    number: 14,
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 55,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 75
+    }
+  },
+  {
+    number: 23,
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 85,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 85
+    }
+  },
+  {
+    number: 32,
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 90,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 80,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 75
+    }
+  },
+  {
+    number: 41,
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 80,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 50,
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 90,
+      [LifeAspect.Health]: 70,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 70,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 59,
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 80,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 68,
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 50,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 50,
+      [LifeAspect.Career]: 45,
+      [LifeAspect.Reputation]: 55,
+      [LifeAspect.Spirituality]: 40,
+      [LifeAspect.Luck]: 40
+    }
+  },
+  {
+    number: 77,
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 85,
+      [LifeAspect.Luck]: 75
+    }
+  },
+  {
+    number: 86,
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 65
+    }
+  },
+  {
+    number: 95,
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 75
+    }
+  },
+  {
+    number: 104,
+    planetName: PlanetName.Mercury,
+    lifeAspects: {
+      [LifeAspect.Finance]: 50,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 55,
+      [LifeAspect.Career]: 50,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 45,
+      [LifeAspect.Luck]: 35
+    }
+  },
+  
+  // VENUS (6) numbers - 6, 15, 24, 33, 42, 51, 60, 69, 78, 87, 96, 105
   {
     number: 6,
-    planet: "Venus",
-    title: "Venus",
-    description: "Number 6 is ruled by Venus. These individuals are responsible, nurturing, and harmonious. They have a strong sense of beauty and value love and family.",
-    finance: 70,
-    romance: 90,
-    education: 75,
-    health: 80,
-    family: 95,
-    growth: 75,
-    career_score: 70,
-    reputation: 85,
-    spirituality: 80,
-    luck: 75,
-    strengths: ["Responsibility", "Nurturing", "Harmony", "Creativity", "Balance"],
-    challenges: ["Self-sacrifice", "Perfectionism", "Interference", "Anxiety"],
-    career: "Number 6 individuals excel in caring professions such as teaching, counseling, nursing, arts, interior design, and social work. They thrive in roles where they can help, nurture, and create beauty.",
-    relationships: "In relationships, number 6 individuals are loving, supportive, and dedicated. They are natural nurturers who create harmony and beauty in their homes. They need appreciation for their efforts and should avoid becoming martyrs or overly sacrificing."
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 80,
+      [LifeAspect.Family]: 90,
+      [LifeAspect.Growth]: 70,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 70
+    }
   },
+  {
+    number: 15,
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 70,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 80,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 50,
+      [LifeAspect.Luck]: 85
+    }
+  },
+  {
+    number: 24,
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 70,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 85,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 80
+    }
+  },
+  {
+    number: 33,
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 80,
+      [LifeAspect.Family]: 90,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 90,
+      [LifeAspect.Spirituality]: 90,
+      [LifeAspect.Luck]: 85
+    }
+  },
+  {
+    number: 42,
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 70,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 65
+    }
+  },
+  {
+    number: 51,
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 80
+    }
+  },
+  {
+    number: 60,
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 70,
+      [LifeAspect.Family]: 85,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 75
+    }
+  },
+  {
+    number: 69,
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 70,
+      [LifeAspect.Family]: 80,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 90,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 85
+    }
+  },
+  {
+    number: 78,
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 70,
+      [LifeAspect.Career]: 65,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 85,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 87,
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 30,
+      [LifeAspect.Romance]: 20,
+      [LifeAspect.Education]: 40,
+      [LifeAspect.Health]: 10,
+      [LifeAspect.Family]: 25,
+      [LifeAspect.Growth]: 30,
+      [LifeAspect.Career]: 25,
+      [LifeAspect.Reputation]: 20,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 15
+    }
+  },
+  {
+    number: 96,
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 90,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 85,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 85
+    }
+  },
+  {
+    number: 105,
+    planetName: PlanetName.Venus,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 80
+    }
+  },
+  
+  // KETU (7) numbers - 7, 16, 25, 34, 43, 52, 61, 70, 79, 88, 97, 106
   {
     number: 7,
-    planet: "Ketu",
-    title: "Ketu",
-    description: "Number 7 is influenced by Ketu (South Node). These individuals are analytical, spiritual, and introspective. They seek wisdom and have deep insight.",
-    finance: 60,
-    romance: 65,
-    education: 90,
-    health: 70,
-    family: 65,
-    growth: 80,
-    career_score: 75,
-    reputation: 70,
-    spirituality: 95,
-    luck: 70,
-    strengths: ["Analysis", "Wisdom", "Intuition", "Research", "Spirituality"],
-    challenges: ["Isolation", "Perfectionism", "Skepticism", "Criticism"],
-    career: "Number 7 individuals excel in research, analysis, academia, technology, science, spirituality, and psychology. They thrive in roles that require deep thinking, specialized knowledge, and independent work.",
-    relationships: "In relationships, number 7 individuals seek deep, meaningful connections with intellectual depth. They may be reserved initially but form profound bonds. They need space for solitude and intellectual pursuits, and partners who understand their contemplative nature."
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 30,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 70,
+      [LifeAspect.Spirituality]: 90,
+      [LifeAspect.Luck]: 65
+    }
   },
+  {
+    number: 16,
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 20,
+      [LifeAspect.Romance]: 10,
+      [LifeAspect.Education]: 40,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 25,
+      [LifeAspect.Growth]: 30,
+      [LifeAspect.Career]: 25,
+      [LifeAspect.Reputation]: 20,
+      [LifeAspect.Spirituality]: 35,
+      [LifeAspect.Luck]: 15
+    }
+  },
+  {
+    number: 25,
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 55,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 60,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 55
+    }
+  },
+  {
+    number: 34,
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 50,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 55,
+      [LifeAspect.Career]: 50,
+      [LifeAspect.Reputation]: 45,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 40
+    }
+  },
+  {
+    number: 43,
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 30,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 60,
+      [LifeAspect.Career]: 50,
+      [LifeAspect.Reputation]: 45,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 40
+    }
+  },
+  {
+    number: 52,
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 55,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 60,
+      [LifeAspect.Reputation]: 70,
+      [LifeAspect.Spirituality]: 80,
+      [LifeAspect.Luck]: 60
+    }
+  },
+  {
+    number: 61,
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 60,
+      [LifeAspect.Career]: 65,
+      [LifeAspect.Reputation]: 70,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 55
+    }
+  },
+  {
+    number: 70,
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 30,
+      [LifeAspect.Romance]: 20,
+      [LifeAspect.Education]: 40,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 35,
+      [LifeAspect.Growth]: 40,
+      [LifeAspect.Career]: 35,
+      [LifeAspect.Reputation]: 40,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 30
+    }
+  },
+  {
+    number: 79,
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 75
+    }
+  },
+  {
+    number: 88,
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 60,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 90,
+      [LifeAspect.Luck]: 65
+    }
+  },
+  {
+    number: 97,
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 90,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 106,
+    planetName: PlanetName.Ketu,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 30,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 35,
+      [LifeAspect.Growth]: 40,
+      [LifeAspect.Career]: 35,
+      [LifeAspect.Reputation]: 40,
+      [LifeAspect.Spirituality]: 50,
+      [LifeAspect.Luck]: 30
+    }
+  },
+  
+  // SATURN (8) numbers - 8, 17, 26, 35, 44, 53, 62, 71, 80, 89, 98, 107
   {
     number: 8,
-    planet: "Saturn",
-    title: "Saturn",
-    description: "Number 8 is ruled by Saturn. These individuals are ambitious, authoritative, and business-minded. They focus on material success and have strong leadership qualities.",
-    finance: 95,
-    romance: 65,
-    education: 80,
-    health: 70,
-    family: 75,
-    growth: 85,
-    career_score: 95,
-    reputation: 90,
-    spirituality: 60,
-    luck: 75,
-    strengths: ["Ambition", "Organization", "Leadership", "Practicality", "Determination"],
-    challenges: ["Workaholic tendencies", "Materialism", "Inflexibility", "Domineering"],
-    career: "Number 8 individuals excel in business, finance, law, politics, management, real estate, and executive positions. They thrive in roles that involve authority, strategy, and financial reward.",
-    relationships: "In relationships, number 8 individuals are protective, responsible, and loyal. They show love through practical support and providing security. They need partners who respect their ambition and work ethic while helping them balance material and emotional aspects of life."
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 30,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 75
+    }
   },
   {
+    number: 17,
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 60,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 80,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 65
+    }
+  },
+  {
+    number: 26,
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 20,
+      [LifeAspect.Education]: 40,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 35,
+      [LifeAspect.Growth]: 35,
+      [LifeAspect.Career]: 40,
+      [LifeAspect.Reputation]: 30,
+      [LifeAspect.Spirituality]: 45,
+      [LifeAspect.Luck]: 25
+    }
+  },
+  {
+    number: 35,
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 30,
+      [LifeAspect.Romance]: 20,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 20,
+      [LifeAspect.Family]: 30,
+      [LifeAspect.Growth]: 35,
+      [LifeAspect.Career]: 40,
+      [LifeAspect.Reputation]: 30,
+      [LifeAspect.Spirituality]: 40,
+      [LifeAspect.Luck]: 20
+    }
+  },
+  {
+    number: 44,
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 20,
+      [LifeAspect.Education]: 40,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 40,
+      [LifeAspect.Growth]: 50,
+      [LifeAspect.Career]: 65,
+      [LifeAspect.Reputation]: 45,
+      [LifeAspect.Spirituality]: 40,
+      [LifeAspect.Luck]: 35
+    }
+  },
+  {
+    number: 53,
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 55,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 60,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 55
+    }
+  },
+  {
+    number: 62,
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 50,
+      [LifeAspect.Growth]: 70,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 70,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 60
+    }
+  },
+  {
+    number: 71,
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 80,
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 70,
+      [LifeAspect.Career]: 65,
+      [LifeAspect.Reputation]: 70,
+      [LifeAspect.Spirituality]: 85,
+      [LifeAspect.Luck]: 65
+    }
+  },
+  {
+    number: 89,
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 98,
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 50,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 55,
+      [LifeAspect.Career]: 50,
+      [LifeAspect.Reputation]: 45,
+      [LifeAspect.Spirituality]: 50,
+      [LifeAspect.Luck]: 40
+    }
+  },
+  {
+    number: 107,
+    planetName: PlanetName.Saturn,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 55,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 55
+    }
+  },
+  
+  // MARS (9) numbers - 9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99, 108
+  {
     number: 9,
-    planet: "Mars",
-    title: "Mars",
-    description: "Number 9 is ruled by Mars. These individuals are humanitarian, compassionate, and idealistic. They seek to make a positive impact on the world.",
-    finance: 75,
-    romance: 80,
-    education: 85,
-    health: 70,
-    family: 80,
-    growth: 85,
-    career_score: 80,
-    reputation: 90,
-    spirituality: 90,
-    luck: 85,
-    strengths: ["Compassion", "Idealism", "Generosity", "Creativity", "Universal understanding"],
-    challenges: ["Martyrdom", "Emotional detachment", "Resentment", "Scattered focus"],
-    career: "Number 9 individuals excel in humanitarian fields, teaching, healing professions, counseling, art, writing, and leadership roles with a focus on service. They thrive when making a positive difference.",
-    relationships: "In relationships, number 9 individuals are romantic, compassionate, and understanding. They seek deep, meaningful connections and are often selfless. They need partners who share their ideals and appreciate their generous nature while helping them maintain healthy boundaries."
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 85,
+      [LifeAspect.Spirituality]: 85,
+      [LifeAspect.Luck]: 70
+    }
+  },
+  {
+    number: 18,
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 20,
+      [LifeAspect.Romance]: 10,
+      [LifeAspect.Education]: 30,
+      [LifeAspect.Health]: 20,
+      [LifeAspect.Family]: 25,
+      [LifeAspect.Growth]: 25,
+      [LifeAspect.Career]: 20,
+      [LifeAspect.Reputation]: 15,
+      [LifeAspect.Spirituality]: 20,
+      [LifeAspect.Luck]: 10
+    }
+  },
+  {
+    number: 27,
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 90,
+      [LifeAspect.Spirituality]: 80,
+      [LifeAspect.Luck]: 85
+    }
+  },
+  {
+    number: 36,
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 50,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 50,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 55,
+      [LifeAspect.Luck]: 60
+    }
+  },
+  {
+    number: 45,
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 80,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 85
+    }
+  },
+  {
+    number: 54,
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 50,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 30,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 55,
+      [LifeAspect.Career]: 50,
+      [LifeAspect.Reputation]: 55,
+      [LifeAspect.Spirituality]: 45,
+      [LifeAspect.Luck]: 40
+    }
+  },
+  {
+    number: 63,
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 40,
+      [LifeAspect.Romance]: 30,
+      [LifeAspect.Education]: 20,
+      [LifeAspect.Health]: 10,
+      [LifeAspect.Family]: 30,
+      [LifeAspect.Growth]: 25,
+      [LifeAspect.Career]: 30,
+      [LifeAspect.Reputation]: 25,
+      [LifeAspect.Spirituality]: 20,
+      [LifeAspect.Luck]: 15
+    }
+  },
+  {
+    number: 72,
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 85,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 85,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 90
+    }
+  },
+  {
+    number: 81,
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 70,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 75
+    }
+  },
+  {
+    number: 90,
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 50,
+      [LifeAspect.Health]: 40,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 45,
+      [LifeAspect.Luck]: 80
+    }
+  },
+  {
+    number: 99,
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 55,
+      [LifeAspect.Growth]: 60,
+      [LifeAspect.Career]: 65,
+      [LifeAspect.Reputation]: 60,
+      [LifeAspect.Spirituality]: 65,
+      [LifeAspect.Luck]: 50
+    }
+  },
+  {
+    number: 108,
+    planetName: PlanetName.Mars,
+    lifeAspects: {
+      [LifeAspect.Finance]: 90,
+      [LifeAspect.Romance]: 80,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 80,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 85,
+      [LifeAspect.Spirituality]: 80,
+      [LifeAspect.Luck]: 90
+    }
   }
 ];
 
-// Function to get number meaning
-export const getMeaning = (number: number): NumberMeaning => {
-  const meaning = numberMeanings.find(m => m.number === number);
-  if (meaning) return meaning;
-  
-  // If not found, reduce to single digit
-  if (number > 9) {
-    const reducedNumber = number
-      .toString()
-      .split('')
-      .reduce((sum, digit) => sum + parseInt(digit), 0);
-    
-    return getMeaning(reducedNumber > 9 ? reducedNumber : reducedNumber);
-  }
-  
-  // Default to first number if nothing found
-  return numberMeanings[0];
-};
-
-// Get planet information
-export const getPlanetInfo = (planet: PlanetName) => {
-  const planetInfo = {
-    [PlanetName.Sun]: {
-      name: "Sun",
-      description: "The Sun represents one's ego, individuality, authority, leadership, and creativity.",
-      positive: ["Leadership", "Creativity", "Willpower", "Vitality", "Confidence"],
-      negative: ["Egotism", "Pride", "Dominance", "Arrogance"]
-    },
-    [PlanetName.Moon]: {
-      name: "Moon",
-      description: "The Moon represents emotions, intuition, nurturing, receptivity, and the subconscious mind.",
-      positive: ["Sensitivity", "Intuition", "Adaptability", "Nurturing", "Emotional depth"],
-      negative: ["Moodiness", "Oversensitivity", "Dependency", "Emotional instability"]
-    },
-    [PlanetName.Jupiter]: {
-      name: "Jupiter",
-      description: "Jupiter represents expansion, abundance, wisdom, growth, and optimism.",
-      positive: ["Wisdom", "Generosity", "Optimism", "Growth", "Prosperity"],
-      negative: ["Excess", "Overconfidence", "Wastefulness", "Exaggeration"]
-    },
-    [PlanetName.Rahu]: {
-      name: "Rahu (North Node)",
-      description: "Rahu represents obsession, illusion, materialism, and worldly desires.",
-      positive: ["Ambition", "Innovation", "Courage", "Breaking boundaries", "Growth"],
-      negative: ["Obsession", "Delusion", "Excess", "Insatiability"]
-    },
-    [PlanetName.Mercury]: {
-      name: "Mercury",
-      description: "Mercury represents intellect, communication, adaptability, and knowledge.",
-      positive: ["Intelligence", "Communication", "Adaptability", "Quick-thinking", "Curiosity"],
-      negative: ["Nervousness", "Inconsistency", "Restlessness", "Overanalysis"]
-    },
-    [PlanetName.Venus]: {
-      name: "Venus",
-      description: "Venus represents love, beauty, harmony, pleasure, and relationships.",
-      positive: ["Love", "Beauty", "Harmony", "Creativity", "Sensuality"],
-      negative: ["Indulgence", "Vanity", "Laziness", "Dependency"]
-    },
-    [PlanetName.Ketu]: {
-      name: "Ketu (South Node)",
-      description: "Ketu represents spirituality, detachment, liberation, and past karma.",
-      positive: ["Spirituality", "Intuition", "Detachment", "Wisdom", "Liberation"],
-      negative: ["Isolation", "Confusion", "Escapism", "Disconnection"]
-    },
-    [PlanetName.Saturn]: {
-      name: "Saturn",
-      description: "Saturn represents discipline, responsibility, limitation, and structure.",
-      positive: ["Discipline", "Responsibility", "Practicality", "Patience", "Structure"],
-      negative: ["Restriction", "Pessimism", "Fear", "Depression"]
-    },
-    [PlanetName.Mars]: {
-      name: "Mars",
-      description: "Mars represents energy, action, courage, passion, and desire.",
-      positive: ["Courage", "Energy", "Passion", "Determination", "Initiative"],
-      negative: ["Aggression", "Impatience", "Recklessness", "Anger"]
-    }
-  };
-
-  return planetInfo[planet] || planetInfo[PlanetName.Sun];
-};
-
-// Function to get life aspect scores
-export const getLifeAspectScores = (number: number, aspect: LifeAspect): number => {
-  const meaning = getMeaning(number);
-  
-  switch (aspect) {
-    case LifeAspect.Finance:
-      return meaning.finance;
-    case LifeAspect.Romance:
-      return meaning.romance;
-    case LifeAspect.Education:
-      return meaning.education;
-    case LifeAspect.Health:
-      return meaning.health;
-    case LifeAspect.Family:
-      return meaning.family;
+// Now let's update the function to get a friendly title for each planet
+export const getPlanetTitle = (planet: PlanetName): { en: string; vi: string } => {
+  switch (planet) {
+    case PlanetName.Sun:
+      return { en: "The Leader", vi: "Người lãnh đạo" };
+    case PlanetName.Moon:
+      return { en: "The Nurturer", vi: "Người nhân ái" };
+    case PlanetName.Jupiter:
+      return { en: "The Communicator", vi: "Người biểu đạt" };
+    case PlanetName.Rahu:
+      return { en: "The North Node", vi: "Bắc Đẩu" };
+    case PlanetName.Mercury:
+      return { en: "The Free Spirit", vi: "Người tự do" };
+    case PlanetName.Venus:
+      return { en: "The Caregiver", vi: "Người chăm sóc" };
+    case PlanetName.Ketu:
+      return { en: "The Mystic", vi: "Người giải nghiệp" };
+    case PlanetName.Saturn:
+      return { en: "The Achiever", vi: "Người thành đạt" };
+    case PlanetName.Mars:
+      return { en: "The Warrior", vi: "Người chiến binh" };
     default:
-      return 50;
+      return { en: "Unknown", vi: "Không xác định" };
+  }
+};
+
+// Get strengths and challenges based on planet
+export const getPlanetTraits = (planet: PlanetName): { strengths: string[]; challenges: string[] } => {
+  switch (planet) {
+    case PlanetName.Sun:
+      return {
+        strengths: ["Independent", "Decisive", "Creative", "Confident", "Visionary"],
+        challenges: ["Stubborn", "Domineering", "Selfish", "Impatient"]
+      };
+    case PlanetName.Moon:
+      return {
+        strengths: ["Cooperative", "Intuitive", "Diplomatic", "Patient", "Understanding"],
+        challenges: ["Oversensitive", "Indecisive", "Dependent", "Worrisome"]
+      };
+    case PlanetName.Jupiter:
+      return {
+        strengths: ["Communicative", "Creative", "Optimistic", "Humorous", "Expressive"],
+        challenges: ["Scattered", "Superficial", "Procrastinating", "Prideful"]
+      };
+    case PlanetName.Rahu:
+      return {
+        strengths: ["Stable", "Reliable", "Hardworking", "Practical", "Organized"],
+        challenges: ["Needless fears", "Opposition", "Dependent", "Lack of confidence"]
+      };
+    case PlanetName.Mercury:
+      return {
+        strengths: ["Adaptable", "Flexible", "Curious", "Dynamic", "Versatile"],
+        challenges: ["Restless", "Inconsistent", "Risk-taking", "Impulsive"]
+      };
+    case PlanetName.Venus:
+      return {
+        strengths: ["Loving", "Responsible", "Harmonious", "Supportive", "Understanding"],
+        challenges: ["Self-sacrificing", "Worrisome", "Interfering", "Perfectionist"]
+      };
+    case PlanetName.Ketu:
+      return {
+        strengths: ["Analytical", "Intuitive", "Deep-thinking", "Spiritual", "Independent"],
+        challenges: ["Skeptical", "Isolated", "Over-analytical", "Detached"]
+      };
+    case PlanetName.Saturn:
+      return {
+        strengths: ["Confident", "Managerial", "Practical", "Decisive", "Ambitious"],
+        challenges: ["Domineering", "Materialistic", "Impatient", "Pressured"]
+      };
+    case PlanetName.Mars:
+      return {
+        strengths: ["Compassionate", "Generous", "Creative", "Idealistic", "Wise"],
+        challenges: ["Unrealistic", "Self-sacrificing", "Emotionally intense", "Difficulty letting go"]
+      };
+    default:
+      return {
+        strengths: [],
+        challenges: []
+      };
   }
 };
