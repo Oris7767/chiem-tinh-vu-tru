@@ -12,6 +12,8 @@ import {
   Compass, Zap 
 } from 'lucide-react';
 import { getDescription } from '../utils/numberDetailedMeanings';
+import { getCareerDescription } from '../utils/careerMeanings';
+import { getRelationshipDescription } from '../utils/relationshipMeanings';
 
 interface CalculationResult {
   nameNumber: {
@@ -384,14 +386,14 @@ const Calculator = () => {
                       <div className="border-t border-gray-200 pt-6 mt-6">
                         <h4 className="font-medium text-gray-900 mb-3">{t('section.career')}</h4>
                         <p className="text-gray-700">
-                          {t(`number.${result.birthNumber.finalNumber}.shortDescription`)}
+                          {getCareerDescription(result.birthNumber.finalNumber, language as 'en' | 'vi')}
                         </p>
                       </div>
                       
                       <div className="border-t border-gray-200 pt-6">
                         <h4 className="font-medium text-gray-900 mb-3">{t('section.relationships')}</h4>
                         <p className="text-gray-700">
-                          {t(`number.${result.birthNumber.finalNumber}.shortDescription`)}
+                          {getRelationshipDescription(result.birthNumber.finalNumber, language as 'en' | 'vi')}
                         </p>
                       </div>
                     </div>
@@ -499,14 +501,14 @@ const Calculator = () => {
                       <div className="border-t border-gray-200 pt-6 mt-6">
                         <h4 className="font-medium text-gray-900 mb-3">{t('section.career')}</h4>
                         <p className="text-gray-700">
-                          {t(`number.${result.nameNumber.finalNumber}.shortDescription`)}
+                          {getCareerDescription(result.nameNumber.finalNumber, language as 'en' | 'vi')}
                         </p>
                       </div>
                       
                       <div className="border-t border-gray-200 pt-6">
                         <h4 className="font-medium text-gray-900 mb-3">{t('section.relationships')}</h4>
                         <p className="text-gray-700">
-                          {t(`number.${result.nameNumber.finalNumber}.shortDescription`)}
+                          {getRelationshipDescription(result.nameNumber.finalNumber, language as 'en' | 'vi')}
                         </p>
                       </div>
                     </div>
@@ -614,14 +616,14 @@ const Calculator = () => {
                       <div className="border-t border-gray-200 pt-6 mt-6">
                         <h4 className="font-medium text-gray-900 mb-3">{t('section.career')}</h4>
                         <p className="text-gray-700">
-                          {t(`number.${result.lifeNumber.finalNumber}.shortDescription`)}
+                          {getCareerDescription(result.lifeNumber.finalNumber, language as 'en' | 'vi')}
                         </p>
                       </div>
                       
                       <div className="border-t border-gray-200 pt-6">
                         <h4 className="font-medium text-gray-900 mb-3">{t('section.relationships')}</h4>
                         <p className="text-gray-700">
-                          {t(`number.${result.lifeNumber.finalNumber}.shortDescription`)}
+                          {getRelationshipDescription(result.lifeNumber.finalNumber, language as 'en' | 'vi')}
                         </p>
                       </div>
                       
