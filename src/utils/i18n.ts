@@ -31,10 +31,9 @@ export const getNestedTranslation = (obj: any, path: string): string => {
 export const getLocalizedContent = (content: any, language: Language, fallback: string = ""): string => {
   if (!content) return fallback;
   
-  if (language === 'vi' && content[`${language}`]) {
-    return content[`${language}`];
+  if (language === 'vi' && fallback) {
+    return fallback;
   }
   
   return content.toString() || fallback;
 };
-
