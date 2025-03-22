@@ -1,4 +1,4 @@
-// Function to convert a name to a number according to Vedic numerology principles
+// Core calculation functions
 export const calculateNameNumber = (name: string): { steps: string; totalBeforeReduction: number; total: number; finalNumber: number } => {
   // Remove spaces and convert to uppercase
   const cleanName = name.replace(/\s+/g, '').toUpperCase();
@@ -62,7 +62,7 @@ export const calculateBirthNumber = (day: number, month: number, year: number): 
   };
 };
 
-// Function to calculate life number using the full birth date (day, month, year)
+// Function to calculate life number using the full birth date
 export const calculateLifeNumber = (day: number, month: number, year: number): { steps: string; totalBeforeReduction: number; total: number; finalNumber: number } => {
   // Convert all parts to strings
   const dayStr = day.toString();
@@ -96,7 +96,7 @@ export const calculateLifeNumber = (day: number, month: number, year: number): {
   };
 };
 
-// Function to reduce a number to a single digit according to Vedic numerology
+// Helper function to reduce a number to a single digit
 export const reduceToPythagoras = (num: number): { steps: string; totalBeforeReduction?: number; finalNumber: number } => {
   let steps: string[] = [];
   let current = num;
@@ -123,31 +123,7 @@ export const reduceToPythagoras = (num: number): { steps: string; totalBeforeRed
   };
 };
 
-// For backward compatibility - named same as before
-export const calculateBirthPathNumber = (day: number, month: number, year: number): { steps: string; total: number; finalNumber: number } => {
-  const lifeNumber = calculateLifeNumber(day, month, year);
-  
-  return {
-    steps: lifeNumber.steps,
-    total: lifeNumber.totalBeforeReduction,
-    finalNumber: lifeNumber.finalNumber
-  };
-};
-
-// For backward compatibility - but no longer used as life number is now calculated from birth date only
-export const calculateDestinyNumber = (birthPath: number, nameNumber: number): { steps: string; total: number; finalNumber: number } => {
-  const total = birthPath + nameNumber;
-  const steps = `${birthPath} + ${nameNumber} = ${total}`;
-  const result = reduceToPythagoras(total);
-  
-  return {
-    steps,
-    total,
-    finalNumber: result.finalNumber
-  };
-};
-
-// New function to map a number to a planet name
+// For backward compatibility - mapping numbers to planets
 export const getPlanetFromNumber = (number: number): string => {
   switch (number % 9) {
     case 1: return 'Sun';
@@ -163,7 +139,7 @@ export const getPlanetFromNumber = (number: number): string => {
   }
 };
 
-// Structure to represent aspects of life
+// Life aspects enumeration
 export enum LifeAspect {
   Finance = 'Finance',
   Romance = 'Romance',
@@ -182,7 +158,7 @@ export const getAspectScores = (finalNumber: number, totalBeforeReduction: numbe
   // Get the planet name based on the single-digit final number
   const planetName = getPlanetFromNumber(finalNumber);
   
-  // Define default scores in case we don't find a match
+  // Define default scores
   const defaultScores: Record<LifeAspect, number> = {
     [LifeAspect.Finance]: 60,
     [LifeAspect.Romance]: 60,
@@ -196,150 +172,149 @@ export const getAspectScores = (finalNumber: number, totalBeforeReduction: numbe
     [LifeAspect.Luck]: 60
   };
 
-  // Access the data from the custom instructions
-  // This structure is based on the data format in Vedic numerology data provided
-  interface NumerologyData {
-    planet: string;
-    number: number;
-    description: string;
-    aspects: Record<LifeAspect, number>;
-  }
-  
-  // Extract planet name and total before reduction as our key identifiers
-  try {
-    // For a real implementation, this would query data from the external source
-    // Here we're constructing a simplified version based on averages
-    
-    // If we have specific score data for this number, use it
-    // Otherwise, use planet-based default values
-
-    // Since we're using the data from the custom instructions directly
-    // We can derive a reasonable approximation based on the planet associated with the number
-    
-    // Note: In a real implementation we would pull this from the data.ts file
-    // For now we'll use approximations based on the planet
-    
-    if (planetName === 'Sun') {
-      return {
-        [LifeAspect.Finance]: 80,
-        [LifeAspect.Romance]: 70, 
-        [LifeAspect.Education]: 60,
-        [LifeAspect.Health]: 50,
-        [LifeAspect.Family]: 65,
-        [LifeAspect.Growth]: 75,
-        [LifeAspect.Career]: 85,
-        [LifeAspect.Reputation]: 90,
-        [LifeAspect.Spirituality]: 55,
-        [LifeAspect.Luck]: 65
-      };
-    } else if (planetName === 'Moon') {
-      return {
-        [LifeAspect.Finance]: 70,
-        [LifeAspect.Romance]: 85,
-        [LifeAspect.Education]: 65,
-        [LifeAspect.Health]: 60,
-        [LifeAspect.Family]: 90,
-        [LifeAspect.Growth]: 70,
-        [LifeAspect.Career]: 65,
-        [LifeAspect.Reputation]: 75,
-        [LifeAspect.Spirituality]: 80,
-        [LifeAspect.Luck]: 60
-      };
-    } else if (planetName === 'Jupiter') {
-      return {
-        [LifeAspect.Finance]: 85,
-        [LifeAspect.Romance]: 70,
-        [LifeAspect.Education]: 90,
-        [LifeAspect.Health]: 65,
-        [LifeAspect.Family]: 75,
-        [LifeAspect.Growth]: 80,
-        [LifeAspect.Career]: 85,
-        [LifeAspect.Reputation]: 80,
-        [LifeAspect.Spirituality]: 75,
-        [LifeAspect.Luck]: 90
-      };
-    } else if (planetName === 'Rahu') {
-      return {
-        [LifeAspect.Finance]: 60,
-        [LifeAspect.Romance]: 40,
-        [LifeAspect.Education]: 70,
-        [LifeAspect.Health]: 50,
-        [LifeAspect.Family]: 45,
-        [LifeAspect.Growth]: 65,
-        [LifeAspect.Career]: 75,
-        [LifeAspect.Reputation]: 55,
-        [LifeAspect.Spirituality]: 70,
-        [LifeAspect.Luck]: 40
-      };
-    } else if (planetName === 'Mercury') {
-      return {
-        [LifeAspect.Finance]: 75,
-        [LifeAspect.Romance]: 60,
-        [LifeAspect.Education]: 95,
-        [LifeAspect.Health]: 70,
-        [LifeAspect.Family]: 65,
-        [LifeAspect.Growth]: 85,
-        [LifeAspect.Career]: 80,
-        [LifeAspect.Reputation]: 70,
-        [LifeAspect.Spirituality]: 60,
-        [LifeAspect.Luck]: 75
-      };
-    } else if (planetName === 'Venus') {
-      return {
-        [LifeAspect.Finance]: 80,
-        [LifeAspect.Romance]: 95,
-        [LifeAspect.Education]: 70,
-        [LifeAspect.Health]: 75,
-        [LifeAspect.Family]: 85,
-        [LifeAspect.Growth]: 65,
-        [LifeAspect.Career]: 70,
-        [LifeAspect.Reputation]: 80,
-        [LifeAspect.Spirituality]: 60,
-        [LifeAspect.Luck]: 75
-      };
-    } else if (planetName === 'Ketu') {
-      return {
-        [LifeAspect.Finance]: 50,
-        [LifeAspect.Romance]: 40,
-        [LifeAspect.Education]: 65,
-        [LifeAspect.Health]: 55,
-        [LifeAspect.Family]: 45,
-        [LifeAspect.Growth]: 60,
-        [LifeAspect.Career]: 55,
-        [LifeAspect.Reputation]: 60,
-        [LifeAspect.Spirituality]: 90,
-        [LifeAspect.Luck]: 45
-      };
-    } else if (planetName === 'Saturn') {
-      return {
-        [LifeAspect.Finance]: 65,
-        [LifeAspect.Romance]: 45,
-        [LifeAspect.Education]: 80,
-        [LifeAspect.Health]: 50,
-        [LifeAspect.Family]: 60,
-        [LifeAspect.Growth]: 70,
-        [LifeAspect.Career]: 75,
-        [LifeAspect.Reputation]: 65,
-        [LifeAspect.Spirituality]: 75,
-        [LifeAspect.Luck]: 40
-      };
-    } else if (planetName === 'Mars') {
-      return {
-        [LifeAspect.Finance]: 85,
-        [LifeAspect.Romance]: 75,
-        [LifeAspect.Education]: 70,
-        [LifeAspect.Health]: 65,
-        [LifeAspect.Family]: 60,
-        [LifeAspect.Growth]: 80,
-        [LifeAspect.Career]: 90,
-        [LifeAspect.Reputation]: 85,
-        [LifeAspect.Spirituality]: 55,
-        [LifeAspect.Luck]: 70
-      };
-    }
-  } catch (error) {
-    console.error("Error retrieving aspect scores:", error);
+  // Planet-specific scores
+  if (planetName === 'Sun') {
+    return {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 70, 
+      [LifeAspect.Education]: 60,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 75,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 90,
+      [LifeAspect.Spirituality]: 55,
+      [LifeAspect.Luck]: 65
+    };
+  } else if (planetName === 'Moon') {
+    return {
+      [LifeAspect.Finance]: 70,
+      [LifeAspect.Romance]: 85,
+      [LifeAspect.Education]: 65,
+      [LifeAspect.Health]: 60,
+      [LifeAspect.Family]: 90,
+      [LifeAspect.Growth]: 70,
+      [LifeAspect.Career]: 65,
+      [LifeAspect.Reputation]: 75,
+      [LifeAspect.Spirituality]: 80,
+      [LifeAspect.Luck]: 60
+    };
+  } else if (planetName === 'Jupiter') {
+    return {
+      [LifeAspect.Finance]: 85,
+      [LifeAspect.Romance]: 70,
+      [LifeAspect.Education]: 90,
+      [LifeAspect.Health]: 65,
+      [LifeAspect.Family]: 75,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 85,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 90
+    };
+  } else if (planetName === 'Rahu') {
+    return {
+      [LifeAspect.Finance]: 60,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 55,
+      [LifeAspect.Spirituality]: 70,
+      [LifeAspect.Luck]: 40
+    };
+  } else if (planetName === 'Mercury') {
+    return {
+      [LifeAspect.Finance]: 75,
+      [LifeAspect.Romance]: 60,
+      [LifeAspect.Education]: 95,
+      [LifeAspect.Health]: 70,
+      [LifeAspect.Family]: 65,
+      [LifeAspect.Growth]: 85,
+      [LifeAspect.Career]: 80,
+      [LifeAspect.Reputation]: 70,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 75
+    };
+  } else if (planetName === 'Venus') {
+    return {
+      [LifeAspect.Finance]: 80,
+      [LifeAspect.Romance]: 95,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 75,
+      [LifeAspect.Family]: 85,
+      [LifeAspect.Growth]: 65,
+      [LifeAspect.Career]: 70,
+      [LifeAspect.Reputation]: 80,
+      [LifeAspect.Spirituality]: 60,
+      [LifeAspect.Luck]: 75
+    };
+  } else if (planetName === 'Ketu') {
+    return {
+      [LifeAspect.Finance]: 50,
+      [LifeAspect.Romance]: 40,
+      [LifeAspect.Education]: 65,
+      [LifeAspect.Health]: 55,
+      [LifeAspect.Family]: 45,
+      [LifeAspect.Growth]: 60,
+      [LifeAspect.Career]: 55,
+      [LifeAspect.Reputation]: 60,
+      [LifeAspect.Spirituality]: 90,
+      [LifeAspect.Luck]: 45
+    };
+  } else if (planetName === 'Saturn') {
+    return {
+      [LifeAspect.Finance]: 65,
+      [LifeAspect.Romance]: 45,
+      [LifeAspect.Education]: 80,
+      [LifeAspect.Health]: 50,
+      [LifeAspect.Family]: 60,
+      [LifeAspect.Growth]: 70,
+      [LifeAspect.Career]: 75,
+      [LifeAspect.Reputation]: 65,
+      [LifeAspect.Spirituality]: 75,
+      [LifeAspect.Luck]: 40
+    };
+  } else if (planetName === 'Mars') {
+    return {
+      [LifeAspect.Finance]: 85,
+      [LifeAspect.Romance]: 75,
+      [LifeAspect.Education]: 70,
+      [LifeAspect.Health]: 65,
+      [LifeAspect.Family]: 60,
+      [LifeAspect.Growth]: 80,
+      [LifeAspect.Career]: 90,
+      [LifeAspect.Reputation]: 85,
+      [LifeAspect.Spirituality]: 55,
+      [LifeAspect.Luck]: 70
+    };
   }
   
   return defaultScores;
+};
+
+// For backward compatibility - no longer used directly but kept for API stability
+export const calculateBirthPathNumber = (day: number, month: number, year: number): { steps: string; total: number; finalNumber: number } => {
+  const lifeNumber = calculateLifeNumber(day, month, year);
+  
+  return {
+    steps: lifeNumber.steps,
+    total: lifeNumber.totalBeforeReduction,
+    finalNumber: lifeNumber.finalNumber
+  };
+};
+
+// For backward compatibility - no longer used as life number is now calculated from birth date only
+export const calculateDestinyNumber = (birthPath: number, nameNumber: number): { steps: string; total: number; finalNumber: number } => {
+  const total = birthPath + nameNumber;
+  const steps = `${birthPath} + ${nameNumber} = ${total}`;
+  const result = reduceToPythagoras(total);
+  
+  return {
+    steps,
+    total,
+    finalNumber: result.finalNumber
+  };
 };
