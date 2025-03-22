@@ -30,7 +30,7 @@ const BirthChartPage = () => {
       <NavBar />
       <main className="flex-grow pt-16">
         <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <div className="text-center mb-8">
               <div className="flex justify-center items-center gap-3 mb-2">
                 <h1 className="text-3xl md:text-4xl font-bold text-amber-900">
@@ -40,8 +40,8 @@ const BirthChartPage = () => {
                   {t('birthChart.comingSoon') || 'Coming Soon'}
                 </Badge>
               </div>
-              <p className="text-lg text-amber-800">
-                {t('birthChart.subtitle') || 'Calculate your Vedic astrology birth chart based on your birth details'}
+              <p className="text-lg text-amber-800 max-w-2xl mx-auto">
+                {t('birthChart.subtitle') || 'Calculate your Vedic astrology birth chart based on your birth details and discover the celestial influences on your life'}
               </p>
             </div>
             
