@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import { cn } from '../lib/utils';
 import { useLanguage } from '../context/LanguageContext';
 import { Languages } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +22,9 @@ const NavBar = () => {
   const toggleLanguage = () => {
     setLanguage(language === 'vi' ? 'en' : 'vi');
   };
+
+  // Determine if we're on the home page
+  const isHomePage = location.pathname === '/';
 
   return (
     <nav
@@ -53,25 +58,47 @@ const NavBar = () => {
           </button>
           
           <ul className="hidden md:flex items-center space-x-8">
-            <li>
-              <a href="#calculator" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in">
-                {t('nav.calculate')}
-              </a>
-            </li>
-            <li>
-              <a href="#about" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in-delay">
-                {t('nav.about')}
-              </a>
-            </li>
-            <li>
-              <a href="#meanings" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in-delay">
-                {t('nav.meanings')}
-              </a>
-            </li>
+            {isHomePage ? (
+              <>
+                <li>
+                  <a href="#calculator" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in">
+                    {t('nav.calculate')}
+                  </a>
+                </li>
+                <li>
+                  <a href="#about" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in-delay">
+                    {t('nav.about')}
+                  </a>
+                </li>
+                <li>
+                  <a href="#meanings" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in-delay">
+                    {t('nav.meanings')}
+                  </a>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <a href="/" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in">
+                    {t('nav.home') || 'Home'}
+                  </a>
+                </li>
+                <li>
+                  <a href="/numerology" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in-delay">
+                    {t('nav.numerology') || 'Numerology'}
+                  </a>
+                </li>
+                <li>
+                  <a href="/birth-chart" className="text-amber-100 hover:text-amber-50 subtle-underline animate-fade-in-delay">
+                    {t('nav.birthChart') || 'Birth Chart'}
+                  </a>
+                </li>
+              </>
+            )}
           </ul>
           
           <a 
-            href="#calculator" 
+            href={isHomePage ? "#calculator" : "/numerology"} 
             className="btn-primary animate-fade-in-delay"
           >
             {t('nav.start')}
