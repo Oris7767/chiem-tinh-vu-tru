@@ -1,7 +1,8 @@
+
 import { useState, useRef } from 'react';
 import { 
   calculateNameNumber, calculateBirthNumber, calculateLifeNumber,
-  reduceToPythagoras
+  reduceToPythagoras, getAspectScores, LifeAspect
 } from '../utils/numerologyCalculator';
 import { numberMeanings } from '../utils/data';
 import { cn } from '../lib/utils';
@@ -130,6 +131,31 @@ const Calculator = () => {
       <p className="text-xs text-gray-600">{label}</p>
     </div>
   );
+
+  // Get the aspect scores for the current tab
+  const getAspectScoresForCurrentTab = () => {
+    if (!result) return null;
+    
+    let scores;
+    switch (currentTab) {
+      case 'birth':
+        scores = getAspectScores(result.birthNumber.finalNumber, result.birthNumber.totalBeforeReduction);
+        break;
+      case 'name':
+        scores = getAspectScores(result.nameNumber.finalNumber, result.nameNumber.totalBeforeReduction);
+        break;
+      case 'life':
+        scores = getAspectScores(result.lifeNumber.finalNumber, result.lifeNumber.totalBeforeReduction);
+        break;
+      default:
+        scores = null;
+    }
+    
+    return scores;
+  };
+
+  // Get scores for the current tab
+  const aspectScores = getAspectScoresForCurrentTab();
 
   return (
     <section id="calculator" className="py-24 relative overflow-hidden">
@@ -332,19 +358,27 @@ const Calculator = () => {
                       </div>
                       
                       <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                        {renderScoreBar(70, t('aspect.finance'), <Banknote className="w-4 h-4 text-green-600" />)}
-                        {renderScoreBar(60, t('aspect.romance'), <Heart className="w-4 h-4 text-red-500" />)}
-                        {renderScoreBar(80, t('aspect.education'), <GraduationCap className="w-4 h-4 text-blue-500" />)}
-                        {renderScoreBar(50, t('aspect.health'), <Activity className="w-4 h-4 text-purple-500" />)}
-                        {renderScoreBar(60, t('aspect.family'), <Users className="w-4 h-4 text-orange-500" />)}
+                        {aspectScores && (
+                          <>
+                            {renderScoreBar(aspectScores[LifeAspect.Finance], t('aspect.finance'), <Banknote className="w-4 h-4 text-green-600" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Romance], t('aspect.romance'), <Heart className="w-4 h-4 text-red-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Education], t('aspect.education'), <GraduationCap className="w-4 h-4 text-blue-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Health], t('aspect.health'), <Activity className="w-4 h-4 text-purple-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Family], t('aspect.family'), <Users className="w-4 h-4 text-orange-500" />)}
+                          </>
+                        )}
                       </div>
                       
                       <div className="grid grid-cols-5 gap-4 pb-6">
-                        {renderScoreBar(70, t('aspect.growth'), <TrendingUp className="w-4 h-4 text-teal-500" />)}
-                        {renderScoreBar(80, t('aspect.career'), <Briefcase className="w-4 h-4 text-indigo-500" />)}
-                        {renderScoreBar(70, t('aspect.reputation'), <Award className="w-4 h-4 text-yellow-600" />)}
-                        {renderScoreBar(60, t('aspect.spirituality'), <Compass className="w-4 h-4 text-cyan-600" />)}
-                        {renderScoreBar(60, t('aspect.luck'), <Zap className="w-4 h-4 text-amber-500" />)}
+                        {aspectScores && (
+                          <>
+                            {renderScoreBar(aspectScores[LifeAspect.Growth], t('aspect.growth'), <TrendingUp className="w-4 h-4 text-teal-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Career], t('aspect.career'), <Briefcase className="w-4 h-4 text-indigo-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Reputation], t('aspect.reputation'), <Award className="w-4 h-4 text-yellow-600" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Spirituality], t('aspect.spirituality'), <Compass className="w-4 h-4 text-cyan-600" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Luck], t('aspect.luck'), <Zap className="w-4 h-4 text-amber-500" />)}
+                          </>
+                        )}
                       </div>
                       
                       <div className="grid md:grid-cols-2 gap-6 pt-2">
@@ -435,19 +469,27 @@ const Calculator = () => {
                       </div>
                       
                       <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                        {renderScoreBar(70, t('aspect.finance'), <Banknote className="w-4 h-4 text-green-600" />)}
-                        {renderScoreBar(60, t('aspect.romance'), <Heart className="w-4 h-4 text-red-500" />)}
-                        {renderScoreBar(80, t('aspect.education'), <GraduationCap className="w-4 h-4 text-blue-500" />)}
-                        {renderScoreBar(50, t('aspect.health'), <Activity className="w-4 h-4 text-purple-500" />)}
-                        {renderScoreBar(60, t('aspect.family'), <Users className="w-4 h-4 text-orange-500" />)}
+                        {aspectScores && (
+                          <>
+                            {renderScoreBar(aspectScores[LifeAspect.Finance], t('aspect.finance'), <Banknote className="w-4 h-4 text-green-600" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Romance], t('aspect.romance'), <Heart className="w-4 h-4 text-red-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Education], t('aspect.education'), <GraduationCap className="w-4 h-4 text-blue-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Health], t('aspect.health'), <Activity className="w-4 h-4 text-purple-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Family], t('aspect.family'), <Users className="w-4 h-4 text-orange-500" />)}
+                          </>
+                        )}
                       </div>
                       
                       <div className="grid grid-cols-5 gap-4 pb-6">
-                        {renderScoreBar(70, t('aspect.growth'), <TrendingUp className="w-4 h-4 text-teal-500" />)}
-                        {renderScoreBar(80, t('aspect.career'), <Briefcase className="w-4 h-4 text-indigo-500" />)}
-                        {renderScoreBar(70, t('aspect.reputation'), <Award className="w-4 h-4 text-yellow-600" />)}
-                        {renderScoreBar(60, t('aspect.spirituality'), <Compass className="w-4 h-4 text-cyan-600" />)}
-                        {renderScoreBar(60, t('aspect.luck'), <Zap className="w-4 h-4 text-amber-500" />)}
+                        {aspectScores && (
+                          <>
+                            {renderScoreBar(aspectScores[LifeAspect.Growth], t('aspect.growth'), <TrendingUp className="w-4 h-4 text-teal-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Career], t('aspect.career'), <Briefcase className="w-4 h-4 text-indigo-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Reputation], t('aspect.reputation'), <Award className="w-4 h-4 text-yellow-600" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Spirituality], t('aspect.spirituality'), <Compass className="w-4 h-4 text-cyan-600" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Luck], t('aspect.luck'), <Zap className="w-4 h-4 text-amber-500" />)}
+                          </>
+                        )}
                       </div>
                       
                       <div className="grid md:grid-cols-2 gap-6 pt-2">
@@ -538,19 +580,27 @@ const Calculator = () => {
                       </div>
                       
                       <div className="grid grid-cols-5 gap-4 py-6 border-t border-b border-gray-200">
-                        {renderScoreBar(70, t('aspect.finance'), <Banknote className="w-4 h-4 text-green-600" />)}
-                        {renderScoreBar(60, t('aspect.romance'), <Heart className="w-4 h-4 text-red-500" />)}
-                        {renderScoreBar(80, t('aspect.education'), <GraduationCap className="w-4 h-4 text-blue-500" />)}
-                        {renderScoreBar(50, t('aspect.health'), <Activity className="w-4 h-4 text-purple-500" />)}
-                        {renderScoreBar(60, t('aspect.family'), <Users className="w-4 h-4 text-orange-500" />)}
+                        {aspectScores && (
+                          <>
+                            {renderScoreBar(aspectScores[LifeAspect.Finance], t('aspect.finance'), <Banknote className="w-4 h-4 text-green-600" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Romance], t('aspect.romance'), <Heart className="w-4 h-4 text-red-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Education], t('aspect.education'), <GraduationCap className="w-4 h-4 text-blue-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Health], t('aspect.health'), <Activity className="w-4 h-4 text-purple-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Family], t('aspect.family'), <Users className="w-4 h-4 text-orange-500" />)}
+                          </>
+                        )}
                       </div>
                       
                       <div className="grid grid-cols-5 gap-4 pb-6">
-                        {renderScoreBar(70, t('aspect.growth'), <TrendingUp className="w-4 h-4 text-teal-500" />)}
-                        {renderScoreBar(80, t('aspect.career'), <Briefcase className="w-4 h-4 text-indigo-500" />)}
-                        {renderScoreBar(70, t('aspect.reputation'), <Award className="w-4 h-4 text-yellow-600" />)}
-                        {renderScoreBar(60, t('aspect.spirituality'), <Compass className="w-4 h-4 text-cyan-600" />)}
-                        {renderScoreBar(60, t('aspect.luck'), <Zap className="w-4 h-4 text-amber-500" />)}
+                        {aspectScores && (
+                          <>
+                            {renderScoreBar(aspectScores[LifeAspect.Growth], t('aspect.growth'), <TrendingUp className="w-4 h-4 text-teal-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Career], t('aspect.career'), <Briefcase className="w-4 h-4 text-indigo-500" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Reputation], t('aspect.reputation'), <Award className="w-4 h-4 text-yellow-600" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Spirituality], t('aspect.spirituality'), <Compass className="w-4 h-4 text-cyan-600" />)}
+                            {renderScoreBar(aspectScores[LifeAspect.Luck], t('aspect.luck'), <Zap className="w-4 h-4 text-amber-500" />)}
+                          </>
+                        )}
                       </div>
                       
                       <div className="grid md:grid-cols-2 gap-6 pt-2">
